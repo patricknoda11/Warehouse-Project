@@ -21,10 +21,10 @@ The game will be over when the meteorite contacts the rocket.
 ---
 ### User Stories 
 
-- As a user, I want to be able to control the rocket's position using the left/right keyboard keys
+- As a user, I want to be able to alter the rocket's horizontal positioning 
 - As a user, I want to be able to view my current score/points
 - As a user, I want to be able to view the highest score so far
-- As a game designer, I want to be able to randomly generate projectiles that the rocket must dodge
+- As a game designer, I want to be able to add multiple obstacles onto the screen
 
 
 
