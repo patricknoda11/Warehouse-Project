@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,87 +42,118 @@ public class Warehouse {
     // EFFECTS: adds package into inventory under correct size section
     //          and logs import into import history
     public void importPackage(Package goods) {
-        // stub
+        DateTimeFormatter dateStructure = DateTimeFormatter.ofPattern("d MMM, yyyy HH:mm:ss");
+        LocalDateTime currentDateAndTime = LocalDateTime.now();
+        goods.setDateAndTimeImportedIntoWarehouse(dateStructure.format(currentDateAndTime));
+        goods.setIsInWarehouse(true);
+        goods.setHasBeenExportedFromWarehouse(false);
+        addPackageToCorrectSizeSection(goods);
+        addPackageToImportHistory(goods);
     }
 
     // REQUIRES: goods must not be null
     // MODIFIES: this
     // EFFECTS: removes package from inventory and logs export into export history
     public void exportPackage(Package goods) {
-        // stub
+        DateTimeFormatter dateStructure = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm:ss");
+        LocalDateTime currentDateAndTime = LocalDateTime.now();
+        goods.setDateAndTimeExportedFromWarehouse(dateStructure.format(currentDateAndTime));
+        goods.setIsInWarehouse(false);
+        goods.setHasBeenExportedFromWarehouse(true);
+        removePackageFromInventory(goods);
+        addPackageToExportHistory(goods);
+
     }
 
+    // REQUIRES: goods must have valid size (Large, Medium, Small)
     // MODIFIES: this
     // EFFECTS: adds package into correct section based off size
     private void addPackageToCorrectSizeSection(Package goods) {
-        // stub
+        String goodSize = goods.getSize();
+
+        switch (goodSize) {
+            case "Large":
+                this.largeSizedPackages.add(goods);
+                break;
+            case "Medium":
+                this.mediumSizedPackages.add(goods);
+                break;
+            case "Small":
+                this.smallSizedPackages.add(goods);
+                break;
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: removes Package stored in owner section
     private void removePackageFromInventory(Package goods) {
-        // stub
+        String goodSize = goods.getSize();
+
+        switch (goodSize) {
+            case "Large":
+                int largeSizedGoodsLocation = this.largeSizedPackages.indexOf(goods);
+                this.largeSizedPackages.remove(largeSizedGoodsLocation);
+                break;
+            case "Medium":
+                int mediumSizedGoodsLocation = this.mediumSizedPackages.indexOf(goods);
+                this.mediumSizedPackages.remove(mediumSizedGoodsLocation);
+                break;
+            case "Small":
+                int smallSizedGoodsLocation = this.smallSizedPackages.indexOf(goods);
+                this.smallSizedPackages.remove(smallSizedGoodsLocation);
+                break;
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: adds package to import history
     private void addPackageToImportHistory(Package goods) {
-        // stub
+        this.importHistory.add(goods);
     }
 
     // MODIFIES: this
     // EFFECTS: adds package to export history
     private void addPackageToExportHistory(Package goods) {
-        // stub
+        this.exportHistory.add(goods);
     }
 
     // getters
     public int getTotalNumberOfPackagesInInventory() {
-        return 0; // stub
+        int largePackages = this.largeSizedPackages.size();
+        int mediumPackages = this.mediumSizedPackages.size();
+        int smallPackages = this.smallSizedPackages.size();
+        return largePackages + mediumPackages + smallPackages;
     }
 
     public int getExportHistorySize() {
-        return 0; // stub
+        return this.exportHistory.size();
     }
 
     public int getImportHistorySize() {
-        return 0; // stub
+        return this.importHistory.size();
     }
 
     public List<List<Package>> getInventory() {
-        return null; // stub
+        return this.inventory;
     }
 
     public List<Package> getLargeSizedPackages() {
-        return null; // stub
+        return this.largeSizedPackages;
     }
 
     public List<Package> getMediumSizedPackages() {
-        return null; // stub
+        return this.mediumSizedPackages;
     }
 
     public List<Package> getSmallSizedPackages() {
-        return null; // stub
+        return this.smallSizedPackages;
     }
 
     public List<Package> getExportHistory() {
-        return null; // stub
+        return this.exportHistory;
     }
 
     public List<Package> getImportHistory() {
-        return null; // stub
+        return this.importHistory;
     }
-
-    public Package getPackageDetailsFromInventory(Package goods) {
-        return null; // stub
-    }
-
-    public Package getPackageFromExportHistory(Package goods) {
-        return null; // stub
-    }
-
-    public Package getPackageFromImportHistory(Package goods) {
-        return null; // stub
-    }
-
 }

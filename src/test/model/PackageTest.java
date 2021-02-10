@@ -45,15 +45,15 @@ public class PackageTest {
     @Test
     public void testSetDateImportedIntoWarehouse() {
         assertEquals(null, testPackage.getDateImportedIntoWarehouse());
-        testPackage.setDateImportedIntoWarehouse("February/14/2021");
-        assertEquals("February/14/2021", testPackage.getDateImportedIntoWarehouse());
+        testPackage.setDateAndTimeImportedIntoWarehouse("10 Feb, 2021 14:20:12");
+        assertEquals("10 Feb, 2021 14:20:12", testPackage.getDateImportedIntoWarehouse());
     }
 
     @Test
     public void testSetDateExportedFromWarehouse() {
         assertEquals(null, testPackage.getDateExportedFromWarehouse());
-        testPackage.setDateExportedFromWarehouse("February/15/2021");
-        assertEquals("February/15/2021", testPackage.getDateExportedFromWarehouse());
+        testPackage.setDateAndTimeExportedFromWarehouse("11 Feb, 2021 15:22:21");
+        assertEquals("11 Feb, 2021 15:22:21", testPackage.getDateExportedFromWarehouse());
     }
 
     @Test

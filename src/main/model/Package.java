@@ -41,19 +41,17 @@ public class Package {
         this.isInWarehouse = false;
     }
 
-    // REQUIRES: Date must be written in the format Month/Day/Year
-    //           Ex. February/14/2021
+    // REQUIRES: Date must be written in the format: "d MMM yyyy, HH:mm:ss"
     // MODIFIES: this
     // EFFECTS: sets date this package is imported into warehouse to the parameter, date
-    public void setDateImportedIntoWarehouse(String date) {
+    public void setDateAndTimeImportedIntoWarehouse(String date) {
         this.dateImportedIntoWarehouse = date;
     }
 
-    // REQUIRES: Date must be written in the format: Month/Day/Year
-    //           Ex. February/14/2021
+    // REQUIRES: Date must be written in the format: "d MMM yyyy, HH:mm:ss"
     // MODIFIES: this
     // EFFECTS:sets date this package is exported from warehouse to the parameter value, date
-    public void setDateExportedFromWarehouse(String date) {
+    public void setDateAndTimeExportedFromWarehouse(String date) {
         this.dateExportedFromWarehouse = date;
     }
 
@@ -78,6 +76,18 @@ public class Package {
     // EFFECTS: updates the owner's address with this package to new address
     public void updateOwnerAddress(String newAddress) {
         this.ownerAddress = newAddress;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets this hasBeenExportedFromWarehouse to status
+    public void setHasBeenExportedFromWarehouse(boolean status) {
+        this.hasBeenExportedFromWarehouse = status;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets this isInWarehouse to status
+    public void setIsInWarehouse(boolean status) {
+        this.isInWarehouse = status;
     }
 
     // getters
