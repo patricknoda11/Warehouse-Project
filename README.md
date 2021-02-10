@@ -1,30 +1,24 @@
-# Escape To The Moon
+# Warehouse Management Application
 
 ### Introduction: 
-“Escape To The Moon” is a simple Java desktop game designed with all ages in mind. 
-This game interests me because it provides an environment that will challenge my abilities,
-and allows me to apply what I have learned. 
-This game was constructed to provide students and workers a quick break
-The game models a rocket’s ascent into space.
-There will be meteorites that are descending at varying speeds. 
-If the Rocket is struck by the meteorite the game will conclude followed by the word “Game Over”. 
-The purpose of the application is to dodge the meteorites without getting hit for as long as possible. 
-There will be a score that will accumulate based off the time the rocket
-is able to ascend without getting hit by a meteorite 
-
-### How To Play
-The rocket will be able to move from side to side, using the left and right arrow keys on your keyboard. 
-Each meteorite will have varying speeds and will be generated at random. 
-The score will be accumulating proportional to the time that the rocket is able to avoid the meteorites. 
-The game will be over when the meteorite contacts the rocket. 
+This application is a simple desktop application that gives the user a way to track their warehouse inventory.
+More specifically, it will provide a way to track and process current inventory, track exports and 
+imports, view package details, and more. The application is targeted for users that have decided to or just recently
+started up a warehouse business. The goal of this application is to provide a short-term alternative
+for new warehouse business owners that are not willing to spend excessive amounts of money to purchase a
+warehouse management software from the get-go. 
+This project is of interest to me because my father has recently started up a warehouse business. By building 
+this project I hope to acquire a better understanding of how a warehouse management software operates and discover the 
+potential limitations associated with this system.  
 
 ---
-### User Stories 
+### User Stories: 
+- As a user, I want to be able to add/import a package into inventory list
+- As a user, I want to be able to view the packages in the inventory list
+- As a user, I want to be able to remove/export a package out of inventory list 
+- As a user, I want to be able to view details regarding each package
+- As a user, I want to be able to view details of past transactions
 
-- As a user, I want to be able to alter the rocket's horizontal positioning 
-- As a user, I want to be able to view my current score/points
-- As a user, I want to be able to view the highest score so far
-- As a game designer, I want to be able to add multiple obstacles onto the screen
 
 
 
