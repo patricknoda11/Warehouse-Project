@@ -3,8 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PackageTest {
     private Package testPackage;
@@ -14,7 +13,8 @@ public class PackageTest {
         testPackage = new Package("Adam Brown",
                 "12345 67ave, Vancouver, Canada, ABC 123",
                 "6041234567",
-                "Stationary items");
+                "Stationary items",
+                "Large");
     }
 
     @Test
@@ -22,7 +22,8 @@ public class PackageTest {
         assertEquals("Adam Brown", testPackage.getOwnerName());
         assertEquals("12345 67ave, Vancouver, Canada, ABC 123", testPackage.getOwnerAddress());
         assertEquals("6041234567", testPackage.getOwnerPhoneNumber());
-        assertEquals("Stationary items", testPackage.getProductContained());
+        assertEquals("Stationary items", testPackage.getProductContent());
+        assertEquals("Large", testPackage.getSize());
         assertFalse(testPackage.getIsInWarehouse());
         assertFalse(testPackage.getHasBeenExportedFromWarehouse());
     }

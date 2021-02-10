@@ -6,17 +6,39 @@ package model;
  */
 public class Package {
 
+    private String ownerName;
+    private String ownerPhoneNumber;
+    private String ownerAddress;
+    private String productContent;
+    private String dateImportedIntoWarehouse;
+    private String dateExportedFromWarehouse;
+    private String addressExportedTo;
+    private String size;
+    private boolean hasBeenExportedFromWarehouse;
+    private boolean isInWarehouse;
 
+    // REQUIRES: size must be either Large, Medium, Small
     // MODIFIES: this
     // EFFECTS: instantiates new package
-    //          sets owner name to ownerName
-    //          sets owner address to ownerAddress
-    //          sets owner phone number to ownerPhoneNumber
-    //          sets product contained to packageContent
-    //          sets hasBeenExportedFromWarehouse to false
-    //          sets isInWarehouse to false
-    public Package(String ownerName, String ownerAddress, String ownerPhoneNumber, String packageContent) {
-        // stub
+    //          sets this owner name to ownerName
+    //          sets this owner address to ownerAddress
+    //          sets this owner phone number to ownerPhoneNumber
+    //          sets this product content to packageContent
+    //          sets this size to size
+    //          sets this hasBeenExportedFromWarehouse to false
+    //          sets this isInWarehouse to false
+    public Package(String ownerName,
+                   String ownerAddress,
+                   String ownerPhoneNumber,
+                   String packageContent,
+                   String size) {
+        this.ownerName = ownerName;
+        this.ownerAddress = ownerAddress;
+        this.ownerPhoneNumber = ownerPhoneNumber;
+        this.productContent = packageContent;
+        this.size = size;
+        this.hasBeenExportedFromWarehouse = false;
+        this.isInWarehouse = false;
     }
 
     // REQUIRES: Date must be written in the format Month/Day/Year
@@ -24,7 +46,7 @@ public class Package {
     // MODIFIES: this
     // EFFECTS: sets date this package is imported into warehouse to the parameter, date
     public void setDateImportedIntoWarehouse(String date) {
-        // stub
+        this.dateImportedIntoWarehouse = date;
     }
 
     // REQUIRES: Date must be written in the format: Month/Day/Year
@@ -32,7 +54,7 @@ public class Package {
     // MODIFIES: this
     // EFFECTS:sets date this package is exported from warehouse to the parameter value, date
     public void setDateExportedFromWarehouse(String date) {
-        // stub
+        this.dateExportedFromWarehouse = date;
     }
 
     // REQUIRES: Address must be written in the format: Street Address, City, Country, Postal Code
@@ -40,13 +62,14 @@ public class Package {
     // MODIFIES: this
     // EFFECTS: sets address the this package has been exported to, to the parameter value address
     public void setAddressExportedTo(String address) {
-        // stub
+        this.addressExportedTo = address;
     }
 
+    // REQUIRES: phone number must be String of digits
     // MODIFIES: this
     // EFFECTS: updates the owner's phone number associated with this package to new number
     public void updateOwnerPhoneNumber(String newPhoneNumber) {
-        // stub
+        this.ownerPhoneNumber = newPhoneNumber;
     }
 
     // REQUIRES: Address must be written in the format: Street Address, City, Country, Postal Code
@@ -54,44 +77,48 @@ public class Package {
     // MODIFIES: this
     // EFFECTS: updates the owner's address with this package to new address
     public void updateOwnerAddress(String newAddress) {
-        // stub
+        this.ownerAddress = newAddress;
     }
 
     // getters
     public String getOwnerAddress() {
-        return ""; // stub
+        return this.ownerAddress;
     }
 
     public String getOwnerPhoneNumber() {
-        return ""; // stub
+        return this.ownerPhoneNumber;
     }
 
     public String getOwnerName() {
-        return ""; // stub
+        return this.ownerName;
     }
 
     public boolean getHasBeenExportedFromWarehouse() {
-        return false; // stub
+        return this.hasBeenExportedFromWarehouse;
     }
 
     public boolean getIsInWarehouse() {
-        return false; // stub
+        return this.isInWarehouse;
     }
 
     public String getDateImportedIntoWarehouse() {
-        return ""; // stub
+        return this.dateImportedIntoWarehouse;
     }
 
     public String getDateExportedFromWarehouse() {
-        return ""; // stub
+        return this.dateExportedFromWarehouse;
     }
 
     public String getAddressExportedTo() {
-        return ""; // stub
+        return this.addressExportedTo;
     }
 
-    public String getProductContained() {
-        return ""; // stub
+    public String getProductContent() {
+        return this.productContent;
+    }
+
+    public String getSize() {
+        return this.size;
     }
 
 }
