@@ -13,6 +13,12 @@ potential limitations associated with this system.
 
 ---
 
+### User Stories: 
+- As a user, I want to be able to add/import a package into inventory list
+- As a user, I want to be able to view the packages in the inventory list
+- As a user, I want to be able to remove/export a package out of inventory list 
+- As a user, I want to be able to view details regarding each package
+- As a user, I want to be able to view details of past transactions
 
 
 
