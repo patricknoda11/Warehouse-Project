@@ -261,5 +261,4 @@ public class WarehouseTest {
         assertFalse(testPackage4.getIsInWarehouse());
         assertTrue(testPackage4.getHasBeenExportedFromWarehouse());
     }
-
 }
