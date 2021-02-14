@@ -30,15 +30,20 @@ public class WarehouseApplication {
         userInput = new Scanner(System.in);
         isFinished = false;
         packagesAvailableToImport = new ArrayList<>();
-        Package package1 = new Package("Timothy Grimes", "12126 26 st, Vancouver, Canada, V51L1A",
+        Package package1 = new Package("Timothy Grimes",
+                "12126 26 st, Vancouver, Canada, V51L1A",
                 "604 912 8091", "Cardboard boxes", "Large", "1");
-        Package package2 = new Package("Anthony Vega", "31782 adams st, Calgary, Canada, Q12O8P",
+        Package package2 = new Package("Anthony Vega",
+                "31782 adams st, Calgary, Canada, Q12O8P",
                 "604 312 9910", "Canned food", "Large", "2");
-        Package package3 = new Package("Alexia Anderson", "77039 138 st, Prince Rupert, Canada, B1A76V",
+        Package package3 = new Package("Alexia Anderson",
+                "77039 138 st, Prince Rupert, Canada, B1A76V",
                 "778 776 4397", "Styrofoam boxes", "Medium", "3");
-        Package package4 = new Package("Emily Willcott", "43219 sesame st, Surrey, Canada, V7S1L1",
+        Package package4 = new Package("Emily Willcott",
+                "43219 sesame st, Surrey, Canada, V7S1L1",
                 "7079895555", "Plastic bottles", "Small", "4");
-        Package package5 = new Package("Luwawu Cabarot", "00939 albert ave, Burnaby, Canada BNR6D2",
+        Package package5 = new Package("Luwawu Cabarot",
+                "00939 albert ave, Burnaby, Canada BNR6D2",
                 "7781907789", "Utilities", "Small", "5");
         packagesAvailableToImport.add(package1);
         packagesAvailableToImport.add(package2);
@@ -119,7 +124,8 @@ public class WarehouseApplication {
         if (packagesInInventory < Warehouse.MAX_WAREHOUSE_CAPACITY) {
             Package packageToImport = choosePackageToImport();
             this.myWarehouse.importPackage(packageToImport);
-            System.out.println("\nPackage " + packageToImport.getPackageID() + " has been stored in the inventory");
+            System.out.println("\nPackage " + packageToImport.getPackageID()
+                    + " has been stored in the inventory");
             this.myWarehouse.setNumberPackagesInInventory(++packagesInInventory);
             this.packagesAvailableToImport.remove(packageToImport);
             System.out.println("The warehouse inventory now has: " + packagesInInventory + " item(s) \n");
@@ -172,8 +178,10 @@ public class WarehouseApplication {
             this.myWarehouse.exportPackage(packageToExport, packageDestination);
             this.myWarehouse.setNumberPackagesInInventory(--packagesInInventory);
             System.out.println("The package has been successfully shipped!");
-            System.out.println("Package destination: " + packageToExport.getAddressExportedTo());
-            System.out.println("The warehouse inventory now has: " + packagesInInventory + " items \n");
+            System.out.println("Package destination: "
+                    + packageToExport.getAddressExportedTo());
+            System.out.println("The warehouse inventory now has: "
+                    + packagesInInventory + " items \n");
         }
     }
 
