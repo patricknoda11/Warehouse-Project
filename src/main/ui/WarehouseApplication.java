@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 // Warehouse management application
 public class WarehouseApplication {
-
     private Warehouse myWarehouse;
     private Scanner userInput;
     private boolean isFinished;
@@ -26,6 +25,7 @@ public class WarehouseApplication {
 
     // MODIFIES: this
     // EFFECTS: creates warehouse and scanner instance
+    //          sets the warehouse's is finished status to false (used to terminate application)
     private void initializeApplication() {
         myWarehouse = new Warehouse();
         userInput = new Scanner(System.in);
@@ -61,7 +61,6 @@ public class WarehouseApplication {
         }
     }
 
-
     // EFFECTS: welcome the user into application and indicates current date
     private void welcomeUser() {
         DateTimeFormatter newDateFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy");
@@ -77,8 +76,8 @@ public class WarehouseApplication {
         }
     }
 
-    // EFFECTS: prints options that are available for user and the
-    //          corresponding inputs required to access each option
+    // EFFECTS: prints options that are available for user in main menu
+    //          and the inputs required to access each option
     private void displayOptions() {
         System.out.println("\nMain menu: ");
         System.out.println("\tTo add a package to your inventory - type \"add\" ");
@@ -88,7 +87,7 @@ public class WarehouseApplication {
         System.out.println("\tTo exit - type \"exit\"\n");
     }
 
-    // EFFECTS: processes user input and directs to desired operation
+    // EFFECTS: processes user input and directs user to desired operation
     private void processMainMenuOptionsInput(String inputValue) {
         switch (inputValue) {
             case "add":
@@ -111,9 +110,10 @@ public class WarehouseApplication {
         }
     }
 
-
-    // MODIFIES: this, package
-    // EFFECTS: creates new package and imports package into warehouse inventory
+    // MODIFIES: this
+    // EFFECTS: if the packages currently in warehouse inventory is less than the warehouse's maximum capacity
+    //          it facilitates import operation
+    //          otherwise it lets the user know that the inventory is already full
     private void doPackageImport() {
         int packagesInInventory = this.myWarehouse.getNumberPackagesInInventory();
         if (packagesInInventory < Warehouse.MAX_WAREHOUSE_CAPACITY) {
@@ -130,7 +130,7 @@ public class WarehouseApplication {
         }
     }
 
-    // EFFECTS: returns package that the user has chosen
+    // EFFECTS: returns the package that the user would like to import based of his/her input
     private Package choosePackageToImport() {
         String inputValue;
         displayPackagesAvailableToImport();
@@ -162,8 +162,11 @@ public class WarehouseApplication {
         }
     }
 
-    // MODIFIES: this, package
-    // EFFECTS: exports package from warehouse inventory
+    // MODIFIES: this
+    // EFFECTS: if the packages currently in warehouse inventory is 0
+    //          it notifies user
+    //          otherwise, it facilitates export by having the user indicate the package he/she
+    //          would like to export and the address he/she would like the package exported to
     private void doPackageExport() {
         int packagesInInventory = this.myWarehouse.getNumberPackagesInInventory();
         if (packagesInInventory == 0) {
@@ -179,7 +182,6 @@ public class WarehouseApplication {
                     + this.myWarehouse.getNumberPackagesInInventory() + " items \n");
         }
     }
-
 
     // EFFECTS: chooses package to export given user input
     private Package choosePackageToExport() {
@@ -199,10 +201,9 @@ public class WarehouseApplication {
         }
     }
 
-
     // REQUIRES: the address indicated by the user must be in the format: address_city_country_PostalCode
     //           spaces must be replaced with underscore
-    //           Ex: 12345_67ave_Surrey_Canada_v241Q8
+    //           Ex: 12345_67ave_Surrey_Canada_V241Q8
     // EFFECTS: returns address that the user would like to export package to
     private String indicatePackageDestination() {
         String inputValue;
@@ -249,7 +250,7 @@ public class WarehouseApplication {
         }
     }
 
-    // EFFECTS: prints history options that the user can perform
+    // EFFECTS: prints view history menu options that the user can perform
     private void displayHistoryOptions() {
         System.out.println("\nView History Options: ");
         System.out.println("\tTo view import history - type \"import\"");
@@ -257,7 +258,7 @@ public class WarehouseApplication {
         System.out.println("\tTo return to the main menu - type \"return\"\n");
     }
 
-    // EFFECTS: processes user input and directs to desired operation
+    // EFFECTS: processes user input and directs to desired operation in view history menu
     private void processHistoryOptionsInput(String inputValue) {
         switch (inputValue) {
             case "import":
@@ -302,9 +303,8 @@ public class WarehouseApplication {
         }
     }
 
-
     // MODIFIES: this
-    // EFFECTS: signals to warehouse application to end application
+    // EFFECTS: signals to warehouse application to terminate application
     private void exitApplication() {
         System.out.println("\nGoodbye!");
         this.isFinished = true;
