@@ -85,38 +85,32 @@ public class Warehouse {
         this.numberPackagesInInventory--;
     }
 
-    // REQUIRES: goods must have valid size (Large, Medium, Small)
     // MODIFIES: this
-    // EFFECTS: adds package into correct section based off size
+    // EFFECTS: if package is "Small" add package into small section, if not then check if package is "Medium",
+    //          otherwise store it in the large sized package section
     private void addPackageToCorrectSizeSection(Package goods) {
         String goodsSize = goods.getSize();
-        switch (goodsSize) {
-            case "Large":
-                this.largeSizedPackages.add(goods);
-                break;
-            case "Medium":
-                this.mediumSizedPackages.add(goods);
-                break;
-            case "Small":
-                this.smallSizedPackages.add(goods);
-                break;
+        if (goodsSize.equals("Small")) {
+            this.smallSizedPackages.add(goods);
+        } else if (goodsSize.equals("Medium")) {
+            this.mediumSizedPackages.add(goods);
+        } else {
+            this.largeSizedPackages.add(goods);
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: removes Package stored in size section
+    // EFFECTS: if package is stored in Small section then remove it from there, if not found
+    //          then look for package in medium section, otherwise remove it from large
+    //          package section (this is where miscellaneous sized packages will be stored)
     private void removePackageFromInventory(Package goods) {
-        String goodSize = goods.getSize();
-        switch (goodSize) {
-            case "Large":
-                this.largeSizedPackages.remove(goods);
-                break;
-            case "Medium":
-                this.mediumSizedPackages.remove(goods);
-                break;
-            case "Small":
-                this.smallSizedPackages.remove(goods);
-                break;
+        String goodsSize = goods.getSize();
+        if (goodsSize.equals("Small")) {
+            this.smallSizedPackages.remove(goods);
+        } else if (goodsSize.equals("Medium")) {
+            this.mediumSizedPackages.remove(goods);
+        } else {
+            this.largeSizedPackages.remove(goods);
         }
     }
 
