@@ -14,7 +14,8 @@ public class PackageTest {
                 "12345 67ave, Vancouver, Canada, ABC 123",
                 "6041234567",
                 "Stationary items",
-                "Large");
+                "Large",
+                "123");
     }
 
     @Test
@@ -22,8 +23,12 @@ public class PackageTest {
         assertEquals("Adam Brown", testPackage.getOwnerName());
         assertEquals("12345 67ave, Vancouver, Canada, ABC 123", testPackage.getOwnerAddress());
         assertEquals("6041234567", testPackage.getOwnerPhoneNumber());
-        assertEquals("Stationary items", testPackage.getProductContent());
+        assertEquals("Stationary items", testPackage.getContent());
         assertEquals("Large", testPackage.getSize());
+        assertEquals("has not been imported yet", testPackage.getDateImportedIntoWarehouse());
+        assertEquals("has not been exported yet", testPackage.getDateExportedFromWarehouse());
+        assertEquals("has not been exported yet", testPackage.getAddressExportedTo());
+        assertEquals("123", testPackage.getPackageID());
         assertFalse(testPackage.getIsInWarehouse());
         assertFalse(testPackage.getHasBeenExportedFromWarehouse());
     }
@@ -44,21 +49,21 @@ public class PackageTest {
 
     @Test
     public void testSetDateImportedIntoWarehouse() {
-        assertEquals(null, testPackage.getDateImportedIntoWarehouse());
+        assertEquals("has not been imported yet", testPackage.getDateImportedIntoWarehouse());
         testPackage.setDateAndTimeImportedIntoWarehouse("10 Feb, 2021 14:20:12");
         assertEquals("10 Feb, 2021 14:20:12", testPackage.getDateImportedIntoWarehouse());
     }
 
     @Test
     public void testSetDateExportedFromWarehouse() {
-        assertEquals(null, testPackage.getDateExportedFromWarehouse());
+        assertEquals("has not been exported yet", testPackage.getDateExportedFromWarehouse());
         testPackage.setDateAndTimeExportedFromWarehouse("11 Feb, 2021 15:22:21");
         assertEquals("11 Feb, 2021 15:22:21", testPackage.getDateExportedFromWarehouse());
     }
 
     @Test
     public void testSetAddressExportedTo() {
-        assertEquals(null, testPackage.getAddressExportedTo());
+        assertEquals("has not been exported yet", testPackage.getAddressExportedTo());
         testPackage.setAddressExportedTo("22222 33ave, Calgary, Canada, FGH 456");
         assertEquals("22222 33ave, Calgary, Canada, FGH 456", testPackage.getAddressExportedTo());
     }

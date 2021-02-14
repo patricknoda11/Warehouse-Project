@@ -3,17 +3,19 @@ package model;
 /**
  * This is the Package class
  * Packages can be stored in the Warehouse
+ * INVARIANT: NO PACKAGES MUST HAVE THE SAME ID
  */
 public class Package {
 
-    private String ownerName;
+    private final String packageID;
+    private final String ownerName;
+    private final String content;
+    private final String size;
     private String ownerPhoneNumber;
     private String ownerAddress;
-    private String productContent;
     private String dateImportedIntoWarehouse;
     private String dateExportedFromWarehouse;
     private String addressExportedTo;
-    private String size;
     private boolean hasBeenExportedFromWarehouse;
     private boolean isInWarehouse;
 
@@ -25,20 +27,29 @@ public class Package {
     //          sets this owner phone number to ownerPhoneNumber
     //          sets this product content to packageContent
     //          sets this size to size
+    //          sets date Imported into warehouse to "has not been imported yet"
+    //          sets date exported into warehouse to "has not been exported yet"
+    //          sets address exported to to "has not been exported yet"
     //          sets this hasBeenExportedFromWarehouse to false
     //          sets this isInWarehouse to false
+    //          sets this package's identification to id
     public Package(String ownerName,
                    String ownerAddress,
                    String ownerPhoneNumber,
                    String packageContent,
-                   String size) {
+                   String size,
+                   String id) {
         this.ownerName = ownerName;
         this.ownerAddress = ownerAddress;
         this.ownerPhoneNumber = ownerPhoneNumber;
-        this.productContent = packageContent;
+        this.content = packageContent;
         this.size = size;
+        this.dateImportedIntoWarehouse = "has not been imported yet";
+        this.dateExportedFromWarehouse = "has not been exported yet";
+        this.addressExportedTo = "has not been exported yet";
         this.hasBeenExportedFromWarehouse = false;
         this.isInWarehouse = false;
+        this.packageID = id;
     }
 
     // REQUIRES: Date must be written in the format: "d MMM yyyy, HH:mm:ss"
@@ -90,6 +101,20 @@ public class Package {
         this.isInWarehouse = status;
     }
 
+    @Override
+    // EFFECTS: returns string representation of object
+    public String toString() {
+        return "Package Owner: " + this.ownerName
+                + "\n Package ID: " + this.packageID
+                + "\n Owner Phone Number: " + this.ownerPhoneNumber
+                + "\n Owner Address: " + this.ownerAddress
+                + "\n Package Content: " + this.content
+                + "\n Package Size: " + this.size
+                + "\n Date Imported: " + this.dateImportedIntoWarehouse
+                + "\n Date Exported: " + this.dateExportedFromWarehouse
+                + "\n Address Exported To: " + this.addressExportedTo;
+    }
+
     // getters
     public String getOwnerAddress() {
         return this.ownerAddress;
@@ -123,12 +148,15 @@ public class Package {
         return this.addressExportedTo;
     }
 
-    public String getProductContent() {
-        return this.productContent;
+    public String getContent() {
+        return this.content;
     }
 
     public String getSize() {
         return this.size;
     }
 
+    public String getPackageID() {
+        return this.packageID;
+    }
 }
