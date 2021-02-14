@@ -79,9 +79,8 @@ public class Warehouse {
     // MODIFIES: this
     // EFFECTS: adds package into correct section based off size
     private void addPackageToCorrectSizeSection(Package goods) {
-        String goodSize = goods.getSize();
-
-        switch (goodSize) {
+        String goodsSize = goods.getSize();
+        switch (goodsSize) {
             case "Large":
                 this.largeSizedPackages.add(goods);
                 break;
@@ -98,7 +97,6 @@ public class Warehouse {
     // EFFECTS: removes Package stored in owner section
     private void removePackageFromInventory(Package goods) {
         String goodSize = goods.getSize();
-
         switch (goodSize) {
             case "Large":
                 this.largeSizedPackages.remove(goods);

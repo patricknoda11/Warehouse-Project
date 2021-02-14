@@ -98,8 +98,34 @@ public class WarehouseTest {
 
     @Test
     public void testImportPackageMultiplePackagesIntoDifferentSizeSections() {
+        assertFalse(testPackage2.getIsInWarehouse());
+        assertFalse(testPackage1.getIsInWarehouse());
+        assertFalse(testPackage3.getIsInWarehouse());
+
         testWarehouse.importPackage(testPackage2);
+
+        assertEquals(1, testWarehouse.getNumberPackagesInInventory());
+        assertEquals(1, testLargeSizedPackages.size());
+        assertTrue(testLargeSizedPackages.contains(testPackage2));
+        assertEquals(Collections.emptyList(), testMediumSizedPackages);
+        assertEquals(Collections.emptyList(), testSmallSizedPackages);
+        assertEquals(1, testImportHistory.size());
+        assertTrue(testImportHistory.contains(testPackage2));
+        assertTrue(testPackage2.getIsInWarehouse());
+
         testWarehouse.importPackage(testPackage1);
+
+        assertEquals(2, testWarehouse.getNumberPackagesInInventory());
+        assertEquals(1, testLargeSizedPackages.size());
+        assertEquals(1, testMediumSizedPackages.size());
+        assertTrue(testLargeSizedPackages.contains(testPackage2));
+        assertTrue(testMediumSizedPackages.contains(testPackage1));
+        assertEquals(Collections.emptyList(), testSmallSizedPackages);
+        assertEquals(2, testImportHistory.size());
+        assertTrue(testImportHistory.contains(testPackage1));
+        assertTrue(testImportHistory.contains(testPackage2));
+        assertTrue(testPackage1.getIsInWarehouse());
+
         testWarehouse.importPackage(testPackage3);
 
         assertEquals(3, testWarehouse.getNumberPackagesInInventory());
@@ -115,6 +141,7 @@ public class WarehouseTest {
         assertTrue(testImportHistory.contains(testPackage3));
         assertEquals(0, testExportHistory.size());
         assertTrue(testPackage3.getIsInWarehouse());
+
     }
 
     @Test
@@ -139,6 +166,13 @@ public class WarehouseTest {
         testWarehouse.importPackage(testPackage1);
         testWarehouse.importPackage(testPackage2);
         testWarehouse.importPackage(testPackage3);
+        assertTrue(testPackage1.getIsInWarehouse());
+        assertTrue(testPackage2.getIsInWarehouse());
+        assertTrue(testPackage3.getIsInWarehouse());
+        assertFalse(testPackage1.getHasBeenExportedFromWarehouse());
+        assertFalse(testPackage2.getHasBeenExportedFromWarehouse());
+        assertFalse(testPackage3.getHasBeenExportedFromWarehouse());
+
 
         testWarehouse.exportPackage(testPackage1,"12345 67 ave, Surrey, Canada, V6M 2L1");
 
