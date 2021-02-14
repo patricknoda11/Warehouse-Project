@@ -73,7 +73,7 @@ public class WarehouseTest {
         assertEquals(1, testImportHistory.size());
         assertTrue(testImportHistory.contains(testPackage1));
         assertTrue(testPackage1.getIsInWarehouse());
-        assertEquals(comparisonList, testWarehouse.getAllPackagesInInventory());
+        assertEquals(comparisonList, testWarehouse.getAllPackagesAvailableInInventory());
     }
 
     @Test

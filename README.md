@@ -8,7 +8,6 @@ started up a warehouse business and has decided to use an industrial warehouse m
 professional grade software systems can get quite difficult to understand and master. 
 The goal of this application is to provide a basic demonstration of how a warehouse management software operates, so 
 that the user can get comfortable using a more complicated management system. 
-
 This project is of interest to me because my father has recently started up a warehouse business. By building 
 this project I hope to acquire a better understanding of how a warehouse management software operates and discover the 
 potential limitations associated with a system of its type.  

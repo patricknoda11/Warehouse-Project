@@ -1,12 +1,13 @@
 package model;
 
 /**
- * This is the Package class
- * Packages can be stored in the Warehouse
+ * Represents a package having id, owner name, content, size, owner phone number, owner address
+ * date imported into warehouse, date exported from warehouse, address exported to
+ * info regarding whether package has been exported, and if the package is still in warehouse
+ *
  * INVARIANT: NO PACKAGES MUST HAVE THE SAME ID
  */
 public class Package {
-
     private final String packageID;
     private final String ownerName;
     private final String content;
@@ -25,13 +26,13 @@ public class Package {
     //          sets this owner name to ownerName
     //          sets this owner address to ownerAddress
     //          sets this owner phone number to ownerPhoneNumber
-    //          sets this product content to packageContent
+    //          sets this content to packageContent
     //          sets this size to size
     //          sets date Imported into warehouse to "has not been imported yet"
     //          sets date exported into warehouse to "has not been exported yet"
     //          sets address exported to to "has not been exported yet"
-    //          sets this hasBeenExportedFromWarehouse to false
-    //          sets this isInWarehouse to false
+    //          sets hasBeenExportedFromWarehouse to false
+    //          sets isInWarehouse to false
     //          sets this package's identification to id
     public Package(String ownerName,
                    String ownerAddress,
@@ -52,51 +53,51 @@ public class Package {
         this.packageID = id;
     }
 
-    // REQUIRES: Date must be written in the format: "d MMM yyyy, HH:mm:ss"
+    // REQUIRES: Date is written in the format: "d MMM yyyy, HH:mm:ss"
     // MODIFIES: this
-    // EFFECTS: sets date this package is imported into warehouse to the parameter, date
+    // EFFECTS: sets this package's date imported into warehouse to the parameter value, date
     public void setDateAndTimeImportedIntoWarehouse(String date) {
         this.dateImportedIntoWarehouse = date;
     }
 
-    // REQUIRES: Date must be written in the format: "d MMM yyyy, HH:mm:ss"
+    // REQUIRES: Date is written in the format: "d MMM yyyy, HH:mm:ss"
     // MODIFIES: this
-    // EFFECTS:sets date this package is exported from warehouse to the parameter value, date
+    // EFFECTS: sets this package's date exported from warehouse to the parameter value, date
     public void setDateAndTimeExportedFromWarehouse(String date) {
         this.dateExportedFromWarehouse = date;
     }
 
-    // REQUIRES: Address must be written in the format: Street Address, City, Country, Postal Code
+    // REQUIRES: Address is written in the format: Street Address, City, Country, Postal Code
     //           Ex. 12345 67 ave, Vancouver, Canada, ABC 123
     // MODIFIES: this
-    // EFFECTS: sets address the this package has been exported to, to the parameter value address
+    // EFFECTS: sets this package's address has been exported to as the parameter value, address
     public void setAddressExportedTo(String address) {
         this.addressExportedTo = address;
     }
 
     // REQUIRES: phone number must be String of digits
     // MODIFIES: this
-    // EFFECTS: updates the owner's phone number associated with this package to new number
+    // EFFECTS: updates this package's owner phone number to parameter value, newPhoneNumber
     public void updateOwnerPhoneNumber(String newPhoneNumber) {
         this.ownerPhoneNumber = newPhoneNumber;
     }
 
-    // REQUIRES: Address must be written in the format: Street Address, City, Country, Postal Code
+    // REQUIRES: Address is written in the format: Street Address, City, Country, Postal Code
     //           Ex. 12345 67 ave, Vancouver, Canada, ABC 123
     // MODIFIES: this
-    // EFFECTS: updates the owner's address with this package to new address
+    // EFFECTS: updates this package's owner address to parameter value, newAddress
     public void updateOwnerAddress(String newAddress) {
         this.ownerAddress = newAddress;
     }
 
     // MODIFIES: this
-    // EFFECTS: sets this hasBeenExportedFromWarehouse to status
+    // EFFECTS: sets this package's hasBeenExportedFromWarehouse to parameter value, status
     public void setHasBeenExportedFromWarehouse(boolean status) {
         this.hasBeenExportedFromWarehouse = status;
     }
 
     // MODIFIES: this
-    // EFFECTS: sets this isInWarehouse to status
+    // EFFECTS: sets this package's isInWarehouse to parameter value, status
     public void setIsInWarehouse(boolean status) {
         this.isInWarehouse = status;
     }

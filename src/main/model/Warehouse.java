@@ -6,8 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents the Warehouse class and the operations that occur within it
- * The Warehouse class can be used to store Packages
+ * Represents a warehouse having an inventory organized into 3 sections:
+ *  - large packages
+ *  - medium packages
+ *  - small packages
+ * A warehouse keeps record of all its imports and exports
  */
 public class Warehouse {
     public static final int MAX_WAREHOUSE_CAPACITY = 10;
@@ -18,16 +21,16 @@ public class Warehouse {
     private final List<Package> smallSizedPackages;
     private final List<Package> exportHistory;
     private final List<Package> importHistory;
-    private final List<Package> allPackagesInInventory;
-    private int numberPackagesInInventory;          // number of packages currently stored in inventor
-                                                    // packagesInInventory must be >=0 and <= MAX_WAREHOUSE_CAPACITY
-
+    private final List<Package> allPackagesAvailableInInventory;
+    private int numberPackagesInInventory;
 
     // MODIFIES: this
     // EFFECTS: instantiates Warehouse
     //          creates inventory with 3 sections: large sized packages, medium sized packages, small sized packages
     //          creates export history
     //          creates import history
+    //          creates list with all available packages currently in inventory (from all sections)
+    //          sets number of packages in inventory to 0
     public Warehouse() {
         inventory = new ArrayList<>();
         largeSizedPackages = new ArrayList<>();
@@ -35,7 +38,7 @@ public class Warehouse {
         smallSizedPackages = new ArrayList<>();
         exportHistory = new ArrayList<>();
         importHistory = new ArrayList<>();
-        allPackagesInInventory = new ArrayList<>();
+        allPackagesAvailableInInventory = new ArrayList<>();
         numberPackagesInInventory = 0;
 
         inventory.add(largeSizedPackages);
@@ -44,24 +47,31 @@ public class Warehouse {
     }
 
     // REQUIRES: goods must not be null
-    // MODIFIES: this
-    // EFFECTS: adds package into inventory under correct size section
-    //          and logs import into import history
+    // MODIFIES: this, package
+    // EFFECTS: sets package's import date and time
+    //          sets the package's is in warehouse status to true
+    //          adds package into inventory under correct size section
+    //          records package in this warehouse's import history
+    //          adds 1 to the this warehouse's number of packages in inventory
     public void importPackage(Package goods) {
         DateTimeFormatter dateStructure = DateTimeFormatter.ofPattern("d MMM, yyyy HH:mm:ss");
         LocalDateTime currentDateAndTime = LocalDateTime.now();
         goods.setDateAndTimeImportedIntoWarehouse(dateStructure.format(currentDateAndTime));
         goods.setIsInWarehouse(true);
-        goods.setHasBeenExportedFromWarehouse(false);
         addPackageToCorrectSizeSection(goods);
         this.importHistory.add(goods);
-        this.allPackagesInInventory.add(goods);
+        this.allPackagesAvailableInInventory.add(goods);
         this.numberPackagesInInventory++;
     }
 
     // REQUIRES: goods must not be null
-    // MODIFIES: this
-    // EFFECTS: removes package from inventory and logs export into export history
+    // MODIFIES: this, package
+    // EFFECTS: sets package's import date and time
+    //          sets the package's address it is being exported to
+    //          sets the package's is in warehouse status to false
+    //          sets the package's has been exported from warehouse status to true
+    //          removes package from this warehouse's inventory
+    //          records package in this warehouse's export history
     public void exportPackage(Package goods, String exportAddress) {
         DateTimeFormatter dateStructure = DateTimeFormatter.ofPattern("d MMM yyyy, HH:mm:ss");
         LocalDateTime currentDateAndTime = LocalDateTime.now();
@@ -71,7 +81,7 @@ public class Warehouse {
         goods.setHasBeenExportedFromWarehouse(true);
         removePackageFromInventory(goods);
         this.exportHistory.add(goods);
-        this.allPackagesInInventory.remove(goods);
+        this.allPackagesAvailableInInventory.remove(goods);
         this.numberPackagesInInventory--;
     }
 
@@ -94,7 +104,7 @@ public class Warehouse {
     }
 
     // MODIFIES: this
-    // EFFECTS: removes Package stored in owner section
+    // EFFECTS: removes Package stored in size section
     private void removePackageFromInventory(Package goods) {
         String goodSize = goods.getSize();
         switch (goodSize) {
@@ -147,8 +157,8 @@ public class Warehouse {
         return this.numberPackagesInInventory;
     }
 
-    public List<Package> getAllPackagesInInventory() {
-        return this.allPackagesInInventory;
+    public List<Package> getAllPackagesAvailableInInventory() {
+        return this.allPackagesAvailableInInventory;
     }
 }
 

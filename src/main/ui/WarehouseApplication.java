@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// Warehouse management application
 public class WarehouseApplication {
 
     private Warehouse myWarehouse;
@@ -183,7 +184,7 @@ public class WarehouseApplication {
     // EFFECTS: chooses package to export given user input
     private Package choosePackageToExport() {
         String inputValue;
-        List<Package> availablePackagesToExport = this.myWarehouse.getAllPackagesInInventory();
+        List<Package> availablePackagesToExport = this.myWarehouse.getAllPackagesAvailableInInventory();
         printWarehouseInventory();
         while (true) {
             System.out.println("Please type in package ID that you would like to export");
