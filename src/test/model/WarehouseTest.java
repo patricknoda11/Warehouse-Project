@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -59,10 +60,12 @@ public class WarehouseTest {
 
     @Test
     public void testImportPackageOnePackage() {
+        List<Package> comparisonList = new ArrayList<>();
+        comparisonList.add(testPackage1);
         assertFalse(testPackage1.getIsInWarehouse());
         testWarehouse.importPackage(testPackage1);
 
-        assertEquals(1, testWarehouse.getTotalNumberOfPackagesInInventory());
+        assertEquals(1, testWarehouse.getNumberPackagesInInventory());
         assertEquals(1, testMediumSizedPackages.size());
         assertTrue(testMediumSizedPackages.contains(testPackage1));
         assertEquals(Collections.emptyList(), testLargeSizedPackages);
@@ -70,6 +73,7 @@ public class WarehouseTest {
         assertEquals(1, testImportHistory.size());
         assertTrue(testImportHistory.contains(testPackage1));
         assertTrue(testPackage1.getIsInWarehouse());
+        assertEquals(comparisonList, testWarehouse.getAllPackagesInInventory());
     }
 
     @Test
@@ -79,7 +83,7 @@ public class WarehouseTest {
         testWarehouse.importPackage(testPackage1);
         testWarehouse.importPackage(testPackage4);
 
-        assertEquals(2, testWarehouse.getTotalNumberOfPackagesInInventory());
+        assertEquals(2, testWarehouse.getNumberPackagesInInventory());
         assertEquals(2, testMediumSizedPackages.size());
         assertTrue(testMediumSizedPackages.contains(testPackage1));
         assertTrue(testMediumSizedPackages.contains(testPackage4));
@@ -94,37 +98,11 @@ public class WarehouseTest {
 
     @Test
     public void testImportPackageMultiplePackagesIntoDifferentSizeSections() {
-        assertFalse(testPackage2.getIsInWarehouse());
-        assertFalse(testPackage1.getIsInWarehouse());
-        assertFalse(testPackage3.getIsInWarehouse());
-
         testWarehouse.importPackage(testPackage2);
-
-        assertEquals(1, testWarehouse.getTotalNumberOfPackagesInInventory());
-        assertEquals(1, testLargeSizedPackages.size());
-        assertTrue(testLargeSizedPackages.contains(testPackage2));
-        assertEquals(Collections.emptyList(), testMediumSizedPackages);
-        assertEquals(Collections.emptyList(), testSmallSizedPackages);
-        assertEquals(1, testImportHistory.size());
-        assertTrue(testImportHistory.contains(testPackage2));
-        assertTrue(testPackage2.getIsInWarehouse());
-
         testWarehouse.importPackage(testPackage1);
-
-        assertEquals(2, testWarehouse.getTotalNumberOfPackagesInInventory());
-        assertEquals(1, testLargeSizedPackages.size());
-        assertEquals(1, testMediumSizedPackages.size());
-        assertTrue(testLargeSizedPackages.contains(testPackage2));
-        assertTrue(testMediumSizedPackages.contains(testPackage1));
-        assertEquals(Collections.emptyList(), testSmallSizedPackages);
-        assertEquals(2, testImportHistory.size());
-        assertTrue(testImportHistory.contains(testPackage1));
-        assertTrue(testImportHistory.contains(testPackage2));
-        assertTrue(testPackage1.getIsInWarehouse());
-
         testWarehouse.importPackage(testPackage3);
 
-        assertEquals(3, testWarehouse.getTotalNumberOfPackagesInInventory());
+        assertEquals(3, testWarehouse.getNumberPackagesInInventory());
         assertEquals(1, testLargeSizedPackages.size());
         assertEquals(1, testMediumSizedPackages.size());
         assertEquals(1, testSmallSizedPackages.size());
@@ -137,7 +115,6 @@ public class WarehouseTest {
         assertTrue(testImportHistory.contains(testPackage3));
         assertEquals(0, testExportHistory.size());
         assertTrue(testPackage3.getIsInWarehouse());
-
     }
 
     @Test
@@ -148,7 +125,7 @@ public class WarehouseTest {
         testWarehouse.exportPackage(testPackage1, "12345 67 ave, Surrey, Canada, V6M 2L1");
 
         assertEquals("12345 67 ave, Surrey, Canada, V6M 2L1", testPackage1.getAddressExportedTo());
-        assertEquals(0, testWarehouse.getTotalNumberOfPackagesInInventory());
+        assertEquals(0, testWarehouse.getNumberPackagesInInventory());
         assertEquals(1, testWarehouse.getImportHistorySize());
         assertEquals(1, testWarehouse.getExportHistorySize());
         assertTrue(testExportHistory.contains(testPackage1));
@@ -162,17 +139,10 @@ public class WarehouseTest {
         testWarehouse.importPackage(testPackage1);
         testWarehouse.importPackage(testPackage2);
         testWarehouse.importPackage(testPackage3);
-        assertTrue(testPackage1.getIsInWarehouse());
-        assertTrue(testPackage2.getIsInWarehouse());
-        assertTrue(testPackage3.getIsInWarehouse());
-        assertFalse(testPackage1.getHasBeenExportedFromWarehouse());
-        assertFalse(testPackage2.getHasBeenExportedFromWarehouse());
-        assertFalse(testPackage3.getHasBeenExportedFromWarehouse());
-
 
         testWarehouse.exportPackage(testPackage1,"12345 67 ave, Surrey, Canada, V6M 2L1");
 
-        assertEquals(2, testWarehouse.getTotalNumberOfPackagesInInventory());
+        assertEquals(2, testWarehouse.getNumberPackagesInInventory());
         assertEquals(1, testLargeSizedPackages.size());
         assertEquals(0, testMediumSizedPackages.size());
         assertEquals(1, testSmallSizedPackages.size());
@@ -189,7 +159,7 @@ public class WarehouseTest {
 
         testWarehouse.exportPackage(testPackage3,"12345 67 ave, Surrey, Canada, V6M 2L1");
 
-        assertEquals(1, testWarehouse.getTotalNumberOfPackagesInInventory());
+        assertEquals(1, testWarehouse.getNumberPackagesInInventory());
         assertEquals(1, testLargeSizedPackages.size());
         assertEquals(0, testMediumSizedPackages.size());
         assertEquals(0, testSmallSizedPackages.size());
@@ -206,7 +176,7 @@ public class WarehouseTest {
 
         testWarehouse.exportPackage(testPackage2,"12345 67 ave, Surrey, Canada, V6M 2L1");
 
-        assertEquals(0, testWarehouse.getTotalNumberOfPackagesInInventory());
+        assertEquals(0, testWarehouse.getNumberPackagesInInventory());
         assertEquals(0, testLargeSizedPackages.size());
         assertEquals(0, testMediumSizedPackages.size());
         assertEquals(0, testSmallSizedPackages.size());
@@ -228,7 +198,7 @@ public class WarehouseTest {
         testWarehouse.importPackage(testPackage4);
         testWarehouse.exportPackage(testPackage1,"12345 67 ave, Surrey, Canada, V6M 2L1");
 
-        assertEquals(1, testWarehouse.getTotalNumberOfPackagesInInventory());
+        assertEquals(1, testWarehouse.getNumberPackagesInInventory());
         assertEquals(0, testLargeSizedPackages.size());
         assertEquals(1, testMediumSizedPackages.size());
         assertEquals(0, testSmallSizedPackages.size());
@@ -243,7 +213,7 @@ public class WarehouseTest {
 
         testWarehouse.exportPackage(testPackage4,"12345 67 ave, Surrey, Canada, V6M 2L1");
 
-        assertEquals(0, testWarehouse.getTotalNumberOfPackagesInInventory());
+        assertEquals(0, testWarehouse.getNumberPackagesInInventory());
         assertEquals(0, testLargeSizedPackages.size());
         assertEquals(0, testMediumSizedPackages.size());
         assertEquals(0, testSmallSizedPackages.size());

@@ -115,15 +115,15 @@ public class WarehouseApplication {
     // EFFECTS: creates new package and imports package into warehouse inventory
     private void doPackageImport() {
         int packagesInInventory = this.myWarehouse.getNumberPackagesInInventory();
-
         if (packagesInInventory < Warehouse.MAX_WAREHOUSE_CAPACITY) {
             Package packageToImport = choosePackageToImport();
             this.myWarehouse.importPackage(packageToImport);
             System.out.println("\nPackage " + packageToImport.getPackageID()
                     + " has been stored in the inventory");
-            this.myWarehouse.setNumberPackagesInInventory(++packagesInInventory);
             this.packagesAvailableToImport.remove(packageToImport);
-            System.out.println("The warehouse inventory now has: " + packagesInInventory + " item(s) \n");
+            System.out.println("The warehouse inventory now has: "
+                    + this.myWarehouse.getNumberPackagesInInventory()
+                    + " item(s) \n");
         } else {
             System.out.println("\nWarehouse inventory is full... Cannot import package\n");
         }
@@ -171,12 +171,11 @@ public class WarehouseApplication {
             Package packageToExport = choosePackageToExport();
             String packageDestination = indicatePackageDestination();
             this.myWarehouse.exportPackage(packageToExport, packageDestination);
-            this.myWarehouse.setNumberPackagesInInventory(--packagesInInventory);
             System.out.println("The package has been successfully shipped!");
             System.out.println("Package destination: "
                     + packageToExport.getAddressExportedTo());
             System.out.println("The warehouse inventory now has: "
-                    + packagesInInventory + " items \n");
+                    + this.myWarehouse.getNumberPackagesInInventory() + " items \n");
         }
     }
 
@@ -219,7 +218,7 @@ public class WarehouseApplication {
         List<Package> largeSizedPackagesInventory = this.myWarehouse.getLargeSizedPackages();
         List<Package> mediumSizedPackagesInventory = this.myWarehouse.getMediumSizedPackages();
         List<Package> smallSizedPackagesInventory = this.myWarehouse.getSmallSizedPackages();
-        if (this.myWarehouse.getTotalNumberOfPackagesInInventory() == 0) {
+        if (this.myWarehouse.getNumberPackagesInInventory() == 0) {
             System.out.println("There are currently no packages in your inventory "
                     + "\nreturning back to main menu\n");
         } else {

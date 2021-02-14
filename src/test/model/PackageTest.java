@@ -68,8 +68,16 @@ public class PackageTest {
         assertEquals("22222 33ave, Calgary, Canada, FGH 456", testPackage.getAddressExportedTo());
     }
 
-
-
-
-
+    @Test
+    public void testToString() {
+        assertEquals("Package Owner: Adam Brown"
+                + "\n Package ID: 123"
+                + "\n Owner Phone Number: 6041234567"
+                + "\n Owner Address: 12345 67ave, Vancouver, Canada, ABC 123"
+                + "\n Package Content: Stationary items"
+                + "\n Package Size: Large"
+                + "\n Date Imported: has not been imported yet"
+                + "\n Date Exported: has not been exported yet"
+                + "\n Address Exported To: has not been exported yet", testPackage.toString());
+    }
 }

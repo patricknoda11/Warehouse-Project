@@ -112,21 +112,7 @@ public class Warehouse {
         }
     }
 
-    // REQUIRES: newPackageCount must be > 0 and <= MAX_INVENTORY_CAPACITY
-    // MODIFIES: this
-    // EFFECTS: sets current packages in inventory to newPackageCount
-    public void setNumberPackagesInInventory(int newPackageCount) {
-        this.numberPackagesInInventory = newPackageCount;
-    }
-
     // getters
-    public int getTotalNumberOfPackagesInInventory() {
-        int largePackages = this.largeSizedPackages.size();
-        int mediumPackages = this.mediumSizedPackages.size();
-        int smallPackages = this.smallSizedPackages.size();
-        return largePackages + mediumPackages + smallPackages;
-    }
-
     public int getExportHistorySize() {
         return this.exportHistory.size();
     }
