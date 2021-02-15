@@ -6,7 +6,6 @@ import model.Warehouse;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,8 +13,9 @@ import java.util.Scanner;
 public class WarehouseApplication {
     private Warehouse myWarehouse;
     private Scanner userInput;
+    private int newPackageIDCount;       // keeps track of package id for new import packages to prevent duplicate id
     private boolean isFinished;
-    private List<Package> packagesAvailableToImport;
+
 
     // EFFECTS: instantiates WarehouseApplication
     public WarehouseApplication() {
@@ -26,26 +26,12 @@ public class WarehouseApplication {
     // MODIFIES: this
     // EFFECTS: creates warehouse and scanner instance
     //          sets the warehouse's is finished status to false (used to terminate application)
+    //          sets package id count to 0
     private void initializeApplication() {
         myWarehouse = new Warehouse();
         userInput = new Scanner(System.in);
         isFinished = false;
-        packagesAvailableToImport = new ArrayList<>();
-        Package package1 = new Package("Timothy Grimes", "12126 26 st, Vancouver, Canada, V51L1A",
-                "604 912 8091", "Cardboard boxes", "Large", "1");
-        Package package2 = new Package("Anthony Vega", "31782 adams st, Calgary, Canada, Q12O8P",
-                "604 312 9910", "Canned food", "Large", "2");
-        Package package3 = new Package("Alexia Anderson", "77039 138 st, Prince Rupert, Canada, B1A76V",
-                "778 776 4397", "Styrofoam boxes", "Medium", "3");
-        Package package4 = new Package("Emily Willcott", "43219 sesame st, Surrey, Canada, V7S1L1",
-                "7079895555", "Plastic bottles", "Small", "4");
-        Package package5 = new Package("Luwawu Cabarot", "00939 albert ave, Burnaby, Canada BNR6D2",
-                "7781907789", "Utilities", "Small", "5");
-        packagesAvailableToImport.add(package1);
-        packagesAvailableToImport.add(package2);
-        packagesAvailableToImport.add(package3);
-        packagesAvailableToImport.add(package4);
-        packagesAvailableToImport.add(package5);
+        newPackageIDCount = 0;
     }
 
     // EFFECTS: runs warehouse application's main menu
@@ -117,11 +103,10 @@ public class WarehouseApplication {
     private void doPackageImport() {
         int packagesInInventory = this.myWarehouse.getNumberPackagesInInventory();
         if (packagesInInventory < Warehouse.MAX_WAREHOUSE_CAPACITY) {
-            Package packageToImport = choosePackageToImport();
+            Package packageToImport = createPackageToImport();
             this.myWarehouse.importPackage(packageToImport);
             System.out.println("\nPackage " + packageToImport.getPackageID()
                     + " has been stored in the inventory");
-            this.packagesAvailableToImport.remove(packageToImport);
             System.out.println("The warehouse inventory now has: "
                     + this.myWarehouse.getNumberPackagesInInventory()
                     + " item(s) \n");
@@ -130,36 +115,61 @@ public class WarehouseApplication {
         }
     }
 
-    // EFFECTS: returns the package that the user would like to import based of his/her input
-    private Package choosePackageToImport() {
-        String inputValue;
-        displayPackagesAvailableToImport();
-        while (true) {
-            inputValue = userInput.next();
-            for (Package p : packagesAvailableToImport) {
-                String packageIdentification = p.getPackageID();
-                if (inputValue.equals(packageIdentification)) {
-                    return p;
-                }
-            }
-            System.out.println("\nInvalid input please try again");
-        }
+    // EFFECTS: returns a new package that the user would like to import
+    private Package createPackageToImport() {
+        System.out.println("Creating new package to import. \nPlease add details regarding package below\n");
+        return new Package(addOwnerNameToImportPackage(),
+                addOwnerAddressToImportPackage(),
+                addOwnerPhoneNumberToImportPackage(),
+                addPackageContentForImportPackage(),
+                addSizeInfoForImportPackage(),
+                addPackageIDForImportPackage());
     }
 
-    // EFFECTS: prints the packages that are currently available to import
-    private void displayPackagesAvailableToImport() {
-        int numberOfPackagesAvailableToImport = packagesAvailableToImport.size();
-        if (numberOfPackagesAvailableToImport == 0) {
-            System.out.println("There are no packages currently available to import");
-            System.out.println("Returning to main menu...\n");
-            runApplicationMainMenu();
-        } else {
-            for (Package p : packagesAvailableToImport) {
-                System.out.println();
-                System.out.println(p);
-            }
-            System.out.println("\nPlease type in package ID that you would like to import");
-        }
+    // REQUIRES: spaces must be replaced with underscore
+    //           Ex. Patrick_Williams
+    // EFFECTS: returns owner name to be added to import package
+    private String addOwnerNameToImportPackage() {
+        System.out.println("Please type in package owner Name");
+        return userInput.next();
+    }
+
+    // REQUIRES: spaces must be replaced with underscore
+    //           Ex. 12345_69b_ave_Vancouver_Canada_V3X78A
+    // EFFECTS: returns owner address that will be added to import package
+    private String addOwnerAddressToImportPackage() {
+        System.out.println("Please type in package owner address");
+        return userInput.next();
+    }
+
+    // REQUIRES: spaces must be replaced with underscore
+    // EFFECTS: returns owner phone number that will be added to import package
+    private String addOwnerPhoneNumberToImportPackage() {
+        System.out.println("Please type in package owner phone number");
+        return userInput.next();
+    }
+
+    // REQUIRES: spaces must be replaced with underscore
+    // EFFECTS: returns package content info that will be added to import package
+    private String addPackageContentForImportPackage() {
+        System.out.println("Please type in package content");
+        return userInput.next();
+    }
+
+    // REQUIRES: spaces must be replaced with underscore
+    // EFFECTS: returns size info that will be added to import package
+    private String addSizeInfoForImportPackage() {
+        System.out.println("Please type in package size");
+        System.out.println("Size should be either: large, medium or small");
+        System.out.println("If size does not meet above criteria, the package will be stored in large section");
+        String inputValue = userInput.next();
+        return inputValue.toLowerCase();
+    }
+
+    // EFFECTS: returns package id as a String that will be added to import package
+    private String addPackageIDForImportPackage() {
+        this.newPackageIDCount++;
+        return String.valueOf(this.newPackageIDCount);
     }
 
     // MODIFIES: this

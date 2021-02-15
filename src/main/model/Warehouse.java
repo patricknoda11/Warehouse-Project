@@ -90,9 +90,10 @@ public class Warehouse {
     //          otherwise store it in the large sized package section
     private void addPackageToCorrectSizeSection(Package goods) {
         String goodsSize = goods.getSize();
-        if (goodsSize.equals("Small")) {
+        String goodsSizeLowerCase = goodsSize.toLowerCase();
+        if (goodsSizeLowerCase.equals("small")) {
             this.smallSizedPackages.add(goods);
-        } else if (goodsSize.equals("Medium")) {
+        } else if (goodsSizeLowerCase.equals("medium")) {
             this.mediumSizedPackages.add(goods);
         } else {
             this.largeSizedPackages.add(goods);
@@ -105,9 +106,10 @@ public class Warehouse {
     //          package section (this is where miscellaneous sized packages will be stored)
     private void removePackageFromInventory(Package goods) {
         String goodsSize = goods.getSize();
-        if (goodsSize.equals("Small")) {
+        String goodsSizeLowerCase = goodsSize.toLowerCase();
+        if (goodsSizeLowerCase.equals("small")) {
             this.smallSizedPackages.remove(goods);
-        } else if (goodsSize.equals("Medium")) {
+        } else if (goodsSizeLowerCase.equals("medium")) {
             this.mediumSizedPackages.remove(goods);
         } else {
             this.largeSizedPackages.remove(goods);

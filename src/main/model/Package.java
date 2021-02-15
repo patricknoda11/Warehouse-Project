@@ -20,7 +20,7 @@ public class Package {
     private boolean hasBeenExportedFromWarehouse;
     private boolean isInWarehouse;
 
-    // REQUIRES: size must be either Large, Medium, Small
+    // REQUIRES: size must be either large, medium, small
     // MODIFIES: this
     // EFFECTS: instantiates new package
     //          sets this owner name to ownerName
