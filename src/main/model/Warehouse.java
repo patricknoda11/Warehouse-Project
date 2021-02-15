@@ -13,7 +13,7 @@ import java.util.List;
  * A warehouse keeps record of all its imports and exports
  */
 public class Warehouse {
-    public static final int MAX_WAREHOUSE_CAPACITY = 10;
+    public static final int MAX_WAREHOUSE_CAPACITY = 100;
 
     private final List<List<Package>> inventory;
     private final List<Package> largeSizedPackages;
