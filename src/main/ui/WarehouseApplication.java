@@ -314,6 +314,17 @@ public class WarehouseApplication {
     }
 
     // MODIFIES: this
+    // EFFECTS: saves changes made to Warehouse inventory on file
+    private void saveWarehouseInventoryToFile() {
+        // stub
+    }
+
+    // EFFECTS: loads Warehouse inventory from file
+    private void loadWarehouseInventoryFromFile() {
+        // stub
+    }
+
+    // MODIFIES: this
     // EFFECTS: signals to warehouse application to terminate application
     private void exitApplication() {
         System.out.println("\nGoodbye!");
