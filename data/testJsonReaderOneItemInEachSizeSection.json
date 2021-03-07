@@ -1,26 +1,13 @@
 {
   "largeSizedPackages": [
     {
-      "packageID": 7,
+      "packageID": 5,
       "ownerName": "testName",
       "content": "coca Cola",
       "size": "large",
       "ownerPhoneNumber": "6045009091",
       "ownerAddress": "1234567_23rd_ave_Vancouver_Canada_V1ALQ3",
       "dateImportedIntoWarehouse": "27 Feb, 2021 15:56:32",
-      "dateExportedFromWarehouse": "has not been exported yet",
-      "addressExportedTo": "has not been exported yet",
-      "hasBeenExportedFromWarehouse": false,
-      "IsInWarehouse": true
-    },
-    {
-      "packageID": 8,
-      "ownerName": "testName",
-      "content": "dog Food",
-      "size": "large",
-      "ownerPhoneNumber": "6045009091",
-      "ownerAddress": "1234567_23rd_ave_Vancouver_Canada_V1ALQ3",
-      "dateImportedIntoWarehouse": "1 Mar, 2021 15:56:32",
       "dateExportedFromWarehouse": "has not been exported yet",
       "addressExportedTo": "has not been exported yet",
       "hasBeenExportedFromWarehouse": false,
@@ -40,43 +27,17 @@
       "addressExportedTo": "has not been exported yet",
       "hasBeenExportedFromWarehouse": false,
       "IsInWarehouse": true
-    },
-    {
-      "packageID": 4,
-      "ownerName": "testName",
-      "content": "cat foods",
-      "size": "medium",
-      "ownerPhoneNumber": "6045009091",
-      "ownerAddress": "1234567_23rd_ave_Vancouver_Canada_V1ALQ3",
-      "dateImportedIntoWarehouse": "13 Feb, 2021 15:56:32",
-      "dateExportedFromWarehouse": "has not been exported yet",
-      "addressExportedTo": "has not been exported yet",
-      "hasBeenExportedFromWarehouse": false,
-      "IsInWarehouse": true
     }
   ],
   "smallSizedPackages": [
     {
-      "packageID": 5,
+      "packageID": 4,
       "ownerName": "testName",
       "content": "card board boxes",
       "size": "small",
       "ownerPhoneNumber": "6045009091",
       "ownerAddress": "1234567_23rd_ave_Vancouver_Canada_V1ALQ3",
       "dateImportedIntoWarehouse": "20 Feb, 2021 15:56:32",
-      "dateExportedFromWarehouse": "has not been exported yet",
-      "addressExportedTo": "has not been exported yet",
-      "hasBeenExportedFromWarehouse": false,
-      "IsInWarehouse": true
-    },
-    {
-      "packageID": 6,
-      "ownerName": "testName",
-      "content": "cans",
-      "size": "small",
-      "ownerPhoneNumber": "6045009091",
-      "ownerAddress": "1234567_23rd_ave_Vancouver_Canada_V1ALQ3",
-      "dateImportedIntoWarehouse": "22 Feb, 2021 15:56:32",
       "dateExportedFromWarehouse": "has not been exported yet",
       "addressExportedTo": "has not been exported yet",
       "hasBeenExportedFromWarehouse": false,
@@ -126,19 +87,6 @@
     {
       "packageID": 4,
       "ownerName": "testName",
-      "content": "cat foods",
-      "size": "medium",
-      "ownerPhoneNumber": "6045009091",
-      "ownerAddress": "1234567_23rd_ave_Vancouver_Canada_V1ALQ3",
-      "dateImportedIntoWarehouse": "13 Feb, 2021 15:56:32",
-      "dateExportedFromWarehouse": "has not been exported yet",
-      "addressExportedTo": "has not been exported yet",
-      "hasBeenExportedFromWarehouse": false,
-      "IsInWarehouse": true
-    },
-    {
-      "packageID": 5,
-      "ownerName": "testName",
       "content": "card board boxes",
       "size": "small",
       "ownerPhoneNumber": "6045009091",
@@ -150,39 +98,13 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 6,
-      "ownerName": "testName",
-      "content": "cans",
-      "size": "small",
-      "ownerPhoneNumber": "6045009091",
-      "ownerAddress": "1234567_23rd_ave_Vancouver_Canada_V1ALQ3",
-      "dateImportedIntoWarehouse": "22 Feb, 2021 15:56:32",
-      "dateExportedFromWarehouse": "has not been exported yet",
-      "addressExportedTo": "has not been exported yet",
-      "hasBeenExportedFromWarehouse": false,
-      "IsInWarehouse": true
-    },
-    {
-      "packageID": 7,
+      "packageID": 5,
       "ownerName": "testName",
       "content": "coca Cola",
       "size": "large",
       "ownerPhoneNumber": "6045009091",
       "ownerAddress": "1234567_23rd_ave_Vancouver_Canada_V1ALQ3",
       "dateImportedIntoWarehouse": "27 Feb, 2021 15:56:32",
-      "dateExportedFromWarehouse": "has not been exported yet",
-      "addressExportedTo": "has not been exported yet",
-      "hasBeenExportedFromWarehouse": false,
-      "IsInWarehouse": true
-    },
-    {
-      "packageID": 8,
-      "ownerName": "testName",
-      "content": "dog Food",
-      "size": "large",
-      "ownerPhoneNumber": "6045009091",
-      "ownerAddress": "1234567_23rd_ave_Vancouver_Canada_V1ALQ3",
-      "dateImportedIntoWarehouse": "1 Mar, 2021 15:56:32",
       "dateExportedFromWarehouse": "has not been exported yet",
       "addressExportedTo": "has not been exported yet",
       "hasBeenExportedFromWarehouse": false,
