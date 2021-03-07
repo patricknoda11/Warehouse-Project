@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class JsonWriterTest {
+public class JsonWriterTest extends JsonTest {
     private Warehouse updatedWarehouse;
     private Package testPackage1;
     private Package testPackage2;
@@ -37,7 +37,8 @@ public class JsonWriterTest {
 
     @Test
     public void testJsonWriterConstructor() {
-        JsonWriter testJsonWriter = new JsonWriter("./data/testJsonWriterOneItemInEachSizeSection.json");
+        JsonWriter testJsonWriter =
+                new JsonWriter("./data/testJsonWriterOneItemInEachSizeSection.json");
         assertEquals("./data/testJsonWriterOneItemInEachSizeSection.json", testJsonWriter.getSaveLocation());
     }
 
@@ -45,7 +46,8 @@ public class JsonWriterTest {
     @Test
     public void testSaveToFileInvalidFile() {
         try {
-            JsonWriter testJsonWriter = new JsonWriter("./data/ThisFileDoesNotExist");
+            JsonWriter testJsonWriter =
+                    new JsonWriter("./data/ThisFileDoesNotExist");
             testJsonWriter.saveToFile(updatedWarehouse);
             fail("The above line should throw error since the source file does not exist");
         } catch (Exception e) {
@@ -56,8 +58,10 @@ public class JsonWriterTest {
     @Test
     public void testSaveToFileEmptyInventory() {
         try {
-            JsonReader testJsonReader = new JsonReader("./data/testJsonWriterEmptyInventory.json");
-            JsonWriter testJsonWriter = new JsonWriter("./data/testJsonWriterEmptyInventory.json");
+            JsonReader testJsonReader =
+                    new JsonReader("./data/testJsonWriterEmptyInventory.json");
+            JsonWriter testJsonWriter =
+                    new JsonWriter("./data/testJsonWriterEmptyInventory.json");
             Warehouse initialWarehouse = testJsonReader.retrieveSavedWarehouseData();
             // check initial warehouse values in ./data/testJsonWriterEmptyInventory.json
             assertEquals("My Warehouse", initialWarehouse.getWarehouseName());
@@ -81,8 +85,10 @@ public class JsonWriterTest {
     public void testSaveToFileOneItemInLargeSection() {
         try {
             // setup
-            JsonReader testJsonReader = new JsonReader("./data/testJsonWriterEmptyInventory.json");
-            JsonWriter testJsonWriter = new JsonWriter("./data/testJsonWriterEmptyInventory.json");
+            JsonReader testJsonReader =
+                    new JsonReader("./data/testJsonWriterEmptyInventory.json");
+            JsonWriter testJsonWriter =
+                    new JsonWriter("./data/testJsonWriterEmptyInventory.json");
             updatedWarehouse.importPackage(testPackage2);
             testJsonWriter.saveToFile(updatedWarehouse);
             // confirm save to file
@@ -102,8 +108,10 @@ public class JsonWriterTest {
     public void testSaveToFileOneItemInMediumSection() {
         try {
             // setup
-            JsonReader testJsonReader = new JsonReader("./data/testJsonWriterEmptyInventory.json");
-            JsonWriter testJsonWriter = new JsonWriter("./data/testJsonWriterEmptyInventory.json");
+            JsonReader testJsonReader =
+                    new JsonReader("./data/testJsonWriterEmptyInventory.json");
+            JsonWriter testJsonWriter =
+                    new JsonWriter("./data/testJsonWriterEmptyInventory.json");
             updatedWarehouse.importPackage(testPackage1);
             testJsonWriter.saveToFile(updatedWarehouse);
             // confirm save to file
@@ -123,8 +131,10 @@ public class JsonWriterTest {
     public void testSaveToFileOneItemInSmallSection() {
         try {
             // setup
-            JsonReader testJsonReader = new JsonReader("./data/testJsonWriterEmptyInventory.json");
-            JsonWriter testJsonWriter = new JsonWriter("./data/testJsonWriterEmptyInventory.json");
+            JsonReader testJsonReader =
+                    new JsonReader("./data/testJsonWriterEmptyInventory.json");
+            JsonWriter testJsonWriter =
+                    new JsonWriter("./data/testJsonWriterEmptyInventory.json");
             updatedWarehouse.importPackage(testPackage3);
             testJsonWriter.saveToFile(updatedWarehouse);
             // confirm save to file
@@ -144,8 +154,10 @@ public class JsonWriterTest {
     public void testSaveToFileOneItemInEachSizeSection() {
         try {
             // setup
-            JsonReader testJsonReader = new JsonReader("./data/testJsonWriterEmptyInventory.json");
-            JsonWriter testJsonWriter = new JsonWriter("./data/testJsonWriterEmptyInventory.json");
+            JsonReader testJsonReader =
+                    new JsonReader("./data/testJsonWriterEmptyInventory.json");
+            JsonWriter testJsonWriter =
+                    new JsonWriter("./data/testJsonWriterEmptyInventory.json");
             updatedWarehouse.importPackage(testPackage1);
             updatedWarehouse.importPackage(testPackage2);
             updatedWarehouse.importPackage(testPackage3);
@@ -169,8 +181,10 @@ public class JsonWriterTest {
     public void testSaveToFileMultipleItemsInEachSizeSection() {
         try {
             // setup
-            JsonReader testJsonReader = new JsonReader("./data/testJsonWriterEmptyInventory.json");
-            JsonWriter testJsonWriter = new JsonWriter("./data/testJsonWriterEmptyInventory.json");
+            JsonReader testJsonReader =
+                    new JsonReader("./data/testJsonWriterEmptyInventory.json");
+            JsonWriter testJsonWriter =
+                    new JsonWriter("./data/testJsonWriterEmptyInventory.json");
             updatedWarehouse.importPackage(testPackage1);
             updatedWarehouse.importPackage(testPackage2);
             updatedWarehouse.importPackage(testPackage3);
