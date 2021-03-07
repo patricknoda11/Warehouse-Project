@@ -34,11 +34,9 @@ public class JsonReader {
     // EFFECTS: returns the string representation of the source file
     private String retrieveFileDataInStringRepresentation() throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
-
         try (Stream<String> stream = Files.lines(Paths.get(saveLocation), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s));
         }
-
         return contentBuilder.toString();
     }
 
@@ -47,7 +45,7 @@ public class JsonReader {
         return new JSONObject(info);
     }
 
-    // EFFECTS: Returns Warehouse data from JSON object
+    // EFFECTS: Returns Warehouse with data loaded from source file
     private Warehouse convertJsonObjectToWarehouse(JSONObject jsonObject) {
         String warehouseName = jsonObject.getString("warehouseName");
         int inventoryCount = jsonObject.getInt("numberPackagesInInventory");
@@ -63,6 +61,8 @@ public class JsonReader {
         return warehouse;
     }
 
+    // MODIFIES: warehouse
+    // EFFECTS: adds details stored in JSONObject to warehouse large Sized Packages section
     private void addPackagesToLargeSizedPackages(JSONObject jsonObject, Warehouse warehouse) {
         JSONArray largeSizedPackages = jsonObject.getJSONArray("largeSizedPackages");
         for (Object o : largeSizedPackages) {
@@ -84,6 +84,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: warehouse
+    // EFFECTS: adds details stored in JSONObject to warehouse medium Sized Packages section
     private void addPackagesToMediumSizedPackages(JSONObject jsonObject, Warehouse warehouse) {
         JSONArray mediumSizedPackages = jsonObject.getJSONArray("mediumSizedPackages");
         for (Object o : mediumSizedPackages) {
@@ -105,6 +107,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: warehouse
+    // EFFECTS: adds details stored in JSONObject to warehouse small Sized Packages section
     private void addPackagesToSmallSizedPackages(JSONObject jsonObject, Warehouse warehouse) {
         JSONArray smallSizedPackages = jsonObject.getJSONArray("smallSizedPackages");
         for (Object o : smallSizedPackages) {
@@ -126,6 +130,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: warehouse
+    // EFFECTS: adds details stored in JSONObject to warehouse import history
     private void addPackagesToImportHistory(JSONObject jsonObject, Warehouse warehouse) {
         JSONArray importHistory = jsonObject.getJSONArray("importHistory");
         for (Object o : importHistory) {
@@ -146,6 +152,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: warehouse
+    // EFFECTS: adds details stored in JSONObject to warehouse export history
     private void addPackagesToExportHistory(JSONObject jsonObject, Warehouse warehouse) {
         JSONArray exportHistory = jsonObject.getJSONArray("exportHistory");
         for (Object o : exportHistory) {

@@ -104,6 +104,7 @@ public class Package {
         this.isInWarehouse = status;
     }
 
+    // EFFECTS: returns JSONObject representation of this package by adding details
     public JSONObject convertToJsonObject() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("packageID", this.packageID);

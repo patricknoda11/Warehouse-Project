@@ -145,7 +145,7 @@ public class Warehouse {
         return jsonObject;
     }
 
-    // EFFECTS:
+    // EFFECTS: adds list representation of inventory, import history, export history to JSON object
     private JSONArray addListToJsonObject(List<Package> packageList) {
         JSONArray jsonArray = new JSONArray();
 

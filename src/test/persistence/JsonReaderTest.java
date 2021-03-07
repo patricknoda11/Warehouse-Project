@@ -85,6 +85,7 @@ public class JsonReaderTest extends JsonTest {
         }
     }
 
+    // EFFECTS: helper method to check import history package details
     private void checkImportHistoryPackageDetails(Warehouse testWarehouse) {
         checkPackageDetails(testWarehouse.getImportHistory().get(0),
                 "1", "testName", "dog food", "large", "6045009091",
@@ -124,6 +125,7 @@ public class JsonReaderTest extends JsonTest {
         }
     }
 
+    // EFFECTS: helper method to check export history package details
     private void checkExportHistoryPackageDetails(Warehouse testWarehouse) {
         checkPackageDetails(testWarehouse.getImportHistory().get(0),
                 "1", "testName", "dog food", "large", "6045009091",
@@ -160,6 +162,7 @@ public class JsonReaderTest extends JsonTest {
         }
     }
 
+    // EFFECTS: helper method to check inventory package details
     private void checkInventoryPackageDetails(Warehouse testWarehouse) {
         checkPackageDetails(testWarehouse.getAllPackagesAvailableInInventory().get(1),
                 "3", "testName", "cans", "medium", "6045009091",

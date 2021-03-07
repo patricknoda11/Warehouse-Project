@@ -4,8 +4,6 @@ import model.Package;
 import model.Warehouse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,7 +49,8 @@ public class JsonWriterTest extends JsonTest {
                     new JsonWriter("./data/testJsonWriterEmptyInventory.json");
             JsonReader reset =
                     new JsonReader("./data/testJsonWriterResetEmptyInventory.json");
-            Warehouse resetJsonWriterMultipleItemsInEachSizeSection = new Warehouse("My Warehouse");
+            new Warehouse("My Warehouse");
+            Warehouse resetJsonWriterMultipleItemsInEachSizeSection;
             resetJsonWriterMultipleItemsInEachSizeSection = reset.retrieveSavedWarehouseData();
             oldWriter.saveToFile(resetJsonWriterMultipleItemsInEachSizeSection);
         } catch (IOException e) {
@@ -65,7 +64,8 @@ public class JsonWriterTest extends JsonTest {
                     new JsonWriter("./data/testJsonWriterMultipleItemsInEachSizeSection.json");
             JsonReader reset =
                     new JsonReader("./data/testJsonWriterResetMultipleItemsInEachSizeSection.json");
-            Warehouse resetJsonWriterMultipleItemsInEachSizeSection = new Warehouse("My Warehouse");
+            new Warehouse("My Warehouse");
+            Warehouse resetJsonWriterMultipleItemsInEachSizeSection;
             resetJsonWriterMultipleItemsInEachSizeSection = reset.retrieveSavedWarehouseData();
             oldWriter.saveToFile(resetJsonWriterMultipleItemsInEachSizeSection);
         } catch (IOException e) {
@@ -80,7 +80,8 @@ public class JsonWriterTest extends JsonTest {
                     new JsonWriter("./data/testJsonWriterOneItemInEachSizeSection.json");
             JsonReader reset =
                     new JsonReader("./data/testJsonWriterResetOneItemInEachSizeSection.json");
-            Warehouse resetJsonWriterMultipleItemsInEachSizeSection = new Warehouse("My Warehouse");
+            new Warehouse("My Warehouse");
+            Warehouse resetJsonWriterMultipleItemsInEachSizeSection;
             resetJsonWriterMultipleItemsInEachSizeSection = reset.retrieveSavedWarehouseData();
             oldWriter.saveToFile(resetJsonWriterMultipleItemsInEachSizeSection);
         } catch (IOException e) {
