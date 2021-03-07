@@ -5,6 +5,8 @@ import model.Warehouse;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -331,6 +333,7 @@ public class WarehouseApplication {
         while (keepOperating) {
             displaySaveOptions();
             inputValue = userInput.next();
+            inputValue = inputValue.toLowerCase();
             keepOperating = processSaveOptionsInput(inputValue);
         }
     }
@@ -346,24 +349,28 @@ public class WarehouseApplication {
 
     // EFFECTS: processes user input and directs to desired operation in save menu
     private boolean processSaveOptionsInput(String inputValue) {
-        switch (inputValue.toLowerCase()) {
-            case "1":
+        try {
+            if (inputValue.equals("1")) {
                 jsonWriter = new JsonWriter(SOURCE_FILE_1);
                 processSaveSequence(SOURCE_FILE_1);
                 return false;
-            case "2":
+            } else if (inputValue.equals("2")) {
                 jsonWriter = new JsonWriter(SOURCE_FILE_2);
                 processSaveSequence(SOURCE_FILE_2);
                 return false;
-            case "3":
+            } else if (inputValue.equals("3")) {
                 jsonWriter = new JsonWriter(SOURCE_FILE_3);
                 processSaveSequence(SOURCE_FILE_3);
                 return false;
-            case "return":
+            } else if (inputValue.equals("return")) {
                 return false;
-            default:
+            } else {
                 System.out.println("Invalid entry, please try again \n");
                 return true;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot save to specified source file...");
+            return false;
         }
     }
 
@@ -371,7 +378,7 @@ public class WarehouseApplication {
     //              decides whether to rename warehouse
     //              saves warehouse to file
     //              prints confirmation letter
-    private void processSaveSequence(String sourceFile) {
+    private void processSaveSequence(String sourceFile) throws FileNotFoundException {
         nameWarehouse();
         jsonWriter.saveToFile(myWarehouse);
         System.out.println("Warehouse inventory has been saved to " + sourceFile);
@@ -428,6 +435,7 @@ public class WarehouseApplication {
         while (keepOperating) {
             displayLoadOptions();
             inputValue = userInput.next();
+            inputValue = inputValue.toLowerCase();
             keepOperating = processLoadOptionsInput(inputValue);
         }
     }
@@ -443,30 +451,34 @@ public class WarehouseApplication {
 
     // EFFECTS: processes user input and directs to desired operation in load options menu
     private boolean processLoadOptionsInput(String inputValue) {
-        switch (inputValue.toLowerCase()) {
-            case "1":
+        try {
+            if (inputValue.equals("1")) {
                 jsonReader = new JsonReader(SOURCE_FILE_1);
                 processLoadSequence(SOURCE_FILE_1);
                 return false;
-            case "2":
+            } else if (inputValue.equals("2")) {
                 jsonReader = new JsonReader(SOURCE_FILE_2);
                 processLoadSequence(SOURCE_FILE_2);
                 return false;
-            case "3":
+            } else if (inputValue.equals("3")) {
                 jsonReader = new JsonReader(SOURCE_FILE_3);
                 processLoadSequence(SOURCE_FILE_3);
                 return false;
-            case "return":
+            } else if (inputValue.equals("return")) {
                 return false;
-            default:
+            } else {
                 System.out.println("Invalid entry, please try again \n");
                 return true;
+            }
+        } catch (IOException e) {
+            System.out.println("Cannot read from specified source file...");
+            return false;
         }
     }
 
     // MODIFIES: this
     // EFFECTS: loads warehouse from file and prints confirmation statement
-    private void processLoadSequence(String sourceFile) {
+    private void processLoadSequence(String sourceFile) throws IOException {
         myWarehouse = jsonReader.retrieveSavedWarehouseData();
         System.out.println("Warehouse inventory previously saved in " + sourceFile + " has been loaded");
     }

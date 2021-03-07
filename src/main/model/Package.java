@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 /**
  * Represents a package having id, owner name, content, size, owner phone number, owner address
  * date imported into warehouse, date exported from warehouse, address exported to
@@ -102,6 +104,22 @@ public class Package {
         this.isInWarehouse = status;
     }
 
+    public JSONObject convertToJsonObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("packageID", this.packageID);
+        jsonObject.put("ownerName", this.ownerName);
+        jsonObject.put("content", this.content);
+        jsonObject.put("size", this.size);
+        jsonObject.put("ownerPhoneNumber", this.ownerPhoneNumber);
+        jsonObject.put("ownerAddress", this.ownerAddress);
+        jsonObject.put("dateImportedIntoWarehouse", this.dateImportedIntoWarehouse);
+        jsonObject.put("dateExportedFromWarehouse", this.dateExportedFromWarehouse);
+        jsonObject.put("addressExportedTo", this.addressExportedTo);
+        jsonObject.put("hasBeenExportedFromWarehouse", this.hasBeenExportedFromWarehouse);
+        jsonObject.put("IsInWarehouse", this.isInWarehouse);
+        return jsonObject;
+    }
+
     @Override
     // EFFECTS: returns string representation of object
     public String toString() {
@@ -160,4 +178,5 @@ public class Package {
     public String getPackageID() {
         return this.packageID;
     }
+
 }

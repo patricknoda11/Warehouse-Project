@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -123,6 +126,30 @@ public class Warehouse {
         this.warehouseName = name;
     }
 
+    // EFFECTS: returns warehouse represented as a JSON object
+    public JSONObject convertToJsonObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("warehouseName", this.warehouseName);
+        jsonObject.put("largeSizedPackages", addListToJsonObject(this.largeSizedPackages));
+        jsonObject.put("mediumSizedPackages", addListToJsonObject(this.mediumSizedPackages));
+        jsonObject.put("smallSizedPackages", addListToJsonObject(this.smallSizedPackages));
+        jsonObject.put("importHistory", addListToJsonObject(this.importHistory));
+        jsonObject.put("exportHistory", addListToJsonObject(this.exportHistory));
+        jsonObject.put("numberPackagesInInventory", this.allPackagesAvailableInInventory.size());
+        return jsonObject;
+    }
+
+    private JSONArray addListToJsonObject(List<Package> packageList) {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Package p : packageList) {
+            jsonArray.put(p.convertToJsonObject());
+        }
+        return jsonArray;
+    }
+
+
+
     // getters
     public int getExportHistorySize() {
         return this.exportHistory.size();
@@ -167,5 +194,6 @@ public class Warehouse {
     public String getWarehouseName() {
         return this.warehouseName;
     }
+
 }
 
