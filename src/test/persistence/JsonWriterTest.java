@@ -5,6 +5,7 @@ import model.Warehouse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +23,7 @@ public class JsonWriterTest extends JsonTest {
 
     @BeforeEach
     public void setUp() {
-        resetJsonWriterEmptyInventory();
+        resetJsonWriterSampleData();
         updatedWarehouse = new Warehouse("Shoreline Warehousing");
         testPackage1 = new Package("Miranda Williams", "98213 36 ave, Toronto, Canada, VW2 1S7",
                 "7072134567", "Garden Tools", "medium", "9");
@@ -38,15 +39,14 @@ public class JsonWriterTest extends JsonTest {
                 "778 219 9008", "Nutritional supplements", "large", "14");
     }
 
-    private void resetJsonWriterEmptyInventory() {
-        try {
-            JsonWriter resetWriter =
-                    new JsonWriter("./data/testJsonWriterEmptyInventory.json");
-            Warehouse resetJsonWriterEmptyInventory = new Warehouse("My Warehouse");
-            resetWriter.saveToFile(resetJsonWriterEmptyInventory);
-        } catch (IOException e) {
-            fail();
-        }
+    private void resetJsonWriterSampleData() {
+        File resetFileEmptyInventory =
+                new File("./data/testJsonWriterResetEmptyInventory.json");
+        File resetFileItemInEachSizeSection =
+                new File("./data/testJsonWriterResetItemInEachSizeSection.json");
+        File resetMultipleItemsInEachSizeSection =
+                new File("./data/testJsonWriterResetMultipleItemsInEachSizeSection.json");
+        File 
     }
 
     @Test
