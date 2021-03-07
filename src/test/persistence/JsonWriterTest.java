@@ -40,13 +40,52 @@ public class JsonWriterTest extends JsonTest {
     }
 
     private void resetJsonWriterSampleData() {
-        File resetFileEmptyInventory =
-                new File("./data/testJsonWriterResetEmptyInventory.json");
-        File resetFileItemInEachSizeSection =
-                new File("./data/testJsonWriterResetItemInEachSizeSection.json");
-        File resetMultipleItemsInEachSizeSection =
-                new File("./data/testJsonWriterResetMultipleItemsInEachSizeSection.json");
-        File 
+        resetTestJsonWriterEmptyInventory();
+        resetTestJsonWriterMultipleItemsInEachSizeSection();
+        resetTestJsonWriterOneItemInEachSizeSection();
+    }
+    // resets ./data/testJsonWriterEmptyInventory.json by replacing content with reset copy
+    private void resetTestJsonWriterEmptyInventory() {
+        try {
+            JsonWriter oldWriter =
+                    new JsonWriter("./data/testJsonWriterEmptyInventory.json");
+            JsonReader reset =
+                    new JsonReader("./data/testJsonWriterResetEmptyInventory.json");
+            Warehouse resetJsonWriterMultipleItemsInEachSizeSection = new Warehouse("My Warehouse");
+            resetJsonWriterMultipleItemsInEachSizeSection = reset.retrieveSavedWarehouseData();
+            oldWriter.saveToFile(resetJsonWriterMultipleItemsInEachSizeSection);
+        } catch (IOException e) {
+            fail();
+        }
+    }
+    // resets ./data/testJsonWriterMultipleItemsInEachSizeSection.json by replacing content with reset copy
+    public void resetTestJsonWriterMultipleItemsInEachSizeSection() {
+        try {
+            JsonWriter oldWriter =
+                    new JsonWriter("./data/testJsonWriterMultipleItemsInEachSizeSection.json");
+            JsonReader reset =
+                    new JsonReader("./data/testJsonWriterResetMultipleItemsInEachSizeSection.json");
+            Warehouse resetJsonWriterMultipleItemsInEachSizeSection = new Warehouse("My Warehouse");
+            resetJsonWriterMultipleItemsInEachSizeSection = reset.retrieveSavedWarehouseData();
+            oldWriter.saveToFile(resetJsonWriterMultipleItemsInEachSizeSection);
+        } catch (IOException e) {
+            fail();
+        }
+    }
+
+    // resets ./data/testJsonWriterItemInEachSizeSection.json by replacing content with reset copy
+    public void resetTestJsonWriterOneItemInEachSizeSection() {
+        try {
+            JsonWriter oldWriter =
+                    new JsonWriter("./data/testJsonWriterOneItemInEachSizeSection.json");
+            JsonReader reset =
+                    new JsonReader("./data/testJsonWriterResetOneItemInEachSizeSection.json");
+            Warehouse resetJsonWriterMultipleItemsInEachSizeSection = new Warehouse("My Warehouse");
+            resetJsonWriterMultipleItemsInEachSizeSection = reset.retrieveSavedWarehouseData();
+            oldWriter.saveToFile(resetJsonWriterMultipleItemsInEachSizeSection);
+        } catch (IOException e) {
+            fail();
+        }
     }
 
     @Test
@@ -272,14 +311,14 @@ public class JsonWriterTest extends JsonTest {
             initialWarehouse.exportPackage(testPackage1, "testAddress1");
             initialWarehouse.exportPackage(testPackage2, "testAddress2");
             // save export changes
-            testJsonWriter.saveToFile(updatedWarehouse);
+            testJsonWriter.saveToFile(initialWarehouse);
             // retrieve updated warehouse
             updatedWarehouse = testJsonReader.retrieveSavedWarehouseData();
             assertEquals(7, updatedWarehouse.getNumberPackagesInInventory());
             // check if packages correctly organized into sections
-            assertEquals(3, updatedWarehouse.getLargeSizedPackages().size());
-            assertEquals(3, updatedWarehouse.getMediumSizedPackages().size());
-            assertEquals(4, updatedWarehouse.getSmallSizedPackages().size());
+            assertEquals(2, updatedWarehouse.getLargeSizedPackages().size());
+            assertEquals(2, updatedWarehouse.getMediumSizedPackages().size());
+            assertEquals(3, updatedWarehouse.getSmallSizedPackages().size());
             // check if history updated properly
             assertEquals(11, updatedWarehouse.getImportHistorySize());
             assertEquals(4, updatedWarehouse.getExportHistorySize());
