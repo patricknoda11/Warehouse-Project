@@ -2,7 +2,7 @@
   "warehouseName": "My Warehouse",
   "largeSizedPackages": [
     {
-      "packageID": 5,
+      "packageID": "5",
       "ownerName": "testName",
       "content": "coca Cola",
       "size": "large",
@@ -17,7 +17,7 @@
   ],
   "mediumSizedPackages": [
     {
-      "packageID": 3,
+      "packageID": "3",
       "ownerName": "testName",
       "content": "cans",
       "size": "medium",
@@ -32,7 +32,7 @@
   ],
   "smallSizedPackages": [
     {
-      "packageID": 4,
+      "packageID": "4",
       "ownerName": "testName",
       "content": "card board boxes",
       "size": "small",
@@ -47,7 +47,7 @@
   ],
   "importHistory": [
     {
-      "packageID": 1,
+      "packageID": "1",
       "ownerName": "testName",
       "content": "dog food",
       "size": "large",
@@ -60,7 +60,7 @@
       "IsInWarehouse": false
     },
     {
-      "packageID": 2,
+      "packageID": "2",
       "ownerName": "testName",
       "content": "bottles",
       "size": "large",
@@ -73,7 +73,7 @@
       "IsInWarehouse": false
     },
     {
-      "packageID": 3,
+      "packageID": "3",
       "ownerName": "testName",
       "content": "cans",
       "size": "medium",
@@ -86,7 +86,7 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 4,
+      "packageID": "4",
       "ownerName": "testName",
       "content": "card board boxes",
       "size": "small",
@@ -99,7 +99,7 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 5,
+      "packageID": "5",
       "ownerName": "testName",
       "content": "coca Cola",
       "size": "large",
@@ -114,7 +114,7 @@
   ],
   "exportHistory": [
     {
-      "packageID": 1,
+      "packageID": "1",
       "ownerName": "testName",
       "content": "dog food",
       "size": "large",
@@ -127,7 +127,7 @@
       "IsInWarehouse": false
     },
     {
-      "packageID": 2,
+      "packageID": "2",
       "ownerName": "testName",
       "content": "bottles",
       "size": "large",

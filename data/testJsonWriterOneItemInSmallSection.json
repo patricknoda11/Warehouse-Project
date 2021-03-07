@@ -6,7 +6,7 @@
   ],
   "smallSizedPackages": [
     {
-      "packageID": 3,
+      "packageID": "3",
       "ownerName": "testName",
       "content": "cans",
       "size": "small",
@@ -21,7 +21,7 @@
   ],
   "importHistory": [
     {
-      "packageID": 1,
+      "packageID": "1",
       "ownerName": "testName",
       "content": "dog food",
       "size": "large",
@@ -34,7 +34,7 @@
       "IsInWarehouse": false
     },
     {
-      "packageID": 2,
+      "packageID": "2",
       "ownerName": "testName",
       "content": "bottles",
       "size": "large",
@@ -47,7 +47,7 @@
       "IsInWarehouse": false
     },
     {
-      "packageID": 3,
+      "packageID": "3",
       "ownerName": "testName",
       "content": "cans",
       "size": "small",
@@ -62,7 +62,7 @@
   ],
   "exportHistory": [
     {
-      "packageID": 1,
+      "packageID": "1",
       "ownerName": "testName",
       "content": "dog food",
       "size": "large",
@@ -75,7 +75,7 @@
       "IsInWarehouse": false
     },
     {
-      "packageID": 2,
+      "packageID": "2",
       "ownerName": "testName",
       "content": "bottles",
       "size": "large",

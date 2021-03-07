@@ -2,7 +2,7 @@
   "warehouseName": "My Warehouse",
   "largeSizedPackages": [
     {
-      "packageID": 7,
+      "packageID": "7",
       "ownerName": "testName",
       "content": "coca Cola",
       "size": "large",
@@ -15,7 +15,7 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 8,
+      "packageID": "8",
       "ownerName": "testName",
       "content": "dog Food",
       "size": "large",
@@ -30,7 +30,7 @@
   ],
   "mediumSizedPackages": [
     {
-      "packageID": 3,
+      "packageID": "3",
       "ownerName": "testName",
       "content": "cans",
       "size": "medium",
@@ -43,7 +43,7 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 4,
+      "packageID": "4",
       "ownerName": "testName",
       "content": "cat foods",
       "size": "medium",
@@ -58,7 +58,7 @@
   ],
   "smallSizedPackages": [
     {
-      "packageID": 5,
+      "packageID": "5",
       "ownerName": "testName",
       "content": "card board boxes",
       "size": "small",
@@ -71,7 +71,7 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 6,
+      "packageID": "6",
       "ownerName": "testName",
       "content": "cans",
       "size": "small",
@@ -86,7 +86,7 @@
   ],
   "importHistory": [
     {
-      "packageID": 1,
+      "packageID": "1",
       "ownerName": "testName",
       "content": "dog food",
       "size": "large",
@@ -112,7 +112,7 @@
       "IsInWarehouse": false
     },
     {
-      "packageID": 3,
+      "packageID": "3",
       "ownerName": "testName",
       "content": "cans",
       "size": "medium",
@@ -125,7 +125,7 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 4,
+      "packageID": "4",
       "ownerName": "testName",
       "content": "cat foods",
       "size": "medium",
@@ -138,7 +138,7 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 5,
+      "packageID": "5",
       "ownerName": "testName",
       "content": "card board boxes",
       "size": "small",
@@ -151,7 +151,7 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 6,
+      "packageID": "6",
       "ownerName": "testName",
       "content": "cans",
       "size": "small",
@@ -164,7 +164,7 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 7,
+      "packageID": "7",
       "ownerName": "testName",
       "content": "coca Cola",
       "size": "large",
@@ -177,7 +177,7 @@
       "IsInWarehouse": true
     },
     {
-      "packageID": 8,
+      "packageID": "8",
       "ownerName": "testName",
       "content": "dog Food",
       "size": "large",
@@ -192,7 +192,7 @@
   ],
   "exportHistory": [
     {
-      "packageID": 1,
+      "packageID": "1",
       "ownerName": "testName",
       "content": "dog food",
       "size": "large",
@@ -205,7 +205,7 @@
       "IsInWarehouse": false
     },
     {
-      "packageID": 2,
+      "packageID": "2",
       "ownerName": "testName",
       "content": "bottles",
       "size": "large",
