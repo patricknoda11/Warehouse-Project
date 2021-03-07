@@ -126,6 +126,12 @@ public class Warehouse {
         this.warehouseName = name;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the number of packages in inventory
+    public void setNumberPackagesInInventory(int value) {
+        this.numberPackagesInInventory = value;
+    }
+
     // EFFECTS: returns warehouse represented as a JSON object
     public JSONObject convertToJsonObject() {
         JSONObject jsonObject = new JSONObject();
@@ -139,6 +145,7 @@ public class Warehouse {
         return jsonObject;
     }
 
+    // EFFECTS:
     private JSONArray addListToJsonObject(List<Package> packageList) {
         JSONArray jsonArray = new JSONArray();
 
@@ -148,7 +155,41 @@ public class Warehouse {
         return jsonArray;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds package to import history
+    public void addToImportHistory(Package p) {
+        this.importHistory.add(p);
+    }
 
+    // MODIFIES: this
+    // EFFECTS: adds package to export history
+    public void addToExportHistory(Package p) {
+        this.exportHistory.add(p);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds package to all packages available in inventory
+    public void addToAllPackagesAvailableInInventory(Package p) {
+        this.allPackagesAvailableInInventory.add(p);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds package to large section
+    public void addPackageToLargeSizedPackages(Package p) {
+        this.largeSizedPackages.add(p);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds package to medium section
+    public void addPackageToMediumSizedPackages(Package p) {
+        this.mediumSizedPackages.add(p);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds package to small section
+    public void addPackageToSmallSizedPackages(Package p) {
+        this.smallSizedPackages.add(p);
+    }
 
     // getters
     public int getExportHistorySize() {

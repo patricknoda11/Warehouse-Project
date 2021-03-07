@@ -1,9 +1,8 @@
 package persistence;
 
 import model.Package;
-import model.Warehouse;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonTest {
 

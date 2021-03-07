@@ -1,15 +1,1 @@
-{
-  "warehouseName": "My Warehouse",
-  "largeSizedPackages": [
-  ],
-  "mediumSizedPackages": [
-  ],
-  "smallSizedPackages": [
-  ],
-  "importHistory": [
-  ],
-  "exportHistory": [
-  ],
-  "numberPackagesInInventory": 0
-}
-
+{"smallSizedPackages":[],"numberPackagesInInventory":0,"exportHistory":[],"warehouseName":"Shoreline Warehousing","largeSizedPackages":[],"importHistory":[],"mediumSizedPackages":[]}

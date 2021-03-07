@@ -151,7 +151,7 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(2, testWarehouse.getExportHistory().size());
             // check if package organized into correct size section
             assertEquals(1, testWarehouse.getLargeSizedPackages().size());
-            assertEquals(1, testWarehouse.getMediumSizedPackages());
+            assertEquals(1, testWarehouse.getMediumSizedPackages().size());
             assertEquals(1, testWarehouse.getSmallSizedPackages().size());
             // check if package details in inventory correctly read and loaded
             checkInventoryPackageDetails(testWarehouse);
@@ -161,17 +161,17 @@ public class JsonReaderTest extends JsonTest {
     }
 
     private void checkInventoryPackageDetails(Warehouse testWarehouse) {
-        checkPackageDetails(testWarehouse.getAllPackagesAvailableInInventory().get(0),
+        checkPackageDetails(testWarehouse.getAllPackagesAvailableInInventory().get(1),
                 "3", "testName", "cans", "medium", "6045009091",
                 "1234567_23rd_ave_Vancouver_Canada_V1ALQ3", "8 Feb, 2021 15:56:32",
                 "has not been exported yet","has not been exported yet",
                 false, true);
-        checkPackageDetails(testWarehouse.getAllPackagesAvailableInInventory().get(1),
+        checkPackageDetails(testWarehouse.getAllPackagesAvailableInInventory().get(2),
                 "4", "testName", "card board boxes", "small", "6045009091",
                 "1234567_23rd_ave_Vancouver_Canada_V1ALQ3", "20 Feb, 2021 15:56:32",
                 "has not been exported yet","has not been exported yet",
                 false, true);
-        checkPackageDetails(testWarehouse.getAllPackagesAvailableInInventory().get(2),
+        checkPackageDetails(testWarehouse.getAllPackagesAvailableInInventory().get(0),
                 "5", "testName", "coca Cola", "large", "6045009091",
                 "1234567_23rd_ave_Vancouver_Canada_V1ALQ3", "27 Feb, 2021 15:56:32",
                 "has not been exported yet","has not been exported yet",
@@ -192,7 +192,7 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(2, testWarehouse.getExportHistory().size());
             // check if package organized into correct size section
             assertEquals(2, testWarehouse.getLargeSizedPackages().size());
-            assertEquals(2, testWarehouse.getMediumSizedPackages());
+            assertEquals(2, testWarehouse.getMediumSizedPackages().size());
             assertEquals(2, testWarehouse.getSmallSizedPackages().size());
         } catch (Exception e) {
             fail("Exception should not pass");

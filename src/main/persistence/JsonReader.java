@@ -49,15 +49,84 @@ public class JsonReader {
 
     // EFFECTS: Returns Warehouse data from JSON object
     private Warehouse convertJsonObjectToWarehouse(JSONObject jsonObject) {
-        String warehouseName = jsonObject.getString("name");
+        String warehouseName = jsonObject.getString("warehouseName");
+        int inventoryCount = jsonObject.getInt("numberPackagesInInventory");
         Warehouse warehouse = new Warehouse(warehouseName);
-        jsonObjectToImportHistory(jsonObject, warehouse);
-        jsonObjectToExportHistory(jsonObject, warehouse);
+        warehouse.setWarehouseName(warehouseName);
+        warehouse.setNumberPackagesInInventory(inventoryCount);
+        addPackagesToLargeSizedPackages(jsonObject, warehouse);
+        addPackagesToMediumSizedPackages(jsonObject, warehouse);
+        addPackagesToSmallSizedPackages(jsonObject, warehouse);
+        addPackagesToImportHistory(jsonObject, warehouse);
+        addPackagesToExportHistory(jsonObject, warehouse);
+
         return warehouse;
     }
 
+    private void addPackagesToLargeSizedPackages(JSONObject jsonObject, Warehouse warehouse) {
+        JSONArray largeSizedPackages = jsonObject.getJSONArray("largeSizedPackages");
+        for (Object o : largeSizedPackages) {
+            JSONObject jo = (JSONObject) o;
+            String ownerName = jo.getString("ownerName");
+            String ownerAddress = jo.getString("ownerAddress");
+            String ownerPhoneNumber = jo.getString("ownerPhoneNumber");
+            String content = jo.getString("content");
+            String size = jo.getString("size");
+            String id = jo.getString("packageID");
+            Package p = new Package(ownerName, ownerAddress, ownerPhoneNumber, content, size, id);
+            p.setDateAndTimeImportedIntoWarehouse(jo.getString("dateImportedIntoWarehouse"));
+            p.setDateAndTimeExportedFromWarehouse(jo.getString("dateExportedFromWarehouse"));
+            p.setAddressExportedTo(jo.getString("addressExportedTo"));
+            p.setHasBeenExportedFromWarehouse(jo.getBoolean("hasBeenExportedFromWarehouse"));
+            p.setIsInWarehouse(jo.getBoolean("IsInWarehouse"));
+            warehouse.addPackageToLargeSizedPackages(p);
+            warehouse.addToAllPackagesAvailableInInventory(p);
+        }
+    }
 
-    private void jsonObjectToImportHistory(JSONObject jsonObject, Warehouse warehouse) {
+    private void addPackagesToMediumSizedPackages(JSONObject jsonObject, Warehouse warehouse) {
+        JSONArray mediumSizedPackages = jsonObject.getJSONArray("mediumSizedPackages");
+        for (Object o : mediumSizedPackages) {
+            JSONObject jo = (JSONObject) o;
+            String ownerName = jo.getString("ownerName");
+            String ownerAddress = jo.getString("ownerAddress");
+            String ownerPhoneNumber = jo.getString("ownerPhoneNumber");
+            String content = jo.getString("content");
+            String size = jo.getString("size");
+            String id = jo.getString("packageID");
+            Package p = new Package(ownerName, ownerAddress, ownerPhoneNumber, content, size, id);
+            p.setDateAndTimeImportedIntoWarehouse(jo.getString("dateImportedIntoWarehouse"));
+            p.setDateAndTimeExportedFromWarehouse(jo.getString("dateExportedFromWarehouse"));
+            p.setAddressExportedTo(jo.getString("addressExportedTo"));
+            p.setHasBeenExportedFromWarehouse(jo.getBoolean("hasBeenExportedFromWarehouse"));
+            p.setIsInWarehouse(jo.getBoolean("IsInWarehouse"));
+            warehouse.addPackageToMediumSizedPackages(p);
+            warehouse.addToAllPackagesAvailableInInventory(p);
+        }
+    }
+
+    private void addPackagesToSmallSizedPackages(JSONObject jsonObject, Warehouse warehouse) {
+        JSONArray smallSizedPackages = jsonObject.getJSONArray("smallSizedPackages");
+        for (Object o : smallSizedPackages) {
+            JSONObject jo = (JSONObject) o;
+            String ownerName = jo.getString("ownerName");
+            String ownerAddress = jo.getString("ownerAddress");
+            String ownerPhoneNumber = jo.getString("ownerPhoneNumber");
+            String content = jo.getString("content");
+            String size = jo.getString("size");
+            String id = jo.getString("packageID");
+            Package p = new Package(ownerName, ownerAddress, ownerPhoneNumber, content, size, id);
+            p.setDateAndTimeImportedIntoWarehouse(jo.getString("dateImportedIntoWarehouse"));
+            p.setDateAndTimeExportedFromWarehouse(jo.getString("dateExportedFromWarehouse"));
+            p.setAddressExportedTo(jo.getString("addressExportedTo"));
+            p.setHasBeenExportedFromWarehouse(jo.getBoolean("hasBeenExportedFromWarehouse"));
+            p.setIsInWarehouse(jo.getBoolean("IsInWarehouse"));
+            warehouse.addPackageToSmallSizedPackages(p);
+            warehouse.addToAllPackagesAvailableInInventory(p);
+        }
+    }
+
+    private void addPackagesToImportHistory(JSONObject jsonObject, Warehouse warehouse) {
         JSONArray importHistory = jsonObject.getJSONArray("importHistory");
         for (Object o : importHistory) {
             JSONObject jo = (JSONObject) o;
@@ -73,11 +142,11 @@ public class JsonReader {
             p.setAddressExportedTo(jo.getString("addressExportedTo"));
             p.setHasBeenExportedFromWarehouse(jo.getBoolean("hasBeenExportedFromWarehouse"));
             p.setIsInWarehouse(jo.getBoolean("IsInWarehouse"));
-            warehouse.importPackage(p);
+            warehouse.addToImportHistory(p);
         }
     }
 
-    private void jsonObjectToExportHistory(JSONObject jsonObject, Warehouse warehouse) {
+    private void addPackagesToExportHistory(JSONObject jsonObject, Warehouse warehouse) {
         JSONArray exportHistory = jsonObject.getJSONArray("exportHistory");
         for (Object o : exportHistory) {
             JSONObject jo = (JSONObject) o;
@@ -93,13 +162,13 @@ public class JsonReader {
             p.setAddressExportedTo(jo.getString("addressExportedTo"));
             p.setHasBeenExportedFromWarehouse(jo.getBoolean("hasBeenExportedFromWarehouse"));
             p.setIsInWarehouse(jo.getBoolean("IsInWarehouse"));
-            warehouse.exportPackage(p, p.getAddressExportedTo());
+            warehouse.addToExportHistory(p);
         }
     }
 
     // getters
     public String getSaveLocation() {
-        return null;
+        return this.saveLocation;
     }
 
 }

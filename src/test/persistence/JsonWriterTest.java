@@ -5,6 +5,8 @@ import model.Warehouse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -20,19 +22,31 @@ public class JsonWriterTest extends JsonTest {
 
     @BeforeEach
     public void setUp() {
+        resetJsonWriterEmptyInventory();
         updatedWarehouse = new Warehouse("Shoreline Warehousing");
         testPackage1 = new Package("Miranda Williams", "98213 36 ave, Toronto, Canada, VW2 1S7",
-                "7072134567", "Garden Tools", "Medium", "9");
+                "7072134567", "Garden Tools", "medium", "9");
         testPackage2 = new Package("Benjamin Cruz", "10890 42 ave, Delta, Canada, L12 26K",
-                "7781899002", "Canned Salmon", "Large", "10");
+                "7781899002", "Canned Salmon", "large", "10");
         testPackage3 = new Package("Adam Chimney", "12879 108 st, Burnaby, Canada, C56 2A1",
-                "6045991426", "Facial Products", "Small", "11");
+                "6045991426", "Facial Products", "small", "11");
         testPackage4 = new Package("Camryn Miho", "17212 10 st, Kamloops, Canada, B28 1S2",
-                "6612139008", "Packaging Materials", "Medium", "12");
+                "6612139008", "Packaging Materials", "medium", "12");
         testPackage5 = new Package("Austin Chimes", "22222 22 st, Surrey, Canada, L21 R23",
-                "6045932113", "Cosmetics", "Small", "13");
+                "6045932113", "Cosmetics", "small", "13");
         testPackage6 = new Package("Meagan Rellington", "11111 10 st, Burnaby, Canada, L12 R23",
-                "778 219 9008", "Nutritional supplements", "Large", "14");
+                "778 219 9008", "Nutritional supplements", "large", "14");
+    }
+
+    private void resetJsonWriterEmptyInventory() {
+        try {
+            JsonWriter resetWriter =
+                    new JsonWriter("./data/testJsonWriterEmptyInventory.json");
+            Warehouse resetJsonWriterEmptyInventory = new Warehouse("My Warehouse");
+            resetWriter.saveToFile(resetJsonWriterEmptyInventory);
+        } catch (IOException e) {
+            fail();
+        }
     }
 
     @Test
@@ -47,10 +61,10 @@ public class JsonWriterTest extends JsonTest {
     public void testSaveToFileInvalidFile() {
         try {
             JsonWriter testJsonWriter =
-                    new JsonWriter("./data/ThisFileDoesNotExist");
+                    new JsonWriter("./data/Thi\0sFileDoesNotExist");
             testJsonWriter.saveToFile(updatedWarehouse);
             fail("The above line should throw error since the source file does not exist");
-        } catch (Exception e) {
+        } catch (IOException e) {
             // test passes!
         }
     }
@@ -76,6 +90,7 @@ public class JsonWriterTest extends JsonTest {
             assertEquals(0, retrievedWarehouse.getNumberPackagesInInventory());
             assertEquals(0, retrievedWarehouse.getImportHistorySize());
             assertEquals(0, retrievedWarehouse.getExportHistorySize());
+
         } catch (Exception e) {
             fail("Exception should not be thrown!");
         }

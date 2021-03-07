@@ -4,6 +4,7 @@ package persistence;
 import model.Warehouse;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
@@ -23,7 +24,8 @@ public class JsonWriter {
     //          converts Warehouse to JSON object and writes it to file
     //          closes printWriter after finished
     public void saveToFile(Warehouse wh) throws FileNotFoundException {
-        printWriter = new PrintWriter("saveLocation");
+        File file = new File(this.saveLocation);
+        printWriter = new PrintWriter(file);
         JSONObject jsonObject = wh.convertToJsonObject();
         printWriter.print(jsonObject);
         printWriter.close();
@@ -31,6 +33,6 @@ public class JsonWriter {
 
     // getters
     public String getSaveLocation() {
-        return null;
+        return this.saveLocation;
     }
 }
