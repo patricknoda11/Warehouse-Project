@@ -25,7 +25,7 @@ public class WarehouseTest {
 
     @BeforeEach
     public void setUp() {
-        testWarehouse = new Warehouse();
+        testWarehouse = new Warehouse("testName");
         testInventory = testWarehouse.getInventory();
         testLargeSizedPackages = testWarehouse.getLargeSizedPackages();
         testMediumSizedPackages = testWarehouse.getMediumSizedPackages();
@@ -34,17 +34,18 @@ public class WarehouseTest {
         testImportHistory = testWarehouse.getImportHistory();
 
         testPackage1 = new Package("Miranda Williams", "98213 36 ave, Toronto, Canada, VW2 1S7",
-                "7072134567", "Garden Tools", "Medium", "123");
+                "7072134567", "Garden Tools", "Medium", "1");
         testPackage2 = new Package("Benjamin Cruz", "10890 42 ave, Delta, Canada, L12 26K",
-                "7781899002", "Canned Salmon", "Large", "321");
+                "7781899002", "Canned Salmon", "Large", "2");
         testPackage3 = new Package("Adam Chimney", "12879 108 st, Burnaby, Canada, C56 2A1",
-                "6045991426", "Facial Products", "Small", "666");
+                "6045991426", "Facial Products", "Small", "3");
         testPackage4 = new Package("Camryn Miho", "17212 10 st, Kamloops, Canada, B28 1S2",
-                "6612139008", "Packaging Materials", "Medium", "aba");
+                "6612139008", "Packaging Materials", "Medium", "4");
     }
 
     @Test
     public void testWarehouseConstructor() {
+        assertEquals("testName", testWarehouse.getWarehouseName());
         assertEquals(3, testInventory.size());
         assertTrue(testInventory.contains(testLargeSizedPackages));
         assertTrue(testInventory.contains(testMediumSizedPackages));

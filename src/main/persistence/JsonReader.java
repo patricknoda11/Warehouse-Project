@@ -5,8 +5,9 @@ import model.Warehouse;
 //represents reader that reads JSON object of a Warehouse from file
 public class JsonReader {
 
-    // EFFECTS: instantiates JsonReader object
-    public JsonReader() {
+    // MODIFIES: this
+    // EFFECTS: instantiates JsonReader object, sets saved location to source
+    public JsonReader(String source) {
         // stub
     }
 
@@ -41,6 +42,9 @@ public class JsonReader {
         // stub
     }
 
-
+    // getters
+    public String getSaveLocation() {
+        return null;
+    }
 
 }

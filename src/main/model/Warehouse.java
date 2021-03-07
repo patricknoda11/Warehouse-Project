@@ -23,6 +23,7 @@ public class Warehouse {
     private final List<Package> importHistory;
     private final List<Package> allPackagesAvailableInInventory;
     private int numberPackagesInInventory;
+    private String warehouseName;
 
     // MODIFIES: this
     // EFFECTS: instantiates Warehouse
@@ -31,7 +32,7 @@ public class Warehouse {
     //          creates import history
     //          creates list with all available packages currently in inventory (from all sections)
     //          sets number of packages in inventory to 0
-    public Warehouse() {
+    public Warehouse(String name) {
         inventory = new ArrayList<>();
         largeSizedPackages = new ArrayList<>();
         mediumSizedPackages = new ArrayList<>();
@@ -40,7 +41,7 @@ public class Warehouse {
         importHistory = new ArrayList<>();
         allPackagesAvailableInInventory = new ArrayList<>();
         numberPackagesInInventory = 0;
-
+        warehouseName = name;
         inventory.add(largeSizedPackages);
         inventory.add(mediumSizedPackages);
         inventory.add(smallSizedPackages);
@@ -155,6 +156,10 @@ public class Warehouse {
 
     public List<Package> getAllPackagesAvailableInInventory() {
         return this.allPackagesAvailableInInventory;
+    }
+
+    public String getWarehouseName() {
+        return this.warehouseName;
     }
 }
 

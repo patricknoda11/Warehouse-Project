@@ -1,17 +1,20 @@
 package persistence;
 
 
+import model.Warehouse;
+
 // represents writer that saves Warehouse as JSON object onto file
 public class JsonWriter {
 
-    // EFFECTS: instantiates JsonWriter object
-    public JsonWriter() {
+    // MODIFIES: this
+    // EFFECTS: instantiates JsonWriter object, sets save location to source
+    public JsonWriter(String source) {
         // stub
     }
 
     // MODIFIES: this
     // EFFECTS:
-    public void saveToFile() {
+    public void saveToFile(Warehouse wh) {
         // stub
     }
 
@@ -32,5 +35,10 @@ public class JsonWriter {
     // EFFECTS: closes the writer
     private void terminateWriter() {
         // stub
+    }
+
+    // getters
+    public String getSaveLocation() {
+        return null;
     }
 }

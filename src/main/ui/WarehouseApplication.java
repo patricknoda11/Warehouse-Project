@@ -28,7 +28,7 @@ public class WarehouseApplication {
     //          sets the warehouse's is finished status to false (used to terminate application)
     //          sets package id count to 0
     private void initializeApplication() {
-        myWarehouse = new Warehouse();
+        myWarehouse = new Warehouse("My Warehouse");
         userInput = new Scanner(System.in);
         isFinished = false;
         newPackageIDCount = 0;

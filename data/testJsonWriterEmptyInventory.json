@@ -1,7 +1,15 @@
 {
-  "Warehouse Name": "test name",
-  "Warehouse Address": "test address",
-  "Warehouse Manager": "test manager",
-  "Warehouse Phone Number": "test phone number",
-  "Warehouse Inventory Items": []
+  "warehouseName": "My Warehouse",
+  "largeSizedPackages": [
+  ],
+  "mediumSizedPackages": [
+  ],
+  "smallSizedPackages": [
+  ],
+  "importHistory": [
+  ],
+  "exportHistory": [
+  ],
+  "numberPackagesInInventory": 0
 }
+

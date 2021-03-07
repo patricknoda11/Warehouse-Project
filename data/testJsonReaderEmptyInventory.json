@@ -1,13 +1,15 @@
 {
-    "largeSizedPackages": [
-    ],
-    "mediumSizedPackages": [
-    ],
-    "smallSizedPackages": [
-    ],
-    "importHistory": [
-    ],
-    "exportHistory": [
-    ]
+  "warehouseName": "My Warehouse",
+  "largeSizedPackages": [
+  ],
+  "mediumSizedPackages": [
+  ],
+  "smallSizedPackages": [
+  ],
+  "importHistory": [
+  ],
+  "exportHistory": [
+  ],
+  "numberPackagesInInventory": 0
 }
 
