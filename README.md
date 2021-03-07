@@ -22,11 +22,6 @@ potential limitations associated with a system of its type.
 - As a user, I want to be able to view details of all past imports and exports that have occurred
 - As a user, I want to be able to save changes of my warehouse inventory to file
 - As a user, I want to be able to load my warehouse inventory from file
-- As a user, when I start the application, I want to be prompted to save changes made to the warehouse inventory, and be given the option to save or
-not save to file 
-- As a user, when I start the application, I want to be prompted to load a previously saved warehouse inventory file
- 
-
 
 
 
