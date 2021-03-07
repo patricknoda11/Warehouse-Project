@@ -117,6 +117,12 @@ public class Warehouse {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets name of warehouse
+    public void setWarehouseName(String name) {
+        this.warehouseName = name;
+    }
+
     // getters
     public int getExportHistorySize() {
         return this.exportHistory.size();

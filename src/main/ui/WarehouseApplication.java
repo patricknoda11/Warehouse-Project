@@ -2,7 +2,10 @@ package ui;
 
 import model.Package;
 import model.Warehouse;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -11,8 +14,14 @@ import java.util.Scanner;
 
 // Warehouse management application
 public class WarehouseApplication {
+    private static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json";
+    private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
+    private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
+
     private Warehouse myWarehouse;
     private Scanner userInput;
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
     private int newPackageIDCount;       // keeps track of package id for new import packages to prevent duplicate id
     private boolean isFinished;
 
@@ -70,29 +79,29 @@ public class WarehouseApplication {
         System.out.println("\tTo remove a package from your inventory - type \"remove\"");
         System.out.println("\tTo view current inventory - type \"view\"");
         System.out.println("\tTo view a history of packages imported/exported - type \"history\"");
+        System.out.println("\tTo save changes to warehouse inventory - type \"save\"");
+        System.out.println("\tTo load a previously saved warehouse inventory - type \"load\"");
         System.out.println("\tTo exit - type \"exit\"\n");
     }
 
     // EFFECTS: processes user input and directs user to desired operation
     private void processMainMenuOptionsInput(String inputValue) {
-        switch (inputValue) {
-            case "add":
-                doPackageImport();
-                break;
-            case "remove":
-                doPackageExport();
-                break;
-            case "view":
-                printWarehouseInventory();
-                break;
-            case "history":
-                runApplicationViewHistoryMenu();
-                break;
-            case "exit":
-                exitApplication();
-                break;
-            default:
-                System.out.println("Invalid Entry Please try again\n");
+        if (inputValue.equals("add")) {
+            doPackageImport();
+        } else if (inputValue.equals("remove")) {
+            doPackageExport();
+        } else if (inputValue.equals("view")) {
+            printWarehouseInventory();
+        } else if (inputValue.equals("history")) {
+            runApplicationViewHistoryMenu();
+        } else if (inputValue.equals("save")) {
+            saveWarehouseInventoryToFile();
+        } else if (inputValue.equals("load")) {
+            loadWarehouseInventoryFromFile();
+        } else if (inputValue.equals("exit")) {
+            exitApplication();
+        } else {
+            System.out.println("Invalid Entry Please Try Again\n");
         }
     }
 
@@ -253,7 +262,7 @@ public class WarehouseApplication {
     private void runApplicationViewHistoryMenu() {
         String inputValue;
 
-        while (!isFinished) {
+        while (true) {
             displayHistoryOptions();
             inputValue = userInput.next();
             processHistoryOptionsInput(inputValue);
@@ -270,7 +279,7 @@ public class WarehouseApplication {
 
     // EFFECTS: processes user input and directs to desired operation in view history menu
     private void processHistoryOptionsInput(String inputValue) {
-        switch (inputValue) {
+        switch (inputValue.toLowerCase()) {
             case "import":
                 printImportHistory();
                 break;
@@ -316,12 +325,150 @@ public class WarehouseApplication {
     // MODIFIES: this
     // EFFECTS: saves changes made to Warehouse inventory on file
     private void saveWarehouseInventoryToFile() {
-        // stub
+        String inputValue;
+        boolean keepOperating = true;
+
+        while (keepOperating) {
+            displaySaveOptions();
+            inputValue = userInput.next();
+            keepOperating = processSaveOptionsInput(inputValue);
+        }
+    }
+
+    // EFFECTS: prints save menu options user can perform
+    private void displaySaveOptions() {
+        System.out.println("\nPlease select a file you would like to save changes to: ");
+        System.out.println("\tTo save changes to warehouseInventoryFile1 - type \"1\"");
+        System.out.println("\tTo save changes to warehouseInventoryFile2 - type \"2\"");
+        System.out.println("\tTo save changes to warehouseInventoryFile3 - type \"3\"");
+        System.out.println("\tTo return to the main menu - type \"return\"\n");
+    }
+
+    // EFFECTS: processes user input and directs to desired operation in save menu
+    private boolean processSaveOptionsInput(String inputValue) {
+        switch (inputValue.toLowerCase()) {
+            case "1":
+                jsonWriter = new JsonWriter(SOURCE_FILE_1);
+                processSaveSequence(SOURCE_FILE_1);
+                return false;
+            case "2":
+                jsonWriter = new JsonWriter(SOURCE_FILE_2);
+                processSaveSequence(SOURCE_FILE_2);
+                return false;
+            case "3":
+                jsonWriter = new JsonWriter(SOURCE_FILE_3);
+                processSaveSequence(SOURCE_FILE_3);
+                return false;
+            case "return":
+                return false;
+            default:
+                System.out.println("Invalid entry, please try again \n");
+                return true;
+        }
+    }
+
+    // EFFECTS: helper method for processSaveOptionsInput:
+    //              decides whether to rename warehouse
+    //              saves warehouse to file
+    //              prints confirmation letter
+    private void processSaveSequence(String sourceFile) {
+        nameWarehouse();
+        jsonWriter.saveToFile(myWarehouse);
+        System.out.println("Warehouse inventory has been saved to " + sourceFile);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gives myWarehouse a name
+    private void nameWarehouse() {
+        String inputValue;
+        boolean keepOperating = true;
+
+        while (keepOperating) {
+            displayNameWarehouseOptions();
+            inputValue = userInput.next();
+            keepOperating = processNameWarehouseInput(inputValue);
+        }
+    }
+
+    // EFFECTS: prints name warehouse options that the user can perform
+    private void displayNameWarehouseOptions() {
+        System.out.println("\nThe current name of your warehouse is: " + myWarehouse.getWarehouseName());
+        System.out.println("Would you like to change names?");
+        System.out.println("\tTo keep current warehouse name - type \"keep\"");
+        System.out.println("\tTo change warehouse name - type \"change\"");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes user input and directs to desired operation in name warehouse menu
+    private boolean processNameWarehouseInput(String inputValue) {
+        String input;
+        switch (inputValue.toLowerCase()) {
+            case "keep":
+                System.out.println("The current name: " + myWarehouse.getWarehouseName() + "has been kept");
+                return false;
+            case "change":
+                System.out.println("Please type in new warehouse name");
+                System.out.println("All spaces must be replaced with underscore");
+                System.out.println("Ex. My_Warehouse");
+                input = userInput.next();
+                myWarehouse.setWarehouseName(input);
+                System.out.println("New Warehouse name has been set to: " + myWarehouse.getWarehouseName());
+                return false;
+            default:
+                System.out.println("Invalid entry, please try again \n");
+                return true;
+        }
     }
 
     // EFFECTS: loads Warehouse inventory from file
     private void loadWarehouseInventoryFromFile() {
-        // stub
+        String inputValue;
+        boolean keepOperating = true;
+
+        while (keepOperating) {
+            displayLoadOptions();
+            inputValue = userInput.next();
+            keepOperating = processLoadOptionsInput(inputValue);
+        }
+    }
+
+    // EFFECTS: prints load menu options user can perform
+    private void displayLoadOptions() {
+        System.out.println("\nPlease select a file you would like to load warehouse inventory from: ");
+        System.out.println("\tTo load inventory from warehouseInventoryFile1 - type \"1\"");
+        System.out.println("\tTo load inventory from warehouseInventoryFile2 - type \"2\"");
+        System.out.println("\tTo load inventory from warehouseInventoryFile3 - type \"3\"");
+        System.out.println("\tTo return to the main menu - type \"return\"\n");
+    }
+
+    // EFFECTS: processes user input and directs to desired operation in load options menu
+    private boolean processLoadOptionsInput(String inputValue) {
+        switch (inputValue.toLowerCase()) {
+            case "1":
+                jsonReader = new JsonReader(SOURCE_FILE_1);
+                processLoadSequence(SOURCE_FILE_1);
+                return false;
+            case "2":
+                jsonReader = new JsonReader(SOURCE_FILE_2);
+                processLoadSequence(SOURCE_FILE_2);
+                return false;
+            case "3":
+                jsonReader = new JsonReader(SOURCE_FILE_3);
+                processLoadSequence(SOURCE_FILE_3);
+                return false;
+            case "return":
+                return false;
+            default:
+                System.out.println("Invalid entry, please try again \n");
+                return true;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads warehouse from file and prints confirmation statement
+    private void processLoadSequence(String sourceFile) {
+        myWarehouse = jsonReader.retrieveSavedWarehouseData();
+        System.out.println("Warehouse inventory previously saved in " + sourceFile + " has been loaded");
     }
 
     // MODIFIES: this
