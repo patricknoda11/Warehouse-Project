@@ -263,11 +263,12 @@ public class WarehouseApplication {
     // EFFECTS: runs view history menu
     private void runApplicationViewHistoryMenu() {
         String inputValue;
+        boolean keepOperating = true;
 
-        while (true) {
+        while (keepOperating) {
             displayHistoryOptions();
             inputValue = userInput.next();
-            processHistoryOptionsInput(inputValue);
+            keepOperating = processHistoryOptionsInput(inputValue);
         }
     }
 
@@ -280,19 +281,20 @@ public class WarehouseApplication {
     }
 
     // EFFECTS: processes user input and directs to desired operation in view history menu
-    private void processHistoryOptionsInput(String inputValue) {
+    //          returns true if invalid input, otherwise returns false
+    private boolean processHistoryOptionsInput(String inputValue) {
         switch (inputValue.toLowerCase()) {
             case "import":
                 printImportHistory();
-                break;
+                return false;
             case "export":
                 printExportHistory();
-                break;
+                return false;
             case "return":
-                runApplicationMainMenu();
-                break;
+                return false;
             default:
                 System.out.println("Invalid entry, please try again \n");
+                return true;
         }
     }
 
