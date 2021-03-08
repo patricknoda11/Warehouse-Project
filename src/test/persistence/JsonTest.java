@@ -5,7 +5,7 @@ import model.Package;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonTest {
-
+    // EFFECTS: checks to see if package details was has correct values
     protected void checkPackageDetails(Package aPackage,
                                        String packageID,
                                        String ownerName,

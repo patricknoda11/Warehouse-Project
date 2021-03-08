@@ -3,6 +3,8 @@ package persistence;
 import model.Warehouse;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -22,7 +24,7 @@ public class JsonReaderTest extends JsonTest {
                     new JsonReader("./data/NoSuchFileExist");
             Warehouse testWarehouse = testJsonReader.retrieveSavedWarehouseData();
             fail("Exception was expected");
-        } catch (Exception e) {
+        } catch (IOException e) {
             // test passes if exception is thrown"
         }
     }
@@ -39,7 +41,7 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(0, testWarehouse.getNumberPackagesInInventory());
             assertEquals(0, testWarehouse.getImportHistory().size());
             assertEquals(0, testWarehouse.getExportHistory().size());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not pass");
         }
     }
@@ -58,7 +60,7 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(2, testWarehouse.getExportHistory().size());
             // check if package organized into correct size section
             assertEquals(1, testWarehouse.getLargeSizedPackages().size());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not pass");
         }
     }
@@ -80,7 +82,7 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(1, testWarehouse.getMediumSizedPackages().size());
             // check if package details in import history correctly read and loaded
             checkImportHistoryPackageDetails(testWarehouse);
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not pass");
         }
     }
@@ -120,7 +122,7 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(1, testWarehouse.getSmallSizedPackages().size());
             // check if package details in export history correctly read and loaded
             checkExportHistoryPackageDetails(testWarehouse);
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not pass");
         }
     }
@@ -157,7 +159,7 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(1, testWarehouse.getSmallSizedPackages().size());
             // check if package details in inventory correctly read and loaded
             checkInventoryPackageDetails(testWarehouse);
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not pass");
         }
     }
@@ -197,7 +199,7 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(2, testWarehouse.getLargeSizedPackages().size());
             assertEquals(2, testWarehouse.getMediumSizedPackages().size());
             assertEquals(2, testWarehouse.getSmallSizedPackages().size());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not pass");
         }
     }

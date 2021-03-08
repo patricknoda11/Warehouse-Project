@@ -4,6 +4,8 @@ import model.Package;
 import model.Warehouse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,12 +39,14 @@ public class JsonWriterTest extends JsonTest {
                 "778 219 9008", "Nutritional supplements", "large", "14");
     }
 
+    // EFFECTS: resets ./data/TestJsonWriterEmptyInventory.json; ./data/TestJsonWriterMultipleItemsInEachSizeSection();
+    //          and ./data/TestJsonWriterONeItemInEachSizeSection.json files to original state after each test method
     private void resetJsonWriterSampleData() {
         resetTestJsonWriterEmptyInventory();
         resetTestJsonWriterMultipleItemsInEachSizeSection();
         resetTestJsonWriterOneItemInEachSizeSection();
     }
-    // resets ./data/testJsonWriterEmptyInventory.json by replacing content with reset copy
+    // EFFECTS: resets ./data/testJsonWriterEmptyInventory.json by replacing content with reset copy
     private void resetTestJsonWriterEmptyInventory() {
         try {
             JsonWriter oldWriter =
@@ -57,7 +61,7 @@ public class JsonWriterTest extends JsonTest {
             fail();
         }
     }
-    // resets ./data/testJsonWriterMultipleItemsInEachSizeSection.json by replacing content with reset copy
+    // EFFECTS: resets ./data/testJsonWriterMultipleItemsInEachSizeSection.json by replacing content with reset copy
     public void resetTestJsonWriterMultipleItemsInEachSizeSection() {
         try {
             JsonWriter oldWriter =
@@ -73,7 +77,7 @@ public class JsonWriterTest extends JsonTest {
         }
     }
 
-    // resets ./data/testJsonWriterItemInEachSizeSection.json by replacing content with reset copy
+    // EFFECTS: resets ./data/testJsonWriterItemInEachSizeSection.json by replacing content with reset copy
     public void resetTestJsonWriterOneItemInEachSizeSection() {
         try {
             JsonWriter oldWriter =
@@ -130,8 +134,7 @@ public class JsonWriterTest extends JsonTest {
             assertEquals(0, retrievedWarehouse.getNumberPackagesInInventory());
             assertEquals(0, retrievedWarehouse.getImportHistorySize());
             assertEquals(0, retrievedWarehouse.getExportHistorySize());
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
     }
@@ -154,7 +157,7 @@ public class JsonWriterTest extends JsonTest {
             // check if history updated properly
             assertEquals(1, retrievedWarehouse.getImportHistorySize());
             assertEquals(0, retrievedWarehouse.getExportHistorySize());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
     }
@@ -177,7 +180,7 @@ public class JsonWriterTest extends JsonTest {
             // check if history updated properly
             assertEquals(1, retrievedWarehouse.getImportHistorySize());
             assertEquals(0, retrievedWarehouse.getExportHistorySize());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
     }
@@ -200,7 +203,7 @@ public class JsonWriterTest extends JsonTest {
             // check if history updated properly
             assertEquals(1, retrievedWarehouse.getImportHistorySize());
             assertEquals(0, retrievedWarehouse.getExportHistorySize());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
     }
@@ -227,7 +230,7 @@ public class JsonWriterTest extends JsonTest {
             // check if history updated properly
             assertEquals(3, retrievedWarehouse.getImportHistorySize());
             assertEquals(0, retrievedWarehouse.getExportHistorySize());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
     }
@@ -257,7 +260,7 @@ public class JsonWriterTest extends JsonTest {
             // check if history updated properly
             assertEquals(6, retrievedWarehouse.getImportHistorySize());
             assertEquals(0, retrievedWarehouse.getExportHistorySize());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
     }
@@ -292,7 +295,7 @@ public class JsonWriterTest extends JsonTest {
             // check if history updated properly
             assertEquals(11, updatedWarehouse.getImportHistorySize());
             assertEquals(2, updatedWarehouse.getExportHistorySize());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
     }
@@ -323,7 +326,7 @@ public class JsonWriterTest extends JsonTest {
             // check if history updated properly
             assertEquals(11, updatedWarehouse.getImportHistorySize());
             assertEquals(4, updatedWarehouse.getExportHistorySize());
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
     }
