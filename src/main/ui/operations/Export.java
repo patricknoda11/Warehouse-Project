@@ -1,6 +1,6 @@
 package ui.operations;
 
-import exceptions.PackageNotFoundException;
+import exceptions.PackageNotFoundInInventoryException;
 import model.Package;
 import model.Warehouse;
 
@@ -61,7 +61,7 @@ public class Export implements ActionListener {
                 communicatorText.setText("The package has been successfully shipped to: "
                         + packageToExport.getAddressExportedTo()
                         + "The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory() + " items");
-            } catch (PackageNotFoundException ex) {
+            } catch (PackageNotFoundInInventoryException ex) {
                 communicatorText.setText("Package ID indicated is Not Available to Ship."
                         + " Please try again. (Ex: 1, 2, 3)");
             } finally {
@@ -70,7 +70,7 @@ public class Export implements ActionListener {
         }
     }
 
-    private void choosePackageToExport() throws PackageNotFoundException {
+    private void choosePackageToExport() throws PackageNotFoundInInventoryException {
         List<Package> availablePackagesToExport = this.myWarehouse.getAllPackagesAvailableInInventory();
         for (Package p : availablePackagesToExport) {
             String packageID = p.getPackageID();
@@ -79,7 +79,7 @@ public class Export implements ActionListener {
                 return;
             }
         }
-        throw new PackageNotFoundException("The Indicated Package ID is Not Available to be Shipped");
+        throw new PackageNotFoundInInventoryException("The Indicated Package ID is Not Available to be Shipped");
     }
 }
 
