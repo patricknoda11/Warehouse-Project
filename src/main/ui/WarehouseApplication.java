@@ -4,6 +4,7 @@ import model.Package;
 import model.Warehouse;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import ui.operations.Export;
 import ui.operations.Import;
 
 import javax.swing.*;
@@ -201,6 +202,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
                 importPackageDialog();
                 break;
             case ("Export"):
+                exportPackageDialog();
                 break;
             case ("View History"):
                 break;
@@ -342,6 +344,21 @@ public class WarehouseApplication extends JFrame implements ActionListener {
                     + packageToExport.getAddressExportedTo());
             System.out.println("The warehouse inventory now has: "
                     + this.myWarehouse.getNumberPackagesInInventory() + " items \n");
+        }
+    }
+
+    private void exportPackageDialog() {
+        int packagesInInventory = this.myWarehouse.getNumberPackagesInInventory();
+        if (packagesInInventory == 0) {
+            communicatorText.setText("Warehouse inventory has no packages to export");
+        } else {
+            JDialog exportDialog = new JDialog(this, "Export Package");
+            Export newExport = new Export(this.myWarehouse, exportDialog, communicatorText);
+            exportDialog.setLayout(new GridLayout(3,2));
+            newExport.implementFunctionality();
+            exportDialog.setSize(750, 150);
+            exportDialog.setLocationRelativeTo(null);
+            exportDialog.setVisible(true);
         }
     }
 

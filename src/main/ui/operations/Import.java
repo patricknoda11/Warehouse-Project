@@ -8,52 +8,52 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Import implements ActionListener {
-    Warehouse myWarehouse;
-    JDialog importDialog;
-    JLabel communicatorText;
-    Package newPackageToImport;
-    JLabel nameField;
-    JTextField ownerName;
-    JLabel addressField;
-    JTextField ownerAddress;
-    JLabel phoneNumberField;
-    JTextField ownerPhoneNumber;
-    JLabel contentField;
-    JTextField packageContent;
-    JLabel sizeField;
-    JTextField packageSize;
-    JButton cancelButton;
-    JButton enterButton;
+    private Warehouse myWarehouse;
+    private JDialog importDialog;
+    private JLabel communicatorText;
+    private Package newPackageToImport;
+    private JLabel ownerName;
+    private JTextField ownerNameField;
+    private JLabel ownerAddress;
+    private JTextField addressField;
+    private JLabel ownerPhoneNumber;
+    private JTextField phoneNumberField;
+    private JLabel packageContent;
+    private JTextField packageContentField;
+    private JLabel packageSize;
+    private JTextField packageSizeField;
+    private JButton cancelButton;
+    private JButton enterButton;
 
     public Import(Warehouse myWarehouse, JDialog importDialog, JLabel communicatorText) {
         this.myWarehouse = myWarehouse;
         this.importDialog = importDialog;
         this.communicatorText = communicatorText;
-        nameField = new JLabel("Owner Name: ");
-        ownerName = new JTextField();
-        addressField = new JLabel("Owner Address: ");
-        ownerAddress = new JTextField();
-        phoneNumberField = new JLabel("Owner Phone Number: ");
-        ownerPhoneNumber = new JTextField();
-        contentField = new JLabel("Package Content: ");
-        packageContent = new JTextField();
-        sizeField = new JLabel("Package Size: \n Please enter one of large, medium or small");
-        packageSize = new JTextField();
+        ownerName = new JLabel("Owner Name: ");
+        ownerNameField = new JTextField();
+        ownerAddress = new JLabel("Owner Address: ");
+        addressField = new JTextField();
+        ownerPhoneNumber = new JLabel("Owner Phone Number: ");
+        phoneNumberField = new JTextField();
+        packageContent = new JLabel("Package Content: ");
+        packageContentField = new JTextField();
+        packageSize = new JLabel("Package Size: \n Please enter one of large, medium or small");
+        packageSizeField = new JTextField();
         cancelButton = new JButton("Cancel");
         enterButton = new JButton("Enter");
     }
 
     public void implementFunctionality() {
-        importDialog.add(nameField);
         importDialog.add(ownerName);
-        importDialog.add(addressField);
+        importDialog.add(ownerNameField);
         importDialog.add(ownerAddress);
-        importDialog.add(phoneNumberField);
+        importDialog.add(addressField);
         importDialog.add(ownerPhoneNumber);
-        importDialog.add(contentField);
+        importDialog.add(phoneNumberField);
         importDialog.add(packageContent);
-        importDialog.add(sizeField);
+        importDialog.add(packageContentField);
         importDialog.add(packageSize);
+        importDialog.add(packageSizeField);
         importDialog.add(cancelButton);
         importDialog.add(enterButton);
         cancelButton.addActionListener(this);
@@ -64,22 +64,25 @@ public class Import implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         if (actionCommand.equals("Cancel")) {
-            System.out.println();
+            importDialog.dispose();
         }
         if (actionCommand.equals("Enter")) {
-            int packageID = myWarehouse.getNumberPackagesInInventory() + 1;
-            newPackageToImport = new Package(ownerName.getText(),
-                    ownerAddress.getText(),
-                    ownerPhoneNumber.getText(),
-                    packageContent.getText(),
-                    packageSize.getText(),
-                    String.valueOf(packageID));
-
+            generateNewPackageToImport();
             myWarehouse.importPackage(newPackageToImport);
             communicatorText.setText("Package " + newPackageToImport.getPackageID()
                     + " has been stored in the inventory."
                     + " The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory() + " items");
             importDialog.dispose();
         }
+    }
+
+    private void generateNewPackageToImport() {
+        int packageID = myWarehouse.getNumberPackagesInInventory() + 1;
+        newPackageToImport = new Package(ownerNameField.getText(),
+                addressField.getText(),
+                phoneNumberField.getText(),
+                packageContentField.getText(),
+                packageSizeField.getText(),
+                String.valueOf(packageID));
     }
 }
