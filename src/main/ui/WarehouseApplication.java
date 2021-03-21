@@ -5,19 +5,28 @@ import model.Warehouse;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
 // Warehouse management application
-public class WarehouseApplication {
+public class WarehouseApplication extends JFrame implements ActionListener {
     private static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json";
     private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
     private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
+    private static final int GUI_WIDTH = 1000;
+    private static final int GUI_HEIGHT = 700;
+    private static final Color GUI_BACKGROUND_COLOUR = new Color(184, 216, 232);
+    private static final int TIMER_REFRESH = 1000;
 
     private Warehouse myWarehouse;
     private Scanner userInput;
@@ -26,10 +35,12 @@ public class WarehouseApplication {
     private int newPackageIDCount;       // keeps track of package id for new import packages to prevent duplicate id
     private boolean isFinished;
 
+    private JPanel currentInventoryDisplay;
 
     // EFFECTS: instantiates WarehouseApplication
     public WarehouseApplication() {
         initializeApplication();
+        initializeGUI();
         runApplicationMainMenu();
     }
 
@@ -42,6 +53,50 @@ public class WarehouseApplication {
         userInput = new Scanner(System.in);
         isFinished = false;
         newPackageIDCount = 0;
+    }
+
+    private void initializeGUI() {
+        setTitle("Warehouse Management");
+        setLayout(new BorderLayout());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultLookAndFeelDecorated(true);
+        setSize(GUI_WIDTH,GUI_HEIGHT);
+        setLocationRelativeTo(null); // sets the location of the window to the center of screen
+
+        JPanel mainUpperPanel = new JPanel();
+        JPanel mainBottomPanel = new JPanel();
+        mainUpperPanel.setBackground(GUI_BACKGROUND_COLOUR);
+        mainBottomPanel.setLayout(new GridLayout(0,3));
+        add(mainUpperPanel, BorderLayout.NORTH);
+        add(mainBottomPanel, BorderLayout.CENTER);
+
+        addWelcomeMenu(mainUpperPanel);
+        addMainMenuOptions(mainBottomPanel);
+        setVisible(true);
+    }
+
+    private void addWelcomeMenu(JPanel mainUpperPanel) {
+        JLabel welcomeStatement = new JLabel();
+        mainUpperPanel.add(welcomeStatement);
+        DateTimeFormatter newDateFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm");
+
+        Timer timer = new Timer(TIMER_REFRESH, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                String currentDateAndTime = newDateFormat.format(LocalDateTime.now());
+                int timeOfDay = LocalTime.now().getHour();
+
+                if (0 <= timeOfDay && timeOfDay < 12) {
+                    welcomeStatement.setText("Good Morning, today is " + currentDateAndTime + " AM");
+                } else if (12 <= timeOfDay && timeOfDay < 18) {
+                    welcomeStatement.setText("Good Afternoon, today is " + currentDateAndTime + "PM");
+                } else {
+                    welcomeStatement.setText("Good Evening, today is " + currentDateAndTime + " PM");
+                }
+            }
+        });
+
+        timer.start();
     }
 
     // EFFECTS: runs warehouse application's main menu
@@ -83,6 +138,68 @@ public class WarehouseApplication {
         System.out.println("\tTo save changes to warehouse inventory - type \"save\"");
         System.out.println("\tTo load a previously saved warehouse inventory - type \"load\"");
         System.out.println("\tTo exit - type \"exit\"\n");
+    }
+
+    private void addMainMenuOptions(JPanel mainBottomPanel) {
+        JPanel leftPanelOptions = new JPanel();
+        JPanel middlePanelOptions = new JPanel();
+        currentInventoryDisplay = new JPanel();
+        leftPanelOptions.setBackground(GUI_BACKGROUND_COLOUR);
+        middlePanelOptions.setBackground(GUI_BACKGROUND_COLOUR);
+
+        leftPanelOptions.setLayout(new GridLayout(2, 0));
+        middlePanelOptions.setLayout(new GridLayout(3,0));
+
+        initializeMainMenuButtons(leftPanelOptions, middlePanelOptions);
+        initializeCurrentInventoryDisplay();
+
+        mainBottomPanel.add(leftPanelOptions);
+        mainBottomPanel.add(middlePanelOptions);
+        mainBottomPanel.add(currentInventoryDisplay);
+    }
+
+    private void initializeMainMenuButtons(JPanel leftPanelOptions, JPanel middlePanelOptions) {
+        JButton importButton = new JButton("Import");
+        JButton exportButton = new JButton("Export");
+        JButton viewHistoryButton = new JButton("View History");
+        JButton saveButton = new JButton("Save Changes");
+        JButton loadButton = new JButton("Load Changes");
+
+        importButton.addActionListener(this);
+        exportButton.addActionListener(this);
+        viewHistoryButton.addActionListener(this);
+        saveButton.addActionListener(this);
+        loadButton.addActionListener(this);
+
+        leftPanelOptions.add(importButton);
+        leftPanelOptions.add(exportButton);
+        middlePanelOptions.add(viewHistoryButton);
+        middlePanelOptions.add(saveButton);
+        middlePanelOptions.add(loadButton);
+    }
+
+    private void initializeCurrentInventoryDisplay() {
+        JLabel currentInventory = new JLabel("There are currently no items in your inventory");
+        currentInventoryDisplay.add(currentInventory);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String actionEvent = e.getActionCommand();
+        Toolkit.getDefaultToolkit().beep();
+        switch (actionEvent) {
+            case ("Import"):
+                break;
+            case ("Export"):
+                break;
+            case ("View History"):
+                break;
+            case ("Save Changes"):
+                break;
+            case ("Load Changes"):
+                break;
+            default: break;
+        }
     }
 
     // EFFECTS: processes user input and directs user to desired operation
