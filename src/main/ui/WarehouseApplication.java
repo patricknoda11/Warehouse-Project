@@ -4,6 +4,7 @@ import model.Package;
 import model.Warehouse;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import ui.operations.Import;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +37,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     private boolean isFinished;
 
     private JPanel currentInventoryDisplay;
+    private JLabel communicatorText;
 
     // EFFECTS: instantiates WarehouseApplication
     public WarehouseApplication() {
@@ -52,7 +54,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         myWarehouse = new Warehouse("My Warehouse");
         userInput = new Scanner(System.in);
         isFinished = false;
-        newPackageIDCount = 0;
+        newPackageIDCount = 1;
     }
 
     private void initializeGUI() {
@@ -64,14 +66,21 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         setLocationRelativeTo(null); // sets the location of the window to the center of screen
 
         JPanel mainUpperPanel = new JPanel();
-        JPanel mainBottomPanel = new JPanel();
+        JPanel mainMiddlePanel = new JPanel();
+        JPanel communicator = new JPanel();
+
         mainUpperPanel.setBackground(GUI_BACKGROUND_COLOUR);
-        mainBottomPanel.setLayout(new GridLayout(0,3));
+        mainMiddlePanel.setLayout(new GridLayout(0,3));
         add(mainUpperPanel, BorderLayout.NORTH);
-        add(mainBottomPanel, BorderLayout.CENTER);
+        add(mainMiddlePanel, BorderLayout.CENTER);
+        add(communicator, BorderLayout.SOUTH);
+
+        communicatorText = new JLabel();
+        communicatorText.setBackground(GUI_BACKGROUND_COLOUR);
+        communicator.add(communicatorText);
 
         addWelcomeMenu(mainUpperPanel);
-        addMainMenuOptions(mainBottomPanel);
+        addMainMenuOptions(mainMiddlePanel);
         setVisible(true);
     }
 
@@ -189,6 +198,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         Toolkit.getDefaultToolkit().beep();
         switch (actionEvent) {
             case ("Import"):
+                importPackageDialog();
                 break;
             case ("Export"):
                 break;
@@ -239,6 +249,21 @@ public class WarehouseApplication extends JFrame implements ActionListener {
                     + " item(s) \n");
         } else {
             System.out.println("\nWarehouse inventory is full... Cannot import package\n");
+        }
+    }
+
+    private void importPackageDialog() {
+        int numberOfPackagesInInventoryBeforeImport = this.myWarehouse.getNumberPackagesInInventory();
+        if (numberOfPackagesInInventoryBeforeImport < Warehouse.MAX_WAREHOUSE_CAPACITY) {
+            JDialog importDialog = new JDialog(this, "Import Package");
+            Import newImport = new Import(this.myWarehouse, importDialog, communicatorText);
+            importDialog.setLayout(new GridLayout(6,2));
+            newImport.implementFunctionality();
+            importDialog.setSize(750, 300);
+            importDialog.setLocationRelativeTo(null);
+            importDialog.setVisible(true);
+        } else {
+            communicatorText.setText("\nWarehouse inventory is full... Cannot import package\n");
         }
     }
 
