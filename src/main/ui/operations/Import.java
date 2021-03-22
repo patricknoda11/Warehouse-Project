@@ -2,12 +2,14 @@ package ui.operations;
 
 import model.Package;
 import model.Warehouse;
+import ui.WarehouseApplication;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Import implements ActionListener {
+    private WarehouseApplication warehouseApplication;
     private Warehouse myWarehouse;
     private JDialog importDialog;
     private JLabel communicatorText;
@@ -25,7 +27,8 @@ public class Import implements ActionListener {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public Import(Warehouse myWarehouse, JDialog importDialog, JLabel communicatorText) {
+    public Import(WarehouseApplication app, Warehouse myWarehouse, JDialog importDialog, JLabel communicatorText) {
+        this.warehouseApplication = app;
         this.myWarehouse = myWarehouse;
         this.importDialog = importDialog;
         this.communicatorText = communicatorText;
@@ -72,6 +75,7 @@ public class Import implements ActionListener {
             communicatorText.setText("Package " + newPackageToImport.getPackageID()
                     + " has been stored in the inventory."
                     + " The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory() + " items");
+            warehouseApplication.updateCurrentInventoryDisplay();
             importDialog.dispose();
         }
     }

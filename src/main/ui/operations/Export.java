@@ -3,6 +3,7 @@ package ui.operations;
 import exceptions.PackageNotFoundInInventoryException;
 import model.Package;
 import model.Warehouse;
+import ui.WarehouseApplication;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Export implements ActionListener {
+    private WarehouseApplication warehouseApplication;
     private Warehouse myWarehouse;
     private JDialog exportDialog;
     private JLabel communicatorText;
@@ -22,7 +24,8 @@ public class Export implements ActionListener {
     private JButton enterButton;
 
 
-    public Export(Warehouse warehouse, JDialog exportDialog, JLabel communicatorText) {
+    public Export(WarehouseApplication app, Warehouse warehouse, JDialog exportDialog, JLabel communicatorText) {
+        this.warehouseApplication = app;
         this.myWarehouse = warehouse;
         this.exportDialog = exportDialog;
         this.communicatorText = communicatorText;
@@ -65,6 +68,7 @@ public class Export implements ActionListener {
                 communicatorText.setText("Package ID indicated is not available to ship."
                         + " Please try again. (Ex: 1, 2, 3)");
             } finally {
+                warehouseApplication.updateCurrentInventoryDisplay();
                 exportDialog.dispose();
             }
         }

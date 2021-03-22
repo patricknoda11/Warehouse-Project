@@ -11,9 +11,9 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class Load implements ActionListener {
-    public static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json";
-    public static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
-    public static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
+    private static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json";
+    private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
+    private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
 
     private WarehouseApplication warehouseApplication;
     private Warehouse myWarehouse;
@@ -88,6 +88,7 @@ public class Load implements ActionListener {
             } catch (IOException ex) {
                 communicatorText.setText("Inventory Information could not be loaded from specified file...");
             } finally {
+                warehouseApplication.updateCurrentInventoryDisplay();
                 loadDialog.dispose();
             }
         }
