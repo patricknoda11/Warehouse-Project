@@ -6,6 +6,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.operations.Export;
 import ui.operations.Import;
+import ui.operations.Save;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,9 +23,9 @@ import java.util.Scanner;
 
 // Warehouse management application
 public class WarehouseApplication extends JFrame implements ActionListener {
-    private static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json";
-    private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
-    private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
+    public static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json"; // delete later
+    public static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json"; // delete later
+    public static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json"; // delete later
     private static final int GUI_WIDTH = 1000;
     private static final int GUI_HEIGHT = 700;
     private static final Color GUI_BACKGROUND_COLOUR = new Color(184, 216, 232);
@@ -32,8 +33,8 @@ public class WarehouseApplication extends JFrame implements ActionListener {
 
     private Warehouse myWarehouse;
     private Scanner userInput;
-    private JsonReader jsonReader;
-    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;       // delete later --> moved to Load class!!
+    private JsonWriter jsonWriter;       // delete later --> moved to Save class!!
     private int newPackageIDCount;       // keeps track of package id for new import packages to prevent duplicate id
     private boolean isFinished;
 
@@ -207,6 +208,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
             case ("View History"):
                 break;
             case ("Save Changes"):
+                saveInventoryDialog();
                 break;
             case ("Load Changes"):
                 break;
@@ -496,6 +498,16 @@ public class WarehouseApplication extends JFrame implements ActionListener {
             inputValue = inputValue.toLowerCase();
             keepOperating = processSaveOptionsInput(inputValue);
         }
+    }
+
+    private void saveInventoryDialog() {
+        JDialog saveDialog = new JDialog(this, "Save Inventory");
+        Save saveFunction = new Save(this.myWarehouse, saveDialog, communicatorText);
+        saveDialog.setLayout(new BorderLayout());
+        saveFunction.implementFunctionality();
+        saveDialog.setSize(200, 200);
+        saveDialog.setLocationRelativeTo(null);
+        saveDialog.setVisible(true);
     }
 
     // EFFECTS: prints save menu options user can perform

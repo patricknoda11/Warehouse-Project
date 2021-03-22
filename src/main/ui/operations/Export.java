@@ -60,9 +60,9 @@ public class Export implements ActionListener {
                 myWarehouse.exportPackage(packageToExport, packageDestinationField.getText());
                 communicatorText.setText("The package has been successfully shipped to: "
                         + packageToExport.getAddressExportedTo()
-                        + "The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory() + " items");
+                        + " The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory() + " items");
             } catch (PackageNotFoundInInventoryException ex) {
-                communicatorText.setText("Package ID indicated is Not Available to Ship."
+                communicatorText.setText("Package ID indicated is not available to ship."
                         + " Please try again. (Ex: 1, 2, 3)");
             } finally {
                 exportDialog.dispose();
@@ -74,12 +74,13 @@ public class Export implements ActionListener {
         List<Package> availablePackagesToExport = this.myWarehouse.getAllPackagesAvailableInInventory();
         for (Package p : availablePackagesToExport) {
             String packageID = p.getPackageID();
-            if (packageID.equals(packageDestinationField.getText())) {
+            if (packageID.equals(packageIDField.getText())) {
                 this.packageToExport = p;
                 return;
             }
         }
         throw new PackageNotFoundInInventoryException("The Indicated Package ID is Not Available to be Shipped");
+
     }
 }
 
