@@ -6,6 +6,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.operations.Export;
 import ui.operations.Import;
+import ui.operations.Load;
 import ui.operations.Save;
 
 import javax.swing.*;
@@ -211,6 +212,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
                 saveInventoryDialog();
                 break;
             case ("Load Changes"):
+                loadInventoryDialog();
                 break;
             default: break;
         }
@@ -505,7 +507,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         Save saveFunction = new Save(this.myWarehouse, saveDialog, communicatorText);
         saveDialog.setLayout(new BorderLayout());
         saveFunction.implementFunctionality();
-        saveDialog.setSize(200, 200);
+        saveDialog.setSize(400, 200);
         saveDialog.setLocationRelativeTo(null);
         saveDialog.setVisible(true);
     }
@@ -610,6 +612,20 @@ public class WarehouseApplication extends JFrame implements ActionListener {
             inputValue = inputValue.toLowerCase();
             keepOperating = processLoadOptionsInput(inputValue);
         }
+    }
+
+    private void loadInventoryDialog() {
+        JDialog loadDialog = new JDialog(this, "Load Inventory");
+        Load loadFunction = new Load(this, this.myWarehouse, loadDialog, communicatorText);
+        loadDialog.setLayout(new BorderLayout());
+        loadFunction.implementFunctionality();
+        loadDialog.setSize(400, 250);
+        loadDialog.setLocationRelativeTo(null);
+        loadDialog.setVisible(true);
+    }
+
+    public void reloadMyWarehouseFromFile(Warehouse warehouse) {
+        this.myWarehouse = warehouse;
     }
 
     // EFFECTS: prints load menu options user can perform
