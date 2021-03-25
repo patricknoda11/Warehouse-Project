@@ -17,7 +17,7 @@ potential limitations associated with a system of its type.
 ### User Stories: 
 - As a user, I want to be able to add/import multiple packages into the Warehouse inventory
 - As a user, I want to be able to remove/export a package out of the Warehouse inventory
-- As a user, I want to be able to organize my warehouse inventory by package size  
+- As a user, I want to be able to organize/view my warehouse inventory by package size  
 - As a user, I want to be able to view the details regarding packages currently stored in the warehouse inventory
 - As a user, I want to be able to view details of all past imports and exports that have occurred
 - As a user, I want to be able to save changes of my warehouse inventory to file

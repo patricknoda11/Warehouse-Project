@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+// This class handles the load portion of the warehouse application gui
 public class Load implements ActionListener {
     private static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json";
     private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";

@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// This class handles the import portion of the warehouse application gui
 public class Import implements ActionListener {
     private WarehouseApplication warehouseApplication;
     private Warehouse myWarehouse;

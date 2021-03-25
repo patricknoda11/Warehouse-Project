@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+// This class handles the export portion of the warehouse application gui
 public class Export implements ActionListener {
     private WarehouseApplication warehouseApplication;
     private Warehouse myWarehouse;
