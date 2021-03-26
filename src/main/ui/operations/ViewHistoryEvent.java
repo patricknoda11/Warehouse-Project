@@ -120,8 +120,11 @@ public class ViewHistoryEvent implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: updates the operation picture displayed to a picture that represents the given operation
-    //          Picture credit:
-    //
+    //          Picture borrowed from:
+    //          https://www.canada-usblog.com/2016/01/20/directors-and-officers-liability-for-failure-to-obtain-an-
+    //          import-permit/
+    //          https://www.sagecity.com/support_communities/sage_erp_x3/b/sageerp_x3_product_support_blog/posts/
+    //          trouble-with-the-same-records-exporting-over-and-over-chrono-management-to-the-rescue
     private void updateOperationPicture(String process) {
         ImageIcon processIcon = new ImageIcon("data/" + process + ".jpeg");
         // scale processIcon to fit operationPicture (JLabel)
