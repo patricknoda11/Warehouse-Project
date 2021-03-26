@@ -16,18 +16,17 @@ public class SaveEvent implements ActionListener {
     private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
     private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
 
-    private WarehouseApplication warehouseApplication;
-    private Warehouse myWarehouse;
+    private final WarehouseApplication warehouseApplication;
+    private final Warehouse myWarehouse;
+    private final JLabel communicatorText;
+    private final ButtonGroup buttonGroup;
+    private final JRadioButton selectFileOneOption;
+    private final JRadioButton selectFileTwoOption;
+    private final JRadioButton selectFileThreeOption;
+    private final JButton cancelButton;
+    private final JButton enterButton;
     private JsonWriter jsonWriter;
     private JDialog saveDialog;
-    private JLabel communicatorText;
-    private ButtonGroup buttonGroup;
-    private JRadioButton selectFileOneOption;
-    private JRadioButton selectFileTwoOption;
-    private JRadioButton selectFileThreeOption;
-    private JButton cancelButton;
-    private JButton enterButton;
-
 
     // MODIFIES: this
     // EFFECTS: SaveEvent constructor

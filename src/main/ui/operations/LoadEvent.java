@@ -16,17 +16,17 @@ public class LoadEvent implements ActionListener {
     private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
     private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
 
-    private WarehouseApplication warehouseApplication;
+    private final WarehouseApplication warehouseApplication;
+    private final JLabel communicatorText;
+    private final ButtonGroup buttonGroup;
+    private final JRadioButton selectFileOneOption;
+    private final JRadioButton selectFileTwoOption;
+    private final JRadioButton selectFileThreeOption;
+    private final JButton cancelButton;
+    private final JButton enterButton;
     private Warehouse myWarehouse;
     private JsonReader jsonReader;
     private JDialog loadDialog;
-    private JLabel communicatorText;
-    private ButtonGroup buttonGroup;
-    private JRadioButton selectFileOneOption;
-    private JRadioButton selectFileTwoOption;
-    private JRadioButton selectFileThreeOption;
-    private JButton cancelButton;
-    private JButton enterButton;
 
     // MODIFIES: this
     // EFFECTS: LoadEvent constructor

@@ -11,23 +11,23 @@ import java.awt.event.ActionListener;
 
 // This class handles the import portion of the warehouse application gui
 public class ImportEvent implements ActionListener {
-    private WarehouseApplication warehouseApplication;
-    private Warehouse myWarehouse;
+    private final WarehouseApplication warehouseApplication;
+    private final Warehouse myWarehouse;
+    private final JLabel communicatorText;
+    private final JLabel ownerName;
+    private final JTextField ownerNameField;
+    private final JLabel ownerAddress;
+    private final JTextField addressField;
+    private final JLabel ownerPhoneNumber;
+    private final JTextField phoneNumberField;
+    private final JLabel packageContent;
+    private final JTextField packageContentField;
+    private final JLabel packageSize;
+    private final JTextField packageSizeField;
+    private final JButton cancelButton;
+    private final JButton enterButton;
     private JDialog importDialog;
-    private JLabel communicatorText;
     private Package newPackageToImport;
-    private JLabel ownerName;
-    private JTextField ownerNameField;
-    private JLabel ownerAddress;
-    private JTextField addressField;
-    private JLabel ownerPhoneNumber;
-    private JTextField phoneNumberField;
-    private JLabel packageContent;
-    private JTextField packageContentField;
-    private JLabel packageSize;
-    private JTextField packageSizeField;
-    private JButton cancelButton;
-    private JButton enterButton;
 
     // MODIFIES: this
     // EFFECTS: ImportEvent constructor
@@ -104,7 +104,7 @@ public class ImportEvent implements ActionListener {
             myWarehouse.importPackage(newPackageToImport);
             communicatorText.setText("Package " + newPackageToImport.getPackageID()
                     + " has been stored in the inventory."
-                    + " The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory() + " items");
+                    + " The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory() + " item(s).");
             warehouseApplication.updateCurrentInventoryDisplay();
             importDialog.dispose();
         }

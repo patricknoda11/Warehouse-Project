@@ -12,14 +12,14 @@ import java.util.List;
 
 // This class handles the history portion of the warehouse application gui
 public class ViewHistoryEvent implements ActionListener {
-    private WarehouseApplication warehouseApplication;
-    private Warehouse myWarehouse;
+    private final WarehouseApplication warehouseApplication;
+    private final Warehouse myWarehouse;
+    private final ButtonGroup buttonGroup;
+    private final JRadioButton importHistoryButton;
+    private final JRadioButton exportHistoryButton;
+    private final JButton loadHistory;
+    private final JLabel operationPicture;
     private JDialog viewHistoryDialog;
-    private ButtonGroup buttonGroup;
-    private JRadioButton importHistoryButton;
-    private JRadioButton exportHistoryButton;
-    private JButton loadHistory;
-    private JLabel operationPicture;
     private JTextArea transactionHistory;
 
     // MODIFIES: this

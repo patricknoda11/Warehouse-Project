@@ -13,17 +13,17 @@ import java.util.List;
 
 // This class handles the export portion of the warehouse application gui
 public class ExportEvent implements ActionListener {
-    private WarehouseApplication warehouseApplication;
-    private Warehouse myWarehouse;
+    private final WarehouseApplication warehouseApplication;
+    private final Warehouse myWarehouse;
+    private final JLabel communicatorText;
+    private final JLabel packageID;
+    private final JTextField packageIDField;
+    private final JLabel packageDestination;
+    private final JTextField packageDestinationField;
+    private final JButton cancelButton;
+    private final JButton enterButton;
     private JDialog exportDialog;
-    private JLabel communicatorText;
     private Package packageToExport;
-    private JLabel packageID;
-    private JTextField packageIDField;
-    private JLabel packageDestination;
-    private JTextField packageDestinationField;
-    private JButton cancelButton;
-    private JButton enterButton;
 
     // MODIFIES: this
     // EFFECTS: ExportEvent constructor
@@ -89,7 +89,8 @@ public class ExportEvent implements ActionListener {
                 myWarehouse.exportPackage(packageToExport, packageDestinationField.getText());
                 communicatorText.setText("The package has been successfully shipped to: "
                         + packageToExport.getAddressExportedTo()
-                        + " The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory() + " items");
+                        + ". The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory()
+                        + " item(s).");
             } catch (PackageNotFoundInInventoryException ex) {
                 communicatorText.setText("Package ID indicated is not available to ship."
                         + " Please try again. (Ex: 1, 2, 3)");

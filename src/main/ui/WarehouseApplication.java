@@ -74,19 +74,16 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         mainUpperPanel.add(welcomeStatement);
         DateTimeFormatter newDateFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm");
 
-        Timer timer = new Timer(TIMER_REFRESH, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                String currentDateAndTime = newDateFormat.format(LocalDateTime.now());
-                int timeOfDay = LocalTime.now().getHour();
+        Timer timer = new Timer(TIMER_REFRESH, ae -> {
+            String currentDateAndTime = newDateFormat.format(LocalDateTime.now());
+            int timeOfDay = LocalTime.now().getHour();
 
-                if (0 <= timeOfDay && timeOfDay < 12) {
-                    welcomeStatement.setText("Good Morning, today is " + currentDateAndTime + " AM");
-                } else if (12 <= timeOfDay && timeOfDay < 18) {
-                    welcomeStatement.setText("Good Afternoon, today is " + currentDateAndTime + "PM");
-                } else {
-                    welcomeStatement.setText("Good Evening, today is " + currentDateAndTime + " PM");
-                }
+            if (0 <= timeOfDay && timeOfDay < 12) {
+                welcomeStatement.setText("Good Morning, today is " + currentDateAndTime + " AM");
+            } else if (12 <= timeOfDay && timeOfDay < 18) {
+                welcomeStatement.setText("Good Afternoon, today is " + currentDateAndTime + " PM");
+            } else {
+                welcomeStatement.setText("Good Evening, today is " + currentDateAndTime + " PM");
             }
         });
 
