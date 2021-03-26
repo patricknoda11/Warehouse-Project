@@ -2,7 +2,7 @@ package ui.operations;
 
 import model.Package;
 import model.Warehouse;
-import ui.WarehouseApplicationGUI;
+import ui.WarehouseApplication;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 // This class handles the import portion of the warehouse application gui
 public class ImportEvent implements ActionListener {
-    private WarehouseApplicationGUI warehouseApplication;
+    private WarehouseApplication warehouseApplication;
     private Warehouse myWarehouse;
     private JDialog importDialog;
     private JLabel communicatorText;
@@ -29,11 +29,7 @@ public class ImportEvent implements ActionListener {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public ImportEvent(WarehouseApplicationGUI app, Warehouse myWarehouse, JDialog importDialog, JLabel communicatorText) {
-        this.warehouseApplication = app;
-        this.myWarehouse = myWarehouse;
-        this.importDialog = importDialog;
-        this.communicatorText = communicatorText;
+    public ImportEvent(WarehouseApplication app, Warehouse myWarehouse, JLabel communicatorText) {
         ownerName = new JLabel("Owner Name: ");
         ownerNameField = new JTextField();
         ownerAddress = new JLabel("Owner Address: ");
@@ -46,9 +42,27 @@ public class ImportEvent implements ActionListener {
         packageSizeField = new JTextField();
         cancelButton = new JButton("Cancel");
         enterButton = new JButton("Enter");
+
+        this.warehouseApplication = app;
+        this.myWarehouse = myWarehouse;
+        this.communicatorText = communicatorText;
     }
 
-    public void implementFunctionality() {
+    public void generateImportPackageDialog() {
+        int numberOfPackagesInInventoryBeforeImport = this.myWarehouse.getNumberPackagesInInventory();
+        if (numberOfPackagesInInventoryBeforeImport < Warehouse.MAX_WAREHOUSE_CAPACITY) {
+            this.importDialog = new JDialog(this.warehouseApplication, "Import Package");
+            importDialog.setLayout(new GridLayout(6,2));
+            implementFunctionality();
+            importDialog.setSize(750, 300);
+            importDialog.setLocationRelativeTo(null);
+            importDialog.setVisible(true);
+        } else {
+            communicatorText.setText("\nWarehouse inventory is full... Cannot import package\n");
+        }
+    }
+
+    private void implementFunctionality() {
         importDialog.add(ownerName);
         importDialog.add(ownerNameField);
         importDialog.add(ownerAddress);

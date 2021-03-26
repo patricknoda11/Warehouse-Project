@@ -2,7 +2,7 @@ package ui.operations;
 
 import model.Warehouse;
 import persistence.JsonReader;
-import ui.WarehouseApplicationGUI;
+import ui.WarehouseApplication;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ public class LoadEvent implements ActionListener {
     private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
     private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
 
-    private WarehouseApplicationGUI warehouseApplication;
+    private WarehouseApplication warehouseApplication;
     private Warehouse myWarehouse;
     private JsonReader jsonReader;
     private JDialog loadDialog;
@@ -28,7 +28,7 @@ public class LoadEvent implements ActionListener {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public LoadEvent(WarehouseApplicationGUI application, Warehouse warehouse, JDialog loadDialog, JLabel communicatorText) {
+    public LoadEvent(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
         buttonGroup = new ButtonGroup();
         selectFileOneOption = new JRadioButton("Load Warehouse from File 1");
         selectFileTwoOption = new JRadioButton("Load Warehouse from File 2");
@@ -36,9 +36,8 @@ public class LoadEvent implements ActionListener {
         cancelButton = new JButton("Cancel");
         enterButton = new JButton("Enter");
 
-        this.warehouseApplication = application;
+        this.warehouseApplication = app;
         this.myWarehouse = warehouse;
-        this.loadDialog = loadDialog;
         this.communicatorText = communicatorText;
 
         buttonGroup.add(selectFileOneOption);
@@ -46,7 +45,16 @@ public class LoadEvent implements ActionListener {
         buttonGroup.add(selectFileThreeOption);
     }
 
-    public void implementFunctionality() {
+    public void generateLoadInventoryDialog() {
+        this.loadDialog = new JDialog(this.warehouseApplication, "Load Inventory");
+        loadDialog.setLayout(new BorderLayout());
+        implementFunctionality();
+        loadDialog.setSize(400, 250);
+        loadDialog.setLocationRelativeTo(null);
+        loadDialog.setVisible(true);
+    }
+
+    private void implementFunctionality() {
         JPanel topPanel = new JPanel(new GridLayout(3,1));
         JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
         loadDialog.add(topPanel, BorderLayout.CENTER);

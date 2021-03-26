@@ -2,7 +2,7 @@ package ui.operations;
 
 import model.Warehouse;
 import persistence.JsonWriter;
-import ui.WarehouseApplicationGUI;
+import ui.WarehouseApplication;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ public class SaveEvent implements ActionListener {
     private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
     private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
 
-    private WarehouseApplicationGUI warehouseApplication;
+    private WarehouseApplication warehouseApplication;
     private Warehouse myWarehouse;
     private JsonWriter jsonWriter;
     private JDialog saveDialog;
@@ -28,7 +28,7 @@ public class SaveEvent implements ActionListener {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public SaveEvent(WarehouseApplicationGUI application, Warehouse warehouse, JDialog saveDialog, JLabel communicatorText) {
+    public SaveEvent(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
         buttonGroup = new ButtonGroup();
         selectFileOneOption = new JRadioButton("Save Changes to File 1");
         selectFileTwoOption = new JRadioButton("Save Changes to File 2");
@@ -36,9 +36,8 @@ public class SaveEvent implements ActionListener {
         cancelButton = new JButton("Cancel");
         enterButton = new JButton("Enter");
 
-        this.warehouseApplication = application;
+        this.warehouseApplication = app;
         this.myWarehouse = warehouse;
-        this.saveDialog = saveDialog;
         this.communicatorText = communicatorText;
 
         buttonGroup.add(selectFileOneOption);
@@ -46,7 +45,16 @@ public class SaveEvent implements ActionListener {
         buttonGroup.add(selectFileThreeOption);
     }
 
-    public void implementFunctionality() {
+    public void generateSaveInventoryDialog() {
+        this.saveDialog = new JDialog(this.warehouseApplication, "Save Inventory");
+        saveDialog.setLayout(new BorderLayout());
+        implementFunctionality();
+        saveDialog.setSize(400, 200);
+        saveDialog.setLocationRelativeTo(null);
+        saveDialog.setVisible(true);
+    }
+
+    private void implementFunctionality() {
         JPanel topPanel = new JPanel(new GridLayout(3,1));
         JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
         saveDialog.add(topPanel, BorderLayout.CENTER);
