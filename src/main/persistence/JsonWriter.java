@@ -10,8 +10,7 @@ import java.io.PrintWriter;
 
 // represents writer that saves Warehouse as JSON object onto file
 public class JsonWriter {
-    private PrintWriter printWriter;
-    private String saveLocation;
+    private final String saveLocation;
 
     // MODIFIES: this
     // EFFECTS: instantiates JsonWriter object, sets save location to source
@@ -25,7 +24,7 @@ public class JsonWriter {
     //          closes printWriter after finished
     public void saveToFile(Warehouse wh) throws FileNotFoundException {
         File file = new File(this.saveLocation);
-        printWriter = new PrintWriter(file);
+        PrintWriter printWriter = new PrintWriter(file);
         JSONObject jsonObject = wh.convertToJsonObject();
         printWriter.print(jsonObject);
         printWriter.close();

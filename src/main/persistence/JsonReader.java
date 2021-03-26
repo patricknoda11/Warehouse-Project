@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 //represents reader that reads JSON object of a Warehouse from file
 public class JsonReader {
-    private String saveLocation;
+    private final String saveLocation;
 
     // MODIFIES: this
     // EFFECTS: instantiates JsonReader object, sets saved location to source
@@ -35,7 +35,7 @@ public class JsonReader {
     private String retrieveFileDataInStringRepresentation() throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(Paths.get(saveLocation), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s));
+            stream.forEach(contentBuilder::append);
         }
         return contentBuilder.toString();
     }
