@@ -4,10 +4,7 @@ import model.Package;
 import model.Warehouse;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.operations.Export;
-import ui.operations.Import;
-import ui.operations.Load;
-import ui.operations.Save;
+import ui.operations.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -216,6 +213,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
                 exportPackageDialog();
                 break;
             case ("View History"):
+                viewHistoryDialog();
                 break;
             case ("Save Changes"):
                 saveInventoryDialog();
@@ -461,6 +459,16 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         currentInventory.removeAll();
         currentInventory.setEditable(false);
         currentInventory.setLineWrap(true);
+    }
+
+    private void viewHistoryDialog() {
+        JDialog viewHistoryDialog = new JDialog(this, "View Transaction History");
+        History newHistory = new History(this.myWarehouse, viewHistoryDialog);
+        viewHistoryDialog.setLayout(new BorderLayout());
+        newHistory.implementFunctionality();
+        viewHistoryDialog.setSize(400, 700);
+        viewHistoryDialog.setLocationRelativeTo(null);
+        viewHistoryDialog.setVisible(true);
     }
 
     // EFFECTS: runs view history menu

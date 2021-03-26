@@ -82,7 +82,7 @@ public class Import implements ActionListener {
     }
 
     private void generateNewPackageToImport() {
-        int packageID = myWarehouse.getNumberPackagesInInventory() + 1;
+        int packageID = myWarehouse.getImportHistorySize() + 1;
         newPackageToImport = new Package(ownerNameField.getText(),
                 addressField.getText(),
                 phoneNumberField.getText(),
