@@ -28,6 +28,8 @@ public class LoadEvent implements ActionListener {
     private JButton cancelButton;
     private JButton enterButton;
 
+    // MODIFIES: this
+    // EFFECTS: LoadEvent constructor
     public LoadEvent(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
         buttonGroup = new ButtonGroup();
         selectFileOneOption = new JRadioButton("Load Warehouse from File 1");
@@ -45,16 +47,20 @@ public class LoadEvent implements ActionListener {
         buttonGroup.add(selectFileThreeOption);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates load inventory dialog
     public void generateLoadInventoryDialog() {
         this.loadDialog = new JDialog(this.warehouseApplication, "Load Inventory");
         loadDialog.setLayout(new BorderLayout());
-        implementFunctionality();
+        organizeLoadInventoryDialogContent();
         loadDialog.setSize(400, 250);
         loadDialog.setLocationRelativeTo(null);
         loadDialog.setVisible(true);
     }
 
-    private void implementFunctionality() {
+    // MODIFIES: this
+    // EFFECTS: organizes/structures the load inventory dialog content
+    private void organizeLoadInventoryDialogContent() {
         JPanel topPanel = new JPanel(new GridLayout(3,1));
         JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
         loadDialog.add(topPanel, BorderLayout.CENTER);
@@ -75,6 +81,8 @@ public class LoadEvent implements ActionListener {
         enterButton.addActionListener(this);
     }
 
+    // MODIFIES: this
+    // EFFECTS: directs user to correct operation given button clicked
     @Override
     public void actionPerformed(ActionEvent e) {
         String loadLocation = buttonGroup.getSelection().getActionCommand();
@@ -90,6 +98,9 @@ public class LoadEvent implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: chooses load location based off user input then loads data from file
+    //          disposes dialog once finished and updates current inventory display on main JFrame window
     private void chooseLoadLocation(String loadLocation) {
         try {
             if (loadLocation.equals("1")) {
@@ -110,6 +121,9 @@ public class LoadEvent implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads data from given file source
+    //          if file not readable, throws IOException
     private void loadData(String sourceFile) throws IOException {
         this.myWarehouse = jsonReader.retrieveSavedWarehouseData();
         warehouseApplication.reloadMyWarehouseFromFile(this.myWarehouse);

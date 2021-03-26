@@ -28,6 +28,9 @@ public class SaveEvent implements ActionListener {
     private JButton cancelButton;
     private JButton enterButton;
 
+
+    // MODIFIES: this
+    // EFFECTS: SaveEvent constructor
     public SaveEvent(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
         buttonGroup = new ButtonGroup();
         selectFileOneOption = new JRadioButton("Save Changes to File 1");
@@ -45,16 +48,20 @@ public class SaveEvent implements ActionListener {
         buttonGroup.add(selectFileThreeOption);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates save inventory dialog
     public void generateSaveInventoryDialog() {
         this.saveDialog = new JDialog(this.warehouseApplication, "Save Inventory");
         saveDialog.setLayout(new BorderLayout());
-        implementFunctionality();
+        organizeSaveInventoryDialogContent();
         saveDialog.setSize(400, 200);
         saveDialog.setLocationRelativeTo(null);
         saveDialog.setVisible(true);
     }
 
-    private void implementFunctionality() {
+    // MODIFIES: this
+    // EFFECTS: organizes the content on the save inventory dialog
+    private void organizeSaveInventoryDialogContent() {
         JPanel topPanel = new JPanel(new GridLayout(3,1));
         JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
         saveDialog.add(topPanel, BorderLayout.CENTER);
@@ -75,6 +82,9 @@ public class SaveEvent implements ActionListener {
         enterButton.addActionListener(this);
     }
 
+    // MODIFIES: this
+    // EFFECTS: directs user to correct operation given button clicked,
+    //          disposes dialog once finished
     @Override
     public void actionPerformed(ActionEvent e) {
         String saveLocation = buttonGroup.getSelection().getActionCommand();
@@ -87,9 +97,13 @@ public class SaveEvent implements ActionListener {
 
         if (e.getActionCommand().equals("Enter")) {
             chooseSaveLocation(saveLocation);
+            saveDialog.dispose();
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: chooses save location given user input and saves data to that location,
+    //          afterwards it updates the current inventory display on main JFrame window
     private void chooseSaveLocation(String saveLocation) {
         try {
             if (saveLocation.equals("1")) {
@@ -106,10 +120,12 @@ public class SaveEvent implements ActionListener {
             communicatorText.setText("Cannot save to specified source file... File not found.");
         } finally {
             warehouseApplication.updateCurrentInventoryDisplay();
-            saveDialog.dispose();
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: saves the changes made to warehouse to the given source file,
+    //          if file not found throws FileNotFoundException
     private void saveData(String sourceFile) throws FileNotFoundException {
         jsonWriter.saveToFile(myWarehouse);
         communicatorText.setText("Warehouse inventory has been saved to " + sourceFile);

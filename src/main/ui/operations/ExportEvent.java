@@ -1,6 +1,6 @@
 package ui.operations;
 
-import exceptions.PackageNotFoundInInventoryException;
+import ui.exceptions.PackageNotFoundInInventoryException;
 import model.Package;
 import model.Warehouse;
 import ui.WarehouseApplication;
@@ -41,7 +41,9 @@ public class ExportEvent implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates an export package dialog
+    // EFFECTS: if the number of packages currently in inventory is == to 0, it indicates to the user that inventory
+    //          does not have any packages available to export.
+    //          otherwise, creates an export package dialog
     public void generateExportPackageDialog() {
         int packagesInInventory = this.myWarehouse.getNumberPackagesInInventory();
         if (packagesInInventory == 0) {
@@ -49,7 +51,7 @@ public class ExportEvent implements ActionListener {
         } else {
             this.exportDialog = new JDialog(this.warehouseApplication, "Export Package");
             exportDialog.setLayout(new GridLayout(3,2));
-            implementFunctionality();
+            organizeExportPackageDialogContent();
             exportDialog.setSize(750, 150);
             exportDialog.setLocationRelativeTo(null);
             exportDialog.setVisible(true);
@@ -57,8 +59,8 @@ public class ExportEvent implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: implements export package dialog features
-    private void implementFunctionality() {
+    // EFFECTS: organizes the content found on the export package dialog
+    private void organizeExportPackageDialogContent() {
         exportDialog.add(packageID);
         exportDialog.add(packageIDField);
         exportDialog.add(packageDestination);
@@ -71,7 +73,8 @@ public class ExportEvent implements ActionListener {
 
 
     // MODIFIES: this
-    // EFFECTS: directs user to correct desired operation
+    // EFFECTS: directs user to correct operation given button clicked
+    //          disposes dialog once finished and updates current inventory display on main JFrame window
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
@@ -97,6 +100,8 @@ public class ExportEvent implements ActionListener {
         }
     }
 
+    // EFFECTS: searches the inventory for the package with given id
+    //          if package with given id not found, throw PackageNotFoundInInventoryException
     private void choosePackageToExport() throws PackageNotFoundInInventoryException {
         List<Package> availablePackagesToExport = this.myWarehouse.getAllPackagesAvailableInInventory();
         for (Package p : availablePackagesToExport) {
@@ -107,7 +112,6 @@ public class ExportEvent implements ActionListener {
             }
         }
         throw new PackageNotFoundInInventoryException("The Indicated Package ID is Not Available to be Shipped");
-
     }
 }
 

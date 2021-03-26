@@ -22,6 +22,8 @@ public class ViewHistoryEvent implements ActionListener {
     private JLabel operationPicture;
     private JTextArea transactionHistory;
 
+    // MODIFIES: this
+    // EFFECTS: ViewHistoryEvent constructor
     public ViewHistoryEvent(WarehouseApplication app, Warehouse warehouse) {
         buttonGroup = new ButtonGroup();
         importHistoryButton = new JRadioButton("Import");
@@ -35,6 +37,8 @@ public class ViewHistoryEvent implements ActionListener {
         buttonGroup.add(exportHistoryButton);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates view history dialog
     public void generateViewHistoryDialog() {
         this.viewHistoryDialog = new JDialog(this.warehouseApplication, "View Transaction History");
         viewHistoryDialog.setLayout(new GridLayout(1,2));
@@ -44,6 +48,8 @@ public class ViewHistoryEvent implements ActionListener {
         viewHistoryDialog.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: organizes the content on the view history dialog
     private void organizeViewHistoryDialogContent() {
         JPanel interactivePanel = new JPanel(new GridLayout(3,1));
         organizeInteractivePanelContent(interactivePanel);
@@ -53,12 +59,16 @@ public class ViewHistoryEvent implements ActionListener {
         viewHistoryDialog.add(historyDisplay);
     }
 
+    // MODIFIES: this
+    // EFFECTS: organizes the content on the interactive panel located on left side of view history dialog
     private void organizeInteractivePanelContent(JPanel interactivePanel) {
         addImportExportButtonPanel(interactivePanel);
         interactivePanel.add(operationPicture);
         addLoadHistoryButtonFunctionality(interactivePanel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds button panel to the interactive panel
     private void addImportExportButtonPanel(JPanel interactivePanel) {
         JPanel importExportButtonPanel = new JPanel();
         importExportButtonPanel.add(importHistoryButton);
@@ -69,11 +79,15 @@ public class ViewHistoryEvent implements ActionListener {
         interactivePanel.add(importExportButtonPanel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: implements load history button functionality
     private void addLoadHistoryButtonFunctionality(JPanel interactivePanel) {
         loadHistory.addActionListener(this);
         interactivePanel.add(loadHistory);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up the import/export history display located on the right side of view history dialog
     private JScrollPane setUpHistoryDisplay() {
         transactionHistory = new JTextArea();
         transactionHistory.setEditable(false);
@@ -88,6 +102,8 @@ public class ViewHistoryEvent implements ActionListener {
         return historyDisplay;
     }
 
+    // MODIFIES: this
+    // EFFECTS: directs user to the correct operation given the option the user selected
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = buttonGroup.getSelection().getActionCommand();
@@ -102,6 +118,10 @@ public class ViewHistoryEvent implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates the operation picture displayed to a picture that represents the given operation
+    //          Picture credit:
+    //
     private void updateOperationPicture(String process) {
         ImageIcon processIcon = new ImageIcon("data/" + process + ".jpeg");
         // scale processIcon to fit operationPicture (JLabel)
@@ -113,6 +133,7 @@ public class ViewHistoryEvent implements ActionListener {
     }
 
 
+    // MODIFIES: this
     // EFFECTS: prints the history of all packages that have been imported
     private void printHistory(String process) {
         List<Package> history;

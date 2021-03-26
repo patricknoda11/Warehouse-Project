@@ -29,6 +29,8 @@ public class ImportEvent implements ActionListener {
     private JButton cancelButton;
     private JButton enterButton;
 
+    // MODIFIES: this
+    // EFFECTS: ImportEvent constructor
     public ImportEvent(WarehouseApplication app, Warehouse myWarehouse, JLabel communicatorText) {
         ownerName = new JLabel("Owner Name: ");
         ownerNameField = new JTextField();
@@ -48,12 +50,16 @@ public class ImportEvent implements ActionListener {
         this.communicatorText = communicatorText;
     }
 
+    // MODIFIES: this
+    // EFFECTS: if the number of packages in inventory is < to the max warehouse capacity,
+    //          creates dialog for package import.
+    //          otherwise, indicates to the user that inventory is full
     public void generateImportPackageDialog() {
         int numberOfPackagesInInventoryBeforeImport = this.myWarehouse.getNumberPackagesInInventory();
         if (numberOfPackagesInInventoryBeforeImport < Warehouse.MAX_WAREHOUSE_CAPACITY) {
             this.importDialog = new JDialog(this.warehouseApplication, "Import Package");
             importDialog.setLayout(new GridLayout(6,2));
-            implementFunctionality();
+            organizeImportPackageDialogContent();
             importDialog.setSize(750, 300);
             importDialog.setLocationRelativeTo(null);
             importDialog.setVisible(true);
@@ -62,7 +68,9 @@ public class ImportEvent implements ActionListener {
         }
     }
 
-    private void implementFunctionality() {
+    // MODIFIES: this
+    // EFFECTS: organizes/structures the content found on the import package dialog
+    private void organizeImportPackageDialogContent() {
         importDialog.add(ownerName);
         importDialog.add(ownerNameField);
         importDialog.add(ownerAddress);
@@ -79,6 +87,9 @@ public class ImportEvent implements ActionListener {
         enterButton.addActionListener(this);
     }
 
+    // MODIFIES: this
+    // EFFECTS: directs user to correct operation given button clicked
+    //          disposes dialog once finished and updates current inventory display on main JFrame window
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
@@ -99,6 +110,8 @@ public class ImportEvent implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates new package to be imported into inventory
     private void generateNewPackageToImport() {
         int packageID = myWarehouse.getImportHistorySize() + 1;
         newPackageToImport = new Package(ownerNameField.getText(),
