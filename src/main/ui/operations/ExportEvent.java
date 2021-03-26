@@ -3,16 +3,17 @@ package ui.operations;
 import exceptions.PackageNotFoundInInventoryException;
 import model.Package;
 import model.Warehouse;
-import ui.WarehouseApplication;
+import ui.WarehouseApplicationGUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 // This class handles the export portion of the warehouse application gui
-public class Export implements ActionListener {
-    private WarehouseApplication warehouseApplication;
+public class ExportEvent implements ActionListener {
+    private WarehouseApplicationGUI warehouseApplication;
     private Warehouse myWarehouse;
     private JDialog exportDialog;
     private JLabel communicatorText;
@@ -25,7 +26,7 @@ public class Export implements ActionListener {
     private JButton enterButton;
 
 
-    public Export(WarehouseApplication app, Warehouse warehouse, JDialog exportDialog, JLabel communicatorText) {
+    public ExportEvent(WarehouseApplicationGUI app, Warehouse warehouse, JDialog exportDialog, JLabel communicatorText) {
         this.warehouseApplication = app;
         this.myWarehouse = warehouse;
         this.exportDialog = exportDialog;
@@ -54,6 +55,7 @@ public class Export implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
+        Toolkit.getDefaultToolkit().beep();
         if (actionCommand.equals("Cancel")) {
             exportDialog.dispose();
         }

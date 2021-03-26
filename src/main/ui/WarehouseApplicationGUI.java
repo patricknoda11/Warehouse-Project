@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Scanner;
 
 // Warehouse management application
-public class WarehouseApplication extends JFrame implements ActionListener {
+public class WarehouseApplicationGUI extends JFrame implements ActionListener {
     public static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json"; // delete later
     public static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json"; // delete later
     public static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json"; // delete later
@@ -40,7 +40,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     private JLabel communicatorText;
 
     // EFFECTS: instantiates WarehouseApplication
-    public WarehouseApplication() {
+    public WarehouseApplicationGUI() {
         initializeApplication();
         initializeGUI();
         runApplicationMainMenu();
@@ -269,9 +269,9 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         int numberOfPackagesInInventoryBeforeImport = this.myWarehouse.getNumberPackagesInInventory();
         if (numberOfPackagesInInventoryBeforeImport < Warehouse.MAX_WAREHOUSE_CAPACITY) {
             JDialog importDialog = new JDialog(this, "Import Package");
-            Import newImport = new Import(this, this.myWarehouse, importDialog, communicatorText);
+            ImportEvent newImportEvent = new ImportEvent(this, this.myWarehouse, importDialog, communicatorText);
             importDialog.setLayout(new GridLayout(6,2));
-            newImport.implementFunctionality();
+            newImportEvent.implementFunctionality();
             importDialog.setSize(750, 300);
             importDialog.setLocationRelativeTo(null);
             importDialog.setVisible(true);
@@ -364,9 +364,9 @@ public class WarehouseApplication extends JFrame implements ActionListener {
             communicatorText.setText("Warehouse inventory has no packages to export");
         } else {
             JDialog exportDialog = new JDialog(this, "Export Package");
-            Export newExport = new Export(this, this.myWarehouse, exportDialog, communicatorText);
+            ExportEvent newExportEvent = new ExportEvent(this, this.myWarehouse, exportDialog, communicatorText);
             exportDialog.setLayout(new GridLayout(3,2));
-            newExport.implementFunctionality();
+            newExportEvent.implementFunctionality();
             exportDialog.setSize(750, 150);
             exportDialog.setLocationRelativeTo(null);
             exportDialog.setVisible(true);
@@ -437,21 +437,32 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         if (this.myWarehouse.getNumberPackagesInInventory() == 0) {
             currentInventory.setText("There are no items currently stored in the inventory");
         } else {
-            currentInventory.setText("Large Sized Packages: \n\n");
-            for (Package p : largeSizedPackagesInventory) {
-                currentInventory.append(p.toString());
-                currentInventory.append("\n\n");
-            }
-            currentInventory.append("\n\nMedium Sized Packages: \n\n");
-            for (Package p : mediumSizedPackagesInventory) {
-                currentInventory.append(p.toString());
-                currentInventory.append("\n\n");
-            }
-            currentInventory.append("\n\nSmall Sized Packages: \n\n");
-            for (Package p : smallSizedPackagesInventory) {
-                currentInventory.append(p.toString());
-                currentInventory.append("\n\n");
-            }
+            addCurrentInventoryToDisplay(largeSizedPackagesInventory,
+                    mediumSizedPackagesInventory,
+                    smallSizedPackagesInventory);
+        }
+    }
+
+    private void addCurrentInventoryToDisplay(List<Package> largeSizedPackagesInventory,
+                                              List<Package> mediumSizedPackagesInventory,
+                                              List<Package> smallSizedPackagesInventory) {
+        currentInventory.setText("Large Sized Packages: \n");
+        currentInventory.append("-------------------------------------\n");
+        for (Package p : largeSizedPackagesInventory) {
+            currentInventory.append(p.toString());
+            currentInventory.append("\n\n");
+        }
+        currentInventory.append("\n\nMedium Sized Packages: \n");
+        currentInventory.append("-------------------------------------\n");
+        for (Package p : mediumSizedPackagesInventory) {
+            currentInventory.append(p.toString());
+            currentInventory.append("\n\n");
+        }
+        currentInventory.append("\n\nSmall Sized Packages: \n");
+        currentInventory.append("-------------------------------------\n");
+        for (Package p : smallSizedPackagesInventory) {
+            currentInventory.append(p.toString());
+            currentInventory.append("\n\n");
         }
     }
 
@@ -463,10 +474,10 @@ public class WarehouseApplication extends JFrame implements ActionListener {
 
     private void viewHistoryDialog() {
         JDialog viewHistoryDialog = new JDialog(this, "View Transaction History");
-        History newHistory = new History(this.myWarehouse, viewHistoryDialog);
-        viewHistoryDialog.setLayout(new BorderLayout());
-        newHistory.implementFunctionality();
-        viewHistoryDialog.setSize(400, 700);
+        ViewHistoryEvent newViewHistoryEvent = new ViewHistoryEvent(this.myWarehouse, viewHistoryDialog);
+        viewHistoryDialog.setLayout(new GridLayout(1,2));
+        newViewHistoryEvent.organizeViewHistoryDialogContent();
+        viewHistoryDialog.setSize(800, 700);
         viewHistoryDialog.setLocationRelativeTo(null);
         viewHistoryDialog.setVisible(true);
     }
@@ -553,9 +564,9 @@ public class WarehouseApplication extends JFrame implements ActionListener {
 
     private void saveInventoryDialog() {
         JDialog saveDialog = new JDialog(this, "Save Inventory");
-        Save saveFunction = new Save(this, this.myWarehouse, saveDialog, communicatorText);
+        SaveEvent saveEventFunction = new SaveEvent(this, this.myWarehouse, saveDialog, communicatorText);
         saveDialog.setLayout(new BorderLayout());
-        saveFunction.implementFunctionality();
+        saveEventFunction.implementFunctionality();
         saveDialog.setSize(400, 200);
         saveDialog.setLocationRelativeTo(null);
         saveDialog.setVisible(true);
@@ -665,9 +676,9 @@ public class WarehouseApplication extends JFrame implements ActionListener {
 
     private void loadInventoryDialog() {
         JDialog loadDialog = new JDialog(this, "Load Inventory");
-        Load loadFunction = new Load(this, this.myWarehouse, loadDialog, communicatorText);
+        LoadEvent loadEventFunction = new LoadEvent(this, this.myWarehouse, loadDialog, communicatorText);
         loadDialog.setLayout(new BorderLayout());
-        loadFunction.implementFunctionality();
+        loadEventFunction.implementFunctionality();
         loadDialog.setSize(400, 250);
         loadDialog.setLocationRelativeTo(null);
         loadDialog.setVisible(true);

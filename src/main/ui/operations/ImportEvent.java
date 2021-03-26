@@ -2,15 +2,16 @@ package ui.operations;
 
 import model.Package;
 import model.Warehouse;
-import ui.WarehouseApplication;
+import ui.WarehouseApplicationGUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // This class handles the import portion of the warehouse application gui
-public class Import implements ActionListener {
-    private WarehouseApplication warehouseApplication;
+public class ImportEvent implements ActionListener {
+    private WarehouseApplicationGUI warehouseApplication;
     private Warehouse myWarehouse;
     private JDialog importDialog;
     private JLabel communicatorText;
@@ -28,7 +29,7 @@ public class Import implements ActionListener {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public Import(WarehouseApplication app, Warehouse myWarehouse, JDialog importDialog, JLabel communicatorText) {
+    public ImportEvent(WarehouseApplicationGUI app, Warehouse myWarehouse, JDialog importDialog, JLabel communicatorText) {
         this.warehouseApplication = app;
         this.myWarehouse = myWarehouse;
         this.importDialog = importDialog;
@@ -67,9 +68,12 @@ public class Import implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
+        Toolkit.getDefaultToolkit().beep();
+
         if (actionCommand.equals("Cancel")) {
             importDialog.dispose();
         }
+
         if (actionCommand.equals("Enter")) {
             generateNewPackageToImport();
             myWarehouse.importPackage(newPackageToImport);

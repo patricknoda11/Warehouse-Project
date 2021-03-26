@@ -2,7 +2,7 @@ package ui.operations;
 
 import model.Warehouse;
 import persistence.JsonWriter;
-import ui.WarehouseApplication;
+import ui.WarehouseApplicationGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 // This class handles the save portion of the warehouse application gui
-public class Save implements ActionListener {
+public class SaveEvent implements ActionListener {
     private static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json";
     private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
     private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
 
-    private WarehouseApplication warehouseApplication;
+    private WarehouseApplicationGUI warehouseApplication;
     private Warehouse myWarehouse;
     private JsonWriter jsonWriter;
     private JDialog saveDialog;
@@ -28,7 +28,7 @@ public class Save implements ActionListener {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public Save(WarehouseApplication application, Warehouse warehouse, JDialog saveDialog, JLabel communicatorText) {
+    public SaveEvent(WarehouseApplicationGUI application, Warehouse warehouse, JDialog saveDialog, JLabel communicatorText) {
         buttonGroup = new ButtonGroup();
         selectFileOneOption = new JRadioButton("Save Changes to File 1");
         selectFileTwoOption = new JRadioButton("Save Changes to File 2");
@@ -70,32 +70,39 @@ public class Save implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String saveLocation = buttonGroup.getSelection().getActionCommand();
+        Toolkit.getDefaultToolkit().beep();
+
         if (e.getActionCommand().equals("Cancel")) {
             saveDialog.dispose();
             return;
         }
+
         if (e.getActionCommand().equals("Enter")) {
-            try {
-                if (saveLocation.equals("1")) {
-                    jsonWriter = new JsonWriter(SOURCE_FILE_1);
-                    processSaveSequence(SOURCE_FILE_1);
-                } else if (saveLocation.equals("2")) {
-                    jsonWriter = new JsonWriter(SOURCE_FILE_2);
-                    processSaveSequence(SOURCE_FILE_2);
-                } else {
-                    jsonWriter = new JsonWriter(SOURCE_FILE_3);
-                    processSaveSequence(SOURCE_FILE_3);
-                }
-            } catch (FileNotFoundException ex) {
-                communicatorText.setText("Cannot save to specified source file... File not found.");
-            } finally {
-                warehouseApplication.updateCurrentInventoryDisplay();
-                saveDialog.dispose();
-            }
+            chooseSaveLocation(saveLocation);
         }
     }
 
-    private void processSaveSequence(String sourceFile) throws FileNotFoundException {
+    private void chooseSaveLocation(String saveLocation) {
+        try {
+            if (saveLocation.equals("1")) {
+                jsonWriter = new JsonWriter(SOURCE_FILE_1);
+                saveData(SOURCE_FILE_1);
+            } else if (saveLocation.equals("2")) {
+                jsonWriter = new JsonWriter(SOURCE_FILE_2);
+                saveData(SOURCE_FILE_2);
+            } else {
+                jsonWriter = new JsonWriter(SOURCE_FILE_3);
+                saveData(SOURCE_FILE_3);
+            }
+        } catch (FileNotFoundException ex) {
+            communicatorText.setText("Cannot save to specified source file... File not found.");
+        } finally {
+            warehouseApplication.updateCurrentInventoryDisplay();
+            saveDialog.dispose();
+        }
+    }
+
+    private void saveData(String sourceFile) throws FileNotFoundException {
         jsonWriter.saveToFile(myWarehouse);
         communicatorText.setText("Warehouse inventory has been saved to " + sourceFile);
     }
