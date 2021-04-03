@@ -1,4 +1,4 @@
-package ui.operations;
+package ui.warehouseApplicationComponents;
 
 import model.Warehouse;
 import persistence.JsonReader;
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 // This class handles the load portion of the warehouse application gui
-public class LoadEvent implements ActionListener {
+public class LoadDialog implements ActionListener {
     private static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json";
     private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
     private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
@@ -30,7 +30,7 @@ public class LoadEvent implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: LoadEvent constructor
-    public LoadEvent(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
+    public LoadDialog(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
         buttonGroup = new ButtonGroup();
         selectFileOneOption = new JRadioButton("Load Warehouse from File 1");
         selectFileTwoOption = new JRadioButton("Load Warehouse from File 2");

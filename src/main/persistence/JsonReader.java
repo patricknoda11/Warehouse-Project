@@ -148,7 +148,7 @@ public class JsonReader {
             p.setAddressExportedTo(jo.getString("addressExportedTo"));
             p.setHasBeenExportedFromWarehouse(jo.getBoolean("hasBeenExportedFromWarehouse"));
             p.setIsInWarehouse(jo.getBoolean("IsInWarehouse"));
-            warehouse.addToImportHistory(p);
+            warehouse.getImportEvent().getImportHistory().add(p);
         }
     }
 
@@ -170,7 +170,7 @@ public class JsonReader {
             p.setAddressExportedTo(jo.getString("addressExportedTo"));
             p.setHasBeenExportedFromWarehouse(jo.getBoolean("hasBeenExportedFromWarehouse"));
             p.setIsInWarehouse(jo.getBoolean("IsInWarehouse"));
-            warehouse.addToExportHistory(p);
+            warehouse.getExportEvent().getExportHistory().add(p);
         }
     }
 

@@ -1,4 +1,4 @@
-package ui.operations;
+package ui.warehouseApplicationComponents;
 
 import model.Warehouse;
 import persistence.JsonWriter;
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 // This class handles the save portion of the warehouse application gui
-public class SaveEvent implements ActionListener {
+public class SaveDialog implements ActionListener {
     private static final String SOURCE_FILE_1 = "./data/warehouseInventoryFile1.json";
     private static final String SOURCE_FILE_2 = "./data/warehouseInventoryFile2.json";
     private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
@@ -30,7 +30,7 @@ public class SaveEvent implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: SaveEvent constructor
-    public SaveEvent(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
+    public SaveDialog(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
         buttonGroup = new ButtonGroup();
         selectFileOneOption = new JRadioButton("Save Changes to File 1");
         selectFileTwoOption = new JRadioButton("Save Changes to File 2");

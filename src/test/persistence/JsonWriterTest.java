@@ -124,16 +124,16 @@ public class JsonWriterTest extends JsonTest {
             // check initial warehouse values in ./data/testJsonWriterEmptyInventory.json
             assertEquals("My Warehouse", initialWarehouse.getWarehouseName());
             assertEquals(0, initialWarehouse.getNumberPackagesInInventory());
-            assertEquals(0, initialWarehouse.getImportHistorySize());
-            assertEquals(0, initialWarehouse.getExportHistorySize());
+            assertEquals(0, initialWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(0, initialWarehouse.getExportEvent().getExportHistory().size());
             // save warehouse with updated name
             testJsonWriter.saveToFile(updatedWarehouse);
             // confirm save to file
             Warehouse retrievedWarehouse = testJsonReader.retrieveSavedWarehouseData();
             assertEquals("Shoreline Warehousing", retrievedWarehouse.getWarehouseName());
             assertEquals(0, retrievedWarehouse.getNumberPackagesInInventory());
-            assertEquals(0, retrievedWarehouse.getImportHistorySize());
-            assertEquals(0, retrievedWarehouse.getExportHistorySize());
+            assertEquals(0, retrievedWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(0, retrievedWarehouse.getExportEvent().getExportHistory().size());
         } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
@@ -155,8 +155,8 @@ public class JsonWriterTest extends JsonTest {
             // check if packages correctly organized into sections
             assertEquals(1, retrievedWarehouse.getLargeSizedPackages().size());
             // check if history updated properly
-            assertEquals(1, retrievedWarehouse.getImportHistorySize());
-            assertEquals(0, retrievedWarehouse.getExportHistorySize());
+            assertEquals(1, retrievedWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(0, retrievedWarehouse.getExportEvent().getExportHistory().size());
         } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
@@ -178,8 +178,8 @@ public class JsonWriterTest extends JsonTest {
             // check if packages correctly organized into sections
             assertEquals(1, retrievedWarehouse.getMediumSizedPackages().size());
             // check if history updated properly
-            assertEquals(1, retrievedWarehouse.getImportHistorySize());
-            assertEquals(0, retrievedWarehouse.getExportHistorySize());
+            assertEquals(1, retrievedWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(0, retrievedWarehouse.getExportEvent().getExportHistory().size());
         } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
@@ -201,8 +201,8 @@ public class JsonWriterTest extends JsonTest {
             // check if packages correctly organized into sections
             assertEquals(1, retrievedWarehouse.getSmallSizedPackages().size());
             // check if history updated properly
-            assertEquals(1, retrievedWarehouse.getImportHistorySize());
-            assertEquals(0, retrievedWarehouse.getExportHistorySize());
+            assertEquals(1, retrievedWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(0, retrievedWarehouse.getExportEvent().getExportHistory().size());
         } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
@@ -228,8 +228,8 @@ public class JsonWriterTest extends JsonTest {
             assertEquals(1, retrievedWarehouse.getMediumSizedPackages().size());
             assertEquals(1, retrievedWarehouse.getSmallSizedPackages().size());
             // check if history updated properly
-            assertEquals(3, retrievedWarehouse.getImportHistorySize());
-            assertEquals(0, retrievedWarehouse.getExportHistorySize());
+            assertEquals(3, retrievedWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(0, retrievedWarehouse.getExportEvent().getExportHistory().size());
         } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
@@ -258,8 +258,8 @@ public class JsonWriterTest extends JsonTest {
             assertEquals(2, retrievedWarehouse.getMediumSizedPackages().size());
             assertEquals(2, retrievedWarehouse.getSmallSizedPackages().size());
             // check if history updated properly
-            assertEquals(6, retrievedWarehouse.getImportHistorySize());
-            assertEquals(0, retrievedWarehouse.getExportHistorySize());
+            assertEquals(6, retrievedWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(0, retrievedWarehouse.getExportEvent().getExportHistory().size());
         } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
@@ -277,8 +277,8 @@ public class JsonWriterTest extends JsonTest {
             // check initial warehouse values in ./data/testJsonWriterMultipleItemsInEachSizeSection.json
             assertEquals("My Warehouse", initialWarehouse.getWarehouseName());
             assertEquals(6, initialWarehouse.getNumberPackagesInInventory());
-            assertEquals(8, initialWarehouse.getImportHistorySize());
-            assertEquals(2, initialWarehouse.getExportHistorySize());
+            assertEquals(8, initialWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(2, initialWarehouse.getExportEvent().getExportHistory().size());
             // add goods to existing inventory
             initialWarehouse.importPackage(testPackage1);
             initialWarehouse.importPackage(testPackage2);
@@ -293,8 +293,8 @@ public class JsonWriterTest extends JsonTest {
             assertEquals(3, updatedWarehouse.getMediumSizedPackages().size());
             assertEquals(3, updatedWarehouse.getSmallSizedPackages().size());
             // check if history updated properly
-            assertEquals(11, updatedWarehouse.getImportHistorySize());
-            assertEquals(2, updatedWarehouse.getExportHistorySize());
+            assertEquals(11, updatedWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(2, updatedWarehouse.getExportEvent().getExportHistory().size());
         } catch (IOException e) {
             fail("Exception should not be thrown!");
         }
@@ -324,8 +324,8 @@ public class JsonWriterTest extends JsonTest {
             assertEquals(2, updatedWarehouse.getMediumSizedPackages().size());
             assertEquals(3, updatedWarehouse.getSmallSizedPackages().size());
             // check if history updated properly
-            assertEquals(11, updatedWarehouse.getImportHistorySize());
-            assertEquals(4, updatedWarehouse.getExportHistorySize());
+            assertEquals(11, updatedWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(4, updatedWarehouse.getExportEvent().getExportHistory().size());
         } catch (IOException e) {
             fail("Exception should not be thrown!");
         }

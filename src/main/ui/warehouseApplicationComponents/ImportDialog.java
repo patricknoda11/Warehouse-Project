@@ -1,4 +1,4 @@
-package ui.operations;
+package ui.warehouseApplicationComponents;
 
 import model.Package;
 import model.Warehouse;
@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // This class handles the import portion of the warehouse application gui
-public class ImportEvent implements ActionListener {
+public class ImportDialog implements ActionListener {
     private final WarehouseApplication warehouseApplication;
     private final Warehouse myWarehouse;
     private final JLabel communicatorText;
@@ -31,7 +31,7 @@ public class ImportEvent implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: ImportEvent constructor
-    public ImportEvent(WarehouseApplication app, Warehouse myWarehouse, JLabel communicatorText) {
+    public ImportDialog(WarehouseApplication app, Warehouse myWarehouse, JLabel communicatorText) {
         ownerName = new JLabel("Owner Name: ");
         ownerNameField = new JTextField();
         ownerAddress = new JLabel("Owner Address: ");
@@ -113,7 +113,7 @@ public class ImportEvent implements ActionListener {
     // MODIFIES: this
     // EFFECTS: creates new package to be imported into inventory
     private void generateNewPackageToImport() {
-        int packageID = myWarehouse.getImportHistorySize() + 1;
+        int packageID = myWarehouse.getImportEvent().getImportHistory().size() + 1;
         newPackageToImport = new Package(ownerNameField.getText(),
                 addressField.getText(),
                 phoneNumberField.getText(),

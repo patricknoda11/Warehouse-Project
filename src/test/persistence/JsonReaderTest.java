@@ -39,8 +39,8 @@ public class JsonReaderTest extends JsonTest {
             // check if data read from source file correctly
             assertEquals("My Warehouse", testWarehouse.getWarehouseName());
             assertEquals(0, testWarehouse.getNumberPackagesInInventory());
-            assertEquals(0, testWarehouse.getImportHistory().size());
-            assertEquals(0, testWarehouse.getExportHistory().size());
+            assertEquals(0, testWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(0, testWarehouse.getExportEvent().getExportHistory().size());
         } catch (IOException e) {
             fail("Exception should not pass");
         }
@@ -56,8 +56,8 @@ public class JsonReaderTest extends JsonTest {
             // check if data read from source file correctly
             assertEquals("My Warehouse", testWarehouse.getWarehouseName());
             assertEquals(1, testWarehouse.getNumberPackagesInInventory());
-            assertEquals(3, testWarehouse.getImportHistory().size());
-            assertEquals(2, testWarehouse.getExportHistory().size());
+            assertEquals(3, testWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(2, testWarehouse.getExportEvent().getExportHistory().size());
             // check if package organized into correct size section
             assertEquals(1, testWarehouse.getLargeSizedPackages().size());
         } catch (IOException e) {
@@ -76,8 +76,8 @@ public class JsonReaderTest extends JsonTest {
             // check if data read from source file correctly
             assertEquals("My Warehouse", testWarehouse.getWarehouseName());
             assertEquals(1, testWarehouse.getNumberPackagesInInventory());
-            assertEquals(3, testWarehouse.getImportHistory().size());
-            assertEquals(2, testWarehouse.getExportHistory().size());
+            assertEquals(3, testWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(2, testWarehouse.getExportEvent().getExportHistory().size());
             // check if package organized into correct size section
             assertEquals(1, testWarehouse.getMediumSizedPackages().size());
             // check if package details in import history correctly read and loaded
@@ -89,17 +89,17 @@ public class JsonReaderTest extends JsonTest {
 
     // EFFECTS: helper method to check import history package details
     private void checkImportHistoryPackageDetails(Warehouse testWarehouse) {
-        checkPackageDetails(testWarehouse.getImportHistory().get(0),
+        checkPackageDetails(testWarehouse.getImportEvent().getImportHistory().get(0),
                 "1", "testName", "dog food", "large", "6045009091",
                 "1234567_23rd_ave_Vancouver_Canada_V1ALQ3", "1 Jan, 2021 15:56:32",
                 "3 Mar 2021, 16:00:27","testAddress",
                 true, false);
-        checkPackageDetails(testWarehouse.getImportHistory().get(1),
+        checkPackageDetails(testWarehouse.getImportEvent().getImportHistory().get(1),
                 "2", "testName", "bottles", "large", "6045009091",
                 "1234567_23rd_ave_Vancouver_Canada_V1ALQ3", "1 Jan, 2021 15:56:32",
                 "3 Mar 2021, 16:00:27","testAddress",
                 true, false);
-        checkPackageDetails(testWarehouse.getImportHistory().get(2),
+        checkPackageDetails(testWarehouse.getImportEvent().getImportHistory().get(2),
                 "3", "testName", "cans", "medium", "6045009091",
                 "1234567_23rd_ave_Vancouver_Canada_V1ALQ3", "8 Feb, 2021 15:56:32",
                 "has not been exported yet","has not been exported yet",
@@ -116,8 +116,8 @@ public class JsonReaderTest extends JsonTest {
             // check if data read from source file correctly
             assertEquals("My Warehouse", testWarehouse.getWarehouseName());
             assertEquals(1, testWarehouse.getNumberPackagesInInventory());
-            assertEquals(3, testWarehouse.getImportHistory().size());
-            assertEquals(2, testWarehouse.getExportHistory().size());
+            assertEquals(3, testWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(2, testWarehouse.getExportEvent().getExportHistory().size());
             // check if package organized into correct size section
             assertEquals(1, testWarehouse.getSmallSizedPackages().size());
             // check if package details in export history correctly read and loaded
@@ -129,12 +129,12 @@ public class JsonReaderTest extends JsonTest {
 
     // EFFECTS: helper method to check export history package details
     private void checkExportHistoryPackageDetails(Warehouse testWarehouse) {
-        checkPackageDetails(testWarehouse.getImportHistory().get(0),
+        checkPackageDetails(testWarehouse.getImportEvent().getImportHistory().get(0),
                 "1", "testName", "dog food", "large", "6045009091",
                 "1234567_23rd_ave_Vancouver_Canada_V1ALQ3", "1 Jan, 2021 15:56:32",
                 "3 Mar 2021, 16:00:27","testAddress",
                 true, false);
-        checkPackageDetails(testWarehouse.getImportHistory().get(1),
+        checkPackageDetails(testWarehouse.getImportEvent().getImportHistory().get(1),
                 "2", "testName", "bottles", "large", "6045009091",
                 "1234567_23rd_ave_Vancouver_Canada_V1ALQ3", "1 Jan, 2021 15:56:32",
                 "3 Mar 2021, 16:00:27","testAddress",
@@ -151,8 +151,8 @@ public class JsonReaderTest extends JsonTest {
             // check if data read from source file correctly
             assertEquals("My Warehouse", testWarehouse.getWarehouseName());
             assertEquals(3, testWarehouse.getNumberPackagesInInventory());
-            assertEquals(5, testWarehouse.getImportHistory().size());
-            assertEquals(2, testWarehouse.getExportHistory().size());
+            assertEquals(5, testWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(2, testWarehouse.getExportEvent().getExportHistory().size());
             // check if package organized into correct size section
             assertEquals(1, testWarehouse.getLargeSizedPackages().size());
             assertEquals(1, testWarehouse.getMediumSizedPackages().size());
@@ -193,8 +193,8 @@ public class JsonReaderTest extends JsonTest {
             // check if data read from source file correctly
             assertEquals("My Warehouse", testWarehouse.getWarehouseName());
             assertEquals(6, testWarehouse.getNumberPackagesInInventory());
-            assertEquals(8, testWarehouse.getImportHistory().size());
-            assertEquals(2, testWarehouse.getExportHistory().size());
+            assertEquals(8, testWarehouse.getImportEvent().getImportHistory().size());
+            assertEquals(2, testWarehouse.getExportEvent().getExportHistory().size());
             // check if package organized into correct size section
             assertEquals(2, testWarehouse.getLargeSizedPackages().size());
             assertEquals(2, testWarehouse.getMediumSizedPackages().size());

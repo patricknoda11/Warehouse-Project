@@ -2,7 +2,7 @@ package ui;
 
 import model.Package;
 import model.Warehouse;
-import ui.operations.*;
+import ui.warehouseApplicationComponents.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,9 +31,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates warehouse and scanner instance
-    //          sets the warehouse's is finished status to false (used to terminate application)
-    //          sets package id count to 0
+    // EFFECTS: creates new warehouse instance
     private void initializeApplication() {
         myWarehouse = new Warehouse("My Warehouse");
     }
@@ -154,19 +152,19 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         Toolkit.getDefaultToolkit().beep();
         switch (actionEvent) {
             case ("Import"):
-                new ImportEvent(this, this.myWarehouse, communicatorText).generateImportPackageDialog();
+                new ImportDialog(this, this.myWarehouse, communicatorText).generateImportPackageDialog();
                 break;
             case ("Export"):
-                new ExportEvent(this, this.myWarehouse, communicatorText).generateExportPackageDialog();
+                new ExportDialog(this, this.myWarehouse, communicatorText).generateExportPackageDialog();
                 break;
             case ("View History"):
-                new ViewHistoryEvent(this, this.myWarehouse).generateViewHistoryDialog();
+                new ViewHistoryDialog(this, this.myWarehouse).generateViewHistoryDialog();
                 break;
             case ("Save Changes"):
-                new SaveEvent(this, this.myWarehouse, communicatorText).generateSaveInventoryDialog();
+                new SaveDialog(this, this.myWarehouse, communicatorText).generateSaveInventoryDialog();
                 break;
             case ("Load Changes"):
-                new LoadEvent(this, this.myWarehouse, communicatorText).generateLoadInventoryDialog();
+                new LoadDialog(this, this.myWarehouse, communicatorText).generateLoadInventoryDialog();
                 break;
             default: break;
         }

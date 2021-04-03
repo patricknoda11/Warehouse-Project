@@ -1,4 +1,4 @@
-package ui.operations;
+package ui.warehouseApplicationComponents;
 
 import ui.exceptions.PackageNotFoundInInventoryException;
 import model.Package;
@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 // This class handles the export portion of the warehouse application gui
-public class ExportEvent implements ActionListener {
+public class ExportDialog implements ActionListener {
     private final WarehouseApplication warehouseApplication;
     private final Warehouse myWarehouse;
     private final JLabel communicatorText;
@@ -27,7 +27,7 @@ public class ExportEvent implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: ExportEvent constructor
-    public ExportEvent(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
+    public ExportDialog(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
         packageID = new JLabel("ID of Package to be Exported: ");
         packageIDField = new JTextField();
         packageDestination = new JLabel("Package Destination: ");

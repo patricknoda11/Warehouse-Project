@@ -1,4 +1,4 @@
-package ui.operations;
+package ui.warehouseApplicationComponents;
 
 import model.Package;
 import model.Warehouse;
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 // This class handles the history portion of the warehouse application gui
-public class ViewHistoryEvent implements ActionListener {
+public class ViewHistoryDialog implements ActionListener {
     private final WarehouseApplication warehouseApplication;
     private final Warehouse myWarehouse;
     private final ButtonGroup buttonGroup;
@@ -24,7 +24,7 @@ public class ViewHistoryEvent implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: ViewHistoryEvent constructor
-    public ViewHistoryEvent(WarehouseApplication app, Warehouse warehouse) {
+    public ViewHistoryDialog(WarehouseApplication app, Warehouse warehouse) {
         buttonGroup = new ButtonGroup();
         importHistoryButton = new JRadioButton("Import");
         exportHistoryButton = new JRadioButton("Export");
@@ -141,9 +141,9 @@ public class ViewHistoryEvent implements ActionListener {
     private void printHistory(String process) {
         List<Package> history;
         if (process.equals("Import")) {
-            history = myWarehouse.getImportHistory();
+            history = myWarehouse.getImportEvent().getImportHistory();
         } else {
-            history = myWarehouse.getExportHistory();
+            history = myWarehouse.getExportEvent().getExportHistory();
         }
 
         if (history.size() == 0) {
