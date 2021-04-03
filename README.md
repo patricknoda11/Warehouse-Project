@@ -23,6 +23,13 @@ potential limitations associated with a system of its type.
 - As a user, I want to be able to save changes of my warehouse inventory to file
 - As a user, I want to be able to load my warehouse inventory from file
 
+---
+
+### Phase 4: Task 2
+Two bi-directional associations were added in the model package. One bi-directional association was formed between the 
+Warehouse class and the ImportEvent class, and the second bi-directional association was formed between the Warehouse 
+class and the ExportEvent class.  
+
 
 
 
