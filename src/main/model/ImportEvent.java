@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImportEvent {
-    private Warehouse warehouse;
-    private List<Package> importHistory;
+    private final Warehouse warehouse;
+    private final List<Package> importHistory;
 
     public ImportEvent(Warehouse warehouse) {
         this.warehouse = warehouse;
@@ -33,6 +33,7 @@ public class ImportEvent {
         this.warehouse.setNumberPackagesInInventory(this.warehouse.getNumberPackagesInInventory() + 1);
     }
 
+    // REQUIRES: warehouse's number of packages stored in inventory < MAX_WAREHOUSE_CAPACITY
     // MODIFIES: this
     // EFFECTS: if package is "Small" add package into small section, if not then check if package is "Medium",
     //          otherwise store it in the large sized package section

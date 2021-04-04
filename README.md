@@ -30,6 +30,24 @@ Two bi-directional associations were added in the model package. One bi-directio
 Warehouse class and the ImportEvent class, and the second bi-directional association was formed between the Warehouse 
 class and the ExportEvent class.  
 
+---
+
+### Phase 4: Task 3
+
+After reviewing the UML class diagram for this project, I realized that there are many unnecessary associations between 
+the classes. Furthermore, the project seemed to lack an overall architectural design flow. 
+If I had more time to work on the project, I would focus on creating an overall architectural design flow 
+and eliminating the redundant associations seen in the UML class diagram. I would also integrate the observer design 
+pattern into the current inventory display found on the GUI's main JFrame window to update every time a package is 
+imported, exported, or whenever a saved file is loaded.
+
+- eliminate the uni-directional association between all the dialog classes and the warehouse class
+- eliminate the uni-directional association between ImportDialog and Package
+- eliminate the uni-directional association between ExportDialog and Package
+- integrate the Observer design pattern to make the current inventory display update every time changes are made to 
+inventory
+
+
 
 
 

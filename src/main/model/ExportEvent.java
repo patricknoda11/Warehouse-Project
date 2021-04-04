@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ExportEvent {
-    private Warehouse warehouse;
-    private List<Package> exportHistory;
+    private final Warehouse warehouse;
+    private final List<Package> exportHistory;
 
     public ExportEvent(Warehouse warehouse) {
         this.warehouse = warehouse;
