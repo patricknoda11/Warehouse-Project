@@ -41,7 +41,7 @@ and eliminating the redundant associations seen in the UML class diagram. I woul
 pattern into the current inventory display found on the GUI's main JFrame window to update every time a package is 
 imported, exported, or whenever a saved file is loaded.
 
-- eliminate the uni-directional association between all the dialog classes and the warehouse class
+- eliminate the uni-directional association between all the Dialog classes and the Warehouse class
 - eliminate the uni-directional association between ImportDialog and Package
 - eliminate the uni-directional association between ExportDialog and Package
 - integrate the Observer design pattern to make the current inventory display update every time changes are made to 
