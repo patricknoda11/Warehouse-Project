@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+// represents the export functionality/process of a warehouse
 public class ExportEvent {
     private final Warehouse warehouse;
     private final List<Package> exportHistory;
 
+    // MODIFIES: this
+    // EFFECTS: creates new ExportEvent by setting warehouse field and creating a new list for export history
     public ExportEvent(Warehouse warehouse) {
         this.warehouse = warehouse;
         this.exportHistory = new ArrayList<>();

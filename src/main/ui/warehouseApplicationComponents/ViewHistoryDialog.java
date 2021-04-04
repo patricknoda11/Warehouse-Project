@@ -59,7 +59,7 @@ public class ViewHistoryDialog implements ActionListener {
         viewHistoryDialog.add(historyDisplay);
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, interactivePanel
     // EFFECTS: organizes the content on the interactive panel located on left side of view history dialog
     private void organizeInteractivePanelContent(JPanel interactivePanel) {
         addImportExportButtonPanel(interactivePanel);
@@ -67,7 +67,7 @@ public class ViewHistoryDialog implements ActionListener {
         addLoadHistoryButtonFunctionality(interactivePanel);
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, interactivePanel
     // EFFECTS: adds button panel to the interactive panel
     private void addImportExportButtonPanel(JPanel interactivePanel) {
         JPanel importExportButtonPanel = new JPanel();
@@ -79,7 +79,7 @@ public class ViewHistoryDialog implements ActionListener {
         interactivePanel.add(importExportButtonPanel);
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, interactivePanel
     // EFFECTS: implements load history button functionality
     private void addLoadHistoryButtonFunctionality(JPanel interactivePanel) {
         loadHistory.addActionListener(this);

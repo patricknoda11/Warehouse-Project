@@ -11,7 +11,6 @@ import java.util.List;
  *  - large packages
  *  - medium packages
  *  - small packages
- * A warehouse keeps record of all its imports and exports
  */
 public class Warehouse {
     public static final int MAX_WAREHOUSE_CAPACITY = 100;

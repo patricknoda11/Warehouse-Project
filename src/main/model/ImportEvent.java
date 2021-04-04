@@ -6,10 +6,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+// represents the import functionality/process of a warehouse
 public class ImportEvent {
     private final Warehouse warehouse;
     private final List<Package> importHistory;
 
+    // MODIFIES: this
+    // EFFECTS: creates new ImportEvent by setting warehouse field and creating a new list for import history
     public ImportEvent(Warehouse warehouse) {
         this.warehouse = warehouse;
         this.importHistory = new ArrayList<>();
