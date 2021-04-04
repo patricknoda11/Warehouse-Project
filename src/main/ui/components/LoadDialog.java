@@ -1,4 +1,4 @@
-package ui.warehouseApplicationComponents;
+package ui.components;
 
 import model.Warehouse;
 import persistence.JsonReader;

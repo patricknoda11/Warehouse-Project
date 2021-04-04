@@ -1,4 +1,4 @@
-package ui.warehouseApplicationComponents;
+package ui.components;
 
 import ui.exceptions.PackageNotFoundInInventoryException;
 import model.Package;

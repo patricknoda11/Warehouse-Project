@@ -2,7 +2,7 @@ package ui;
 
 import model.Package;
 import model.Warehouse;
-import ui.warehouseApplicationComponents.*;
+import ui.components.*;
 
 import javax.swing.*;
 import java.awt.*;
