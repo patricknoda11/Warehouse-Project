@@ -30,6 +30,7 @@ Two bi-directional associations were added in the model package. One bi-directio
 Warehouse class and the ImportEvent class, and the second bi-directional association was formed between the Warehouse 
 class and the ExportEvent class.  
 
+
 ---
 
 ### Phase 4: Task 3
