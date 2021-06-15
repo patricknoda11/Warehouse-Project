@@ -14,7 +14,6 @@ import java.util.List;
 // This class handles the export portion of the warehouse application gui
 public class ExportDialog implements ActionListener {
     private final WarehouseApplication warehouseApplication;
-    private final Warehouse myWarehouse;
     private final JLabel communicatorText;
     private final JLabel packageID;
     private final JTextField packageIDField;
@@ -27,7 +26,7 @@ public class ExportDialog implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: ExportEvent constructor
-    public ExportDialog(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
+    public ExportDialog(WarehouseApplication app, JLabel communicatorText) {
         packageID = new JLabel("ID of Package to be Exported: ");
         packageIDField = new JTextField();
         packageDestination = new JLabel("Package Destination: ");
@@ -36,7 +35,6 @@ public class ExportDialog implements ActionListener {
         enterButton = new JButton("Enter");
 
         this.warehouseApplication = app;
-        this.myWarehouse = warehouse;
         this.communicatorText = communicatorText;
     }
 
@@ -45,7 +43,7 @@ public class ExportDialog implements ActionListener {
     //          does not have any packages available to export.
     //          otherwise, creates an export package dialog
     public void generateExportPackageDialog() {
-        int packagesInInventory = this.myWarehouse.getNumberPackagesInInventory();
+        int packagesInInventory = this.warehouseApplication.getWarehouse().getNumberPackagesInInventory();
         if (packagesInInventory == 0) {
             communicatorText.setText("Warehouse inventory has no packages to export");
         } else {
@@ -78,6 +76,7 @@ public class ExportDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
+        Warehouse myWarehouse = this.warehouseApplication.getWarehouse();
         Toolkit.getDefaultToolkit().beep();
         if (actionCommand.equals("Cancel")) {
             exportDialog.dispose();
@@ -104,7 +103,8 @@ public class ExportDialog implements ActionListener {
     // EFFECTS: searches the inventory for the package with given id
     //          if package with given id not found, throw PackageNotFoundInInventoryException
     private void choosePackageToExport() throws PackageNotFoundInInventoryException {
-        List<Package> availablePackagesToExport = this.myWarehouse.getAllPackagesAvailableInInventory();
+        List<Package> availablePackagesToExport = this.warehouseApplication.getWarehouse()
+                .getAllPackagesAvailableInInventory();
         for (Package p : availablePackagesToExport) {
             String packageID = p.getPackageID();
             if (packageID.equals(packageIDField.getText())) {

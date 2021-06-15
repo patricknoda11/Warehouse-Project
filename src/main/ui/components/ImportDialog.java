@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 // This class handles the import portion of the warehouse application gui
 public class ImportDialog implements ActionListener {
     private final WarehouseApplication warehouseApplication;
-    private final Warehouse myWarehouse;
     private final JLabel communicatorText;
     private final JLabel ownerName;
     private final JTextField ownerNameField;
@@ -31,7 +30,7 @@ public class ImportDialog implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: ImportEvent constructor
-    public ImportDialog(WarehouseApplication app, Warehouse myWarehouse, JLabel communicatorText) {
+    public ImportDialog(WarehouseApplication app, JLabel communicatorText) {
         ownerName = new JLabel("Owner Name: ");
         ownerNameField = new JTextField();
         ownerAddress = new JLabel("Owner Address: ");
@@ -46,7 +45,6 @@ public class ImportDialog implements ActionListener {
         enterButton = new JButton("Enter");
 
         this.warehouseApplication = app;
-        this.myWarehouse = myWarehouse;
         this.communicatorText = communicatorText;
     }
 
@@ -55,7 +53,8 @@ public class ImportDialog implements ActionListener {
     //          creates dialog for package import.
     //          otherwise, indicates to the user that inventory is full
     public void generateImportPackageDialog() {
-        int numberOfPackagesInInventoryBeforeImport = this.myWarehouse.getNumberPackagesInInventory();
+        int numberOfPackagesInInventoryBeforeImport = this.warehouseApplication.getWarehouse()
+                .getNumberPackagesInInventory();
         if (numberOfPackagesInInventoryBeforeImport < Warehouse.MAX_WAREHOUSE_CAPACITY) {
             this.importDialog = new JDialog(this.warehouseApplication, "Import Package");
             importDialog.setLayout(new GridLayout(6,2));
@@ -93,6 +92,7 @@ public class ImportDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
+        Warehouse myWarehouse = this.warehouseApplication.getWarehouse();
         Toolkit.getDefaultToolkit().beep();
 
         if (actionCommand.equals("Cancel")) {
@@ -113,7 +113,7 @@ public class ImportDialog implements ActionListener {
     // MODIFIES: this
     // EFFECTS: creates new package to be imported into inventory
     private void generateNewPackageToImport() {
-        int packageID = myWarehouse.getImportEvent().getImportHistory().size() + 1;
+        int packageID = this.warehouseApplication.getWarehouse().getImportEvent().getImportHistory().size() + 1;
         newPackageToImport = new Package(ownerNameField.getText(),
                 addressField.getText(),
                 phoneNumberField.getText(),
