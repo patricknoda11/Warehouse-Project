@@ -22,7 +22,6 @@ public class ExportDialog implements ActionListener {
     private final JButton cancelButton;
     private final JButton enterButton;
     private JDialog exportDialog;
-    private Package packageToExport;
 
     // MODIFIES: this
     // EFFECTS: ExportEvent constructor
@@ -84,14 +83,14 @@ public class ExportDialog implements ActionListener {
 
         if (actionCommand.equals("Enter")) {
             try {
-                choosePackageToExport();
+                Package packageToExport = choosePackageToExport();
                 myWarehouse.exportPackage(packageToExport, packageDestinationField.getText());
                 communicatorText.setText("The package has been successfully shipped to: "
                         + packageToExport.getAddressExportedTo()
                         + ". The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory()
                         + " item(s).");
             } catch (PackageNotFoundInInventoryException ex) {
-                communicatorText.setText("Package ID indicated is not available to ship."
+                communicatorText.setText(ex.getMessage()
                         + " Please try again. (Ex: 1, 2, 3)");
             } finally {
                 warehouseApplication.updateCurrentInventoryDisplay();
@@ -102,17 +101,22 @@ public class ExportDialog implements ActionListener {
 
     // EFFECTS: searches the inventory for the package with given id
     //          if package with given id not found, throw PackageNotFoundInInventoryException
-    private void choosePackageToExport() throws PackageNotFoundInInventoryException {
+    private Package choosePackageToExport() throws PackageNotFoundInInventoryException {
         List<Package> availablePackagesToExport = this.warehouseApplication.getWarehouse()
                 .getAllPackagesAvailableInInventory();
+        Package packageToExport = null;
         for (Package p : availablePackagesToExport) {
             String packageID = p.getPackageID();
             if (packageID.equals(packageIDField.getText())) {
-                this.packageToExport = p;
-                return;
+                packageToExport = p;
             }
         }
-        throw new PackageNotFoundInInventoryException("The Indicated Package ID is Not Available to be Shipped");
+
+        if (packageToExport == null) {
+            throw new PackageNotFoundInInventoryException("The Indicated Package ID is Not Available to be Shipped");
+        }
+
+        return packageToExport;
     }
 }
 

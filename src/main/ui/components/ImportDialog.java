@@ -14,33 +14,32 @@ public class ImportDialog implements ActionListener {
     private final WarehouseApplication warehouseApplication;
     private final JLabel communicatorText;
     private final JLabel ownerName;
-    private final JTextField ownerNameField;
+    private final JTextField ownerNameUserInput;
     private final JLabel ownerAddress;
-    private final JTextField addressField;
+    private final JTextField ownerAddressUserInput;
     private final JLabel ownerPhoneNumber;
-    private final JTextField phoneNumberField;
+    private final JTextField ownerPhoneNumberUserInput;
     private final JLabel packageContent;
-    private final JTextField packageContentField;
+    private final JTextField packageContentUserInput;
     private final JLabel packageSize;
-    private final JTextField packageSizeField;
+    private final JTextField packageSizeUserInput;
     private final JButton cancelButton;
     private final JButton enterButton;
     private JDialog importDialog;
-    private Package newPackageToImport;
 
     // MODIFIES: this
     // EFFECTS: ImportEvent constructor
     public ImportDialog(WarehouseApplication app, JLabel communicatorText) {
         ownerName = new JLabel("Owner Name: ");
-        ownerNameField = new JTextField();
+        ownerNameUserInput = new JTextField();
         ownerAddress = new JLabel("Owner Address: ");
-        addressField = new JTextField();
+        ownerAddressUserInput = new JTextField();
         ownerPhoneNumber = new JLabel("Owner Phone Number: ");
-        phoneNumberField = new JTextField();
+        ownerPhoneNumberUserInput = new JTextField();
         packageContent = new JLabel("Package Content: ");
-        packageContentField = new JTextField();
+        packageContentUserInput = new JTextField();
         packageSize = new JLabel("Package Size: \n Please enter one of large, medium or small");
-        packageSizeField = new JTextField();
+        packageSizeUserInput = new JTextField();
         cancelButton = new JButton("Cancel");
         enterButton = new JButton("Enter");
 
@@ -71,15 +70,15 @@ public class ImportDialog implements ActionListener {
     // EFFECTS: organizes/structures the content found on the import package dialog
     private void organizeImportPackageDialogContent() {
         importDialog.add(ownerName);
-        importDialog.add(ownerNameField);
+        importDialog.add(ownerNameUserInput);
         importDialog.add(ownerAddress);
-        importDialog.add(addressField);
+        importDialog.add(ownerAddressUserInput);
         importDialog.add(ownerPhoneNumber);
-        importDialog.add(phoneNumberField);
+        importDialog.add(ownerPhoneNumberUserInput);
         importDialog.add(packageContent);
-        importDialog.add(packageContentField);
+        importDialog.add(packageContentUserInput);
         importDialog.add(packageSize);
-        importDialog.add(packageSizeField);
+        importDialog.add(packageSizeUserInput);
         importDialog.add(cancelButton);
         importDialog.add(enterButton);
         cancelButton.addActionListener(this);
@@ -100,9 +99,9 @@ public class ImportDialog implements ActionListener {
         }
 
         if (actionCommand.equals("Enter")) {
-            generateNewPackageToImport();
-            myWarehouse.importPackage(newPackageToImport);
-            communicatorText.setText("Package " + newPackageToImport.getPackageID()
+            Package importPackage = generateNewPackageToImport();
+            myWarehouse.importPackage(importPackage);
+            communicatorText.setText("Package " + importPackage.getPackageID()
                     + " has been stored in the inventory."
                     + " The warehouse inventory now has: " + myWarehouse.getNumberPackagesInInventory() + " item(s).");
             warehouseApplication.updateCurrentInventoryDisplay();
@@ -112,13 +111,13 @@ public class ImportDialog implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: creates new package to be imported into inventory
-    private void generateNewPackageToImport() {
+    private Package generateNewPackageToImport() {
         int packageID = this.warehouseApplication.getWarehouse().getImportEvent().getImportHistory().size() + 1;
-        newPackageToImport = new Package(ownerNameField.getText(),
-                addressField.getText(),
-                phoneNumberField.getText(),
-                packageContentField.getText(),
-                packageSizeField.getText(),
+        return new Package(ownerNameUserInput.getText(),
+                ownerAddressUserInput.getText(),
+                ownerPhoneNumberUserInput.getText(),
+                packageContentUserInput.getText(),
+                packageSizeUserInput.getText(),
                 String.valueOf(packageID));
     }
 }
