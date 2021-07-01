@@ -17,7 +17,6 @@ public class SaveDialog implements ActionListener {
     private static final String SOURCE_FILE_3 = "./data/warehouseInventoryFile3.json";
 
     private final WarehouseApplication warehouseApplication;
-    private final Warehouse myWarehouse;
     private final JLabel communicatorText;
     private final ButtonGroup buttonGroup;
     private final JRadioButton selectFileOneOption;
@@ -30,7 +29,7 @@ public class SaveDialog implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: SaveEvent constructor
-    public SaveDialog(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
+    public SaveDialog(WarehouseApplication app, JLabel communicatorText) {
         buttonGroup = new ButtonGroup();
         selectFileOneOption = new JRadioButton("Save Changes to File 1");
         selectFileTwoOption = new JRadioButton("Save Changes to File 2");
@@ -39,7 +38,6 @@ public class SaveDialog implements ActionListener {
         enterButton = new JButton("Enter");
 
         this.warehouseApplication = app;
-        this.myWarehouse = warehouse;
         this.communicatorText = communicatorText;
 
         buttonGroup.add(selectFileOneOption);
@@ -126,7 +124,7 @@ public class SaveDialog implements ActionListener {
     // EFFECTS: saves the changes made to warehouse to the given source file,
     //          if file not found throws FileNotFoundException
     private void saveData(String sourceFile) throws FileNotFoundException {
-        jsonWriter.saveToFile(myWarehouse);
+        jsonWriter.saveToFile(this.warehouseApplication.getWarehouse());
         communicatorText.setText("Warehouse inventory has been saved to " + sourceFile);
     }
 }

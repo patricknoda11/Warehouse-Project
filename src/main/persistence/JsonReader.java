@@ -107,7 +107,7 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: warehouse
+    // MODIFES: warehouse
     // EFFECTS: adds details stored in JSONObject to warehouse small Sized Packages section
     private void addPackagesToSmallSizedPackages(JSONObject jsonObject, Warehouse warehouse) {
         JSONArray smallSizedPackages = jsonObject.getJSONArray("smallSizedPackages");

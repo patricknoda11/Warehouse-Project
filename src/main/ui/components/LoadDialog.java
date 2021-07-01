@@ -24,13 +24,12 @@ public class LoadDialog implements ActionListener {
     private final JRadioButton selectFileThreeOption;
     private final JButton cancelButton;
     private final JButton enterButton;
-    private Warehouse myWarehouse;
     private JsonReader jsonReader;
     private JDialog loadDialog;
 
     // MODIFIES: this
     // EFFECTS: LoadEvent constructor
-    public LoadDialog(WarehouseApplication app, Warehouse warehouse, JLabel communicatorText) {
+    public LoadDialog(WarehouseApplication app, JLabel communicatorText) {
         buttonGroup = new ButtonGroup();
         selectFileOneOption = new JRadioButton("Load Warehouse from File 1");
         selectFileTwoOption = new JRadioButton("Load Warehouse from File 2");
@@ -39,7 +38,6 @@ public class LoadDialog implements ActionListener {
         enterButton = new JButton("Enter");
 
         this.warehouseApplication = app;
-        this.myWarehouse = warehouse;
         this.communicatorText = communicatorText;
 
         buttonGroup.add(selectFileOneOption);
@@ -125,8 +123,8 @@ public class LoadDialog implements ActionListener {
     // EFFECTS: loads data from given file source
     //          if file not readable, throws IOException
     private void loadData(String sourceFile) throws IOException {
-        this.myWarehouse = jsonReader.retrieveSavedWarehouseData();
-        warehouseApplication.reloadMyWarehouseFromFile(this.myWarehouse);
+        Warehouse myWarehouse = jsonReader.retrieveSavedWarehouseData();
+        warehouseApplication.reloadMyWarehouseFromFile(myWarehouse);
         communicatorText.setText("Warehouse inventory previously saved in " + sourceFile + " has been loaded");
     }
 

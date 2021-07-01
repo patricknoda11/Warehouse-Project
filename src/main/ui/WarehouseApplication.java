@@ -152,19 +152,19 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         Toolkit.getDefaultToolkit().beep();
         switch (actionEvent) {
             case ("Import"):
-                new ImportDialog(this, this.myWarehouse, communicatorText).generateImportPackageDialog();
+                new ImportDialog(this, communicatorText).generateImportPackageDialog();
                 break;
             case ("Export"):
-                new ExportDialog(this, this.myWarehouse, communicatorText).generateExportPackageDialog();
+                new ExportDialog(this, communicatorText).generateExportPackageDialog();
                 break;
             case ("View History"):
-                new ViewHistoryDialog(this, this.myWarehouse).generateViewHistoryDialog();
+                new ViewHistoryDialog(this).generateViewHistoryDialog();
                 break;
             case ("Save Changes"):
-                new SaveDialog(this, this.myWarehouse, communicatorText).generateSaveInventoryDialog();
+                new SaveDialog(this, communicatorText).generateSaveInventoryDialog();
                 break;
             case ("Load Changes"):
-                new LoadDialog(this, this.myWarehouse, communicatorText).generateLoadInventoryDialog();
+                new LoadDialog(this, communicatorText).generateLoadInventoryDialog();
                 break;
             default: break;
         }
@@ -216,4 +216,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         this.myWarehouse = warehouse;
     }
 
+    public Warehouse getWarehouse() {
+        return this.myWarehouse;
+    }
 }
