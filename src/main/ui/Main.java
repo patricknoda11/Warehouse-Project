@@ -3,7 +3,6 @@ package ui;
 // main class
 public class Main {
     public static void main(String[] args) {
-        new WarehouseApplication();
-
+        new WarehouseApplicationTwo("My Warehouse");
     }
 }

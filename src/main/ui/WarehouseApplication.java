@@ -4,70 +4,97 @@ import model.Package;
 import model.Warehouse;
 import ui.components.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 // Warehouse management application
-public class WarehouseApplication extends JFrame implements ActionListener {
+public class WarehouseApplication extends JFrame implements ActionListener, Observer {
     private static final int GUI_WIDTH = 1300;
     private static final int GUI_HEIGHT = 1000;
-    private static final Color GUI_BACKGROUND_COLOUR = new Color(184, 216, 232);
+    private static final Color GUI_BACKGROUND_COLOUR = new Color(250, 230, 190);
     private static final int TIMER_REFRESH = 1000;
 
-    private Warehouse myWarehouse;
+    private Warehouse myWarehouse = new Warehouse("My Warehouse");
     private JTextArea currentInventory;
     private JLabel communicatorText;
 
     // EFFECTS: instantiates WarehouseApplication
     public WarehouseApplication() {
-        initializeApplication();
-        initializeGUI();
+        initializeFrame();
     }
 
     // MODIFIES: this
-    // EFFECTS: creates new warehouse instance
-    private void initializeApplication() {
-        myWarehouse = new Warehouse("My Warehouse");
+    // EFFECTS: initializes the warehouse GUI by setting up JFrame settings and adding features to JFrame
+    private void initializeFrame() {
+        // initialize general Frame Settings
+        setupGeneralFrameSettings();
+
+        // add Components to Frame
+        setupFrameComponents();
+
+        // sets frame to visible
+        setVisible(true);
     }
 
-    // MODIFIES: this
-    // EFFECTS: initializes the warehouse GUI by creating JFrame window and implementing its features
-    private void initializeGUI() {
+    // EFFECTS: setup general Frame settings
+    private void setupGeneralFrameSettings() {
         setTitle("Warehouse Management");
         setLayout(new BorderLayout());
+        setUpFrameIcon();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setDefaultLookAndFeelDecorated(true);
         setSize(GUI_WIDTH,GUI_HEIGHT);
         setLocationRelativeTo(null); // sets the location of the window to the center of screen
+    }
 
+
+    // EFFECTS: sets up icon if it is possible
+    private void setUpFrameIcon() {
+        BufferedImage icon = null;
+        try {
+            icon = ImageIO.read(new File("./data/warehouse.png"));
+            setIconImage(icon);
+        } catch (IOException e) {
+            // if Icon cannot be set up it doesn't matter :)
+        }
+    }
+
+    // EFFECTS: sets up Frame components
+    private void setupFrameComponents() {
+        // create top, middle and bottom JPanels for the main JFrame
         JPanel mainUpperPanel = new JPanel();
+        JPanel mainLeftPanel = new JPanel();
         JPanel mainMiddlePanel = new JPanel();
         JPanel mainBottomPanel = new JPanel();
 
-        mainUpperPanel.setBackground(GUI_BACKGROUND_COLOUR);
-        mainMiddlePanel.setLayout(new GridLayout(0,3));
+        // setup the JPanels
+        setupMainUpperPanel(mainUpperPanel);
+        setupMainLeftPanel(mainLeftPanel);
+        setupMainMiddlePanel(mainMiddlePanel);
+        setupMainBottomPanel(mainBottomPanel);
+        // add JPanels to JFrame
         add(mainUpperPanel, BorderLayout.NORTH);
+        add(mainLeftPanel, BorderLayout.WEST);
         add(mainMiddlePanel, BorderLayout.CENTER);
         add(mainBottomPanel, BorderLayout.SOUTH);
-
-        communicatorText = new JLabel();
-        communicatorText.setBackground(GUI_BACKGROUND_COLOUR);
-        mainBottomPanel.add(communicatorText);
-
-        addWelcomeStatement(mainUpperPanel);
-        addMainMenuOptions(mainMiddlePanel);
-        setVisible(true);
     }
 
     // MODIFIES: this, mainUpperPanel
     // EFFECTS: generates a welcome statement on the main JFrame window which changes depending on time of day
-    private void addWelcomeStatement(JPanel mainUpperPanel) {
+    private void setupMainUpperPanel(JPanel mainUpperPanel) {
+        mainUpperPanel.setBackground(GUI_BACKGROUND_COLOUR);
         JLabel welcomeStatement = new JLabel();
         mainUpperPanel.add(welcomeStatement);
         DateTimeFormatter newDateFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm");
@@ -77,55 +104,20 @@ public class WarehouseApplication extends JFrame implements ActionListener {
             int timeOfDay = LocalTime.now().getHour();
 
             if (0 <= timeOfDay && timeOfDay < 12) {
-                welcomeStatement.setText("Good Morning, today is " + currentDateAndTime + " AM");
+                welcomeStatement.setText("Good Morning, Today is " + currentDateAndTime + " AM");
             } else if (12 <= timeOfDay && timeOfDay < 18) {
-                welcomeStatement.setText("Good Afternoon, today is " + currentDateAndTime + " PM");
+                welcomeStatement.setText("Good Afternoon, Today is " + currentDateAndTime + " PM");
             } else {
-                welcomeStatement.setText("Good Evening, today is " + currentDateAndTime + " PM");
+                welcomeStatement.setText("Good Evening, Today is " + currentDateAndTime + " PM");
             }
         });
 
         timer.start();
     }
 
-    // MODIFIES: this, mainMiddlePanel
-    // EFFECTS: adds containers that will house main menu buttons/options to the main JFrame window
-    private void addMainMenuOptions(JPanel mainMiddlePanel) {
-        JPanel importExportPanel = new JPanel();
-        JPanel historySaveLoadPanel = new JPanel();
-        JScrollPane currentInventoryDisplay = setupCurrentInventoryDisplay();
-        importExportPanel.setBackground(GUI_BACKGROUND_COLOUR);
-        historySaveLoadPanel.setBackground(GUI_BACKGROUND_COLOUR);
-
-        importExportPanel.setLayout(new GridLayout(2, 0));
-        historySaveLoadPanel.setLayout(new GridLayout(3,0));
-
-        setUpMainMenuButtons(importExportPanel, historySaveLoadPanel);
-
-        mainMiddlePanel.add(importExportPanel);
-        mainMiddlePanel.add(historySaveLoadPanel);
-        mainMiddlePanel.add(currentInventoryDisplay);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: constructs a display which shows the current inventory's packages' details
-    private JScrollPane setupCurrentInventoryDisplay() {
-        currentInventory = new JTextArea("There are no items currently stored in the inventory");
-        currentInventory.setEditable(false);
-        currentInventory.setLineWrap(true);
-        currentInventory.setWrapStyleWord(true);
-
-        JScrollPane currentInventoryDisplay = new JScrollPane(currentInventory);
-        currentInventoryDisplay.createHorizontalScrollBar();
-        currentInventoryDisplay.createVerticalScrollBar();
-        currentInventoryDisplay.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        currentInventoryDisplay.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        return currentInventoryDisplay;
-    }
-
-    // MODIFIES: this, leftPanelOptions, middlePanelOptions
-    // EFFECTS: adds buttons to panel and implements its functionality
-    private void setUpMainMenuButtons(JPanel leftPanelOptions, JPanel middlePanelOptions) {
+    private void setupMainLeftPanel(JPanel mainLeftPanel) {
+        mainLeftPanel.setLayout(new GridLayout(5,1));
+        mainLeftPanel.setBackground(GUI_BACKGROUND_COLOUR);
         JButton importButton = new JButton("Import");
         JButton exportButton = new JButton("Export");
         JButton viewHistoryButton = new JButton("View History");
@@ -138,33 +130,58 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         saveButton.addActionListener(this);
         loadButton.addActionListener(this);
 
-        leftPanelOptions.add(importButton);
-        leftPanelOptions.add(exportButton);
-        middlePanelOptions.add(viewHistoryButton);
-        middlePanelOptions.add(saveButton);
-        middlePanelOptions.add(loadButton);
+        mainLeftPanel.add(importButton);
+        mainLeftPanel.add(exportButton);
+        mainLeftPanel.add(viewHistoryButton);
+        mainLeftPanel.add(saveButton);
+        mainLeftPanel.add(loadButton);
     }
+
+    // MODIFIES: this, mainMiddlePanel
+    // EFFECTS: adds containers that will house main menu buttons/options to the main JFrame window
+    private void setupMainMiddlePanel(JPanel mainMiddlePanel) {
+        mainMiddlePanel.setLayout(new GridLayout(1,1));
+        this.currentInventory = new JTextArea("There are no items currently stored in the inventory");
+        this.currentInventory.setEditable(false);
+        this.currentInventory.setLineWrap(true);
+        this.currentInventory.setWrapStyleWord(true);
+
+        JScrollPane currentInventoryDisplay = new JScrollPane(this.currentInventory);
+        currentInventoryDisplay.createHorizontalScrollBar();
+        currentInventoryDisplay.createVerticalScrollBar();
+        currentInventoryDisplay.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        currentInventoryDisplay.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        mainMiddlePanel.add(currentInventoryDisplay);
+    }
+
+    private void setupMainBottomPanel(JPanel mainBottomPanel) {
+        mainBottomPanel.setBackground(GUI_BACKGROUND_COLOUR);
+        this.communicatorText = new JLabel();
+        mainBottomPanel.add(this.communicatorText);
+    }
+
 
     // EFFECTS: directs the button pressed on main JFrame window to its operation
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionEvent = e.getActionCommand();
-        Toolkit.getDefaultToolkit().beep();
+
         switch (actionEvent) {
             case ("Import"):
-                new ImportDialog(this, this.myWarehouse, communicatorText).generateImportPackageDialog();
+                new ImportDialog(this, this.communicatorText);
                 break;
             case ("Export"):
-                new ExportDialog(this, this.myWarehouse, communicatorText).generateExportPackageDialog();
+//                new ExportDialog(this, this.communicatorText).generateExportPackageDialog();
                 break;
             case ("View History"):
-                new ViewHistoryDialog(this, this.myWarehouse).generateViewHistoryDialog();
+//                new ViewHistoryDialog(this).generateViewHistoryDialog();
                 break;
             case ("Save Changes"):
-                new SaveDialog(this, this.myWarehouse, communicatorText).generateSaveInventoryDialog();
+//                new SaveDialog(this, communicatorText).generateSaveInventoryDialog();
                 break;
             case ("Load Changes"):
-                new LoadDialog(this, this.myWarehouse, communicatorText).generateLoadInventoryDialog();
+//                new LoadDialog(this, communicatorText).generateLoadInventoryDialog();
                 break;
             default: break;
         }
@@ -173,16 +190,16 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: updates the current inventory display
     public void updateCurrentInventoryDisplay() {
-        List<Package> largeSizedPackagesInventory = this.myWarehouse.getLargeSizedPackages();
-        List<Package> mediumSizedPackagesInventory = this.myWarehouse.getMediumSizedPackages();
-        List<Package> smallSizedPackagesInventory = this.myWarehouse.getSmallSizedPackages();
-        if (this.myWarehouse.getNumberPackagesInInventory() == 0) {
-            currentInventory.setText("There are no items currently stored in the inventory");
-        } else {
-            addCurrentInventoryToDisplay(largeSizedPackagesInventory,
-                    mediumSizedPackagesInventory,
-                    smallSizedPackagesInventory);
-        }
+//        List<Package> largeSizedPackagesInventory = this.myWarehouse.getLargeSizedPackages();
+//        List<Package> mediumSizedPackagesInventory = this.myWarehouse.getMediumSizedPackages();
+//        List<Package> smallSizedPackagesInventory = this.myWarehouse.getSmallSizedPackages();
+//        if (this.myWarehouse.getNumberPackagesInInventory() == 0) {
+//            currentInventory.setText("There are no items currently stored in the inventory");
+//        } else {
+//            addCurrentInventoryToDisplay(largeSizedPackagesInventory,
+//                    mediumSizedPackagesInventory,
+//                    smallSizedPackagesInventory);
+//        }
     }
 
     // MODIFIES: this
@@ -216,4 +233,12 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         this.myWarehouse = warehouse;
     }
 
+    public Warehouse getWarehouse() {
+        return this.myWarehouse;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
 }
