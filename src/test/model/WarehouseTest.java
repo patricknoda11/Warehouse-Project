@@ -32,12 +32,11 @@ public class WarehouseTest {
 
     @BeforeEach
     public void setUp() {
-        this.testWarehouse = new Warehouse(WAREHOUSE_TEST_NAME);
+        this.testWarehouse = new Warehouse();
     }
 
     @Test
     public void testWarehouseConstructor() {
-        assertEquals(WAREHOUSE_TEST_NAME, this.testWarehouse.getWarehouseName());
         assertEquals(0, this.testWarehouse.getCustomerSet().size());
     }
 

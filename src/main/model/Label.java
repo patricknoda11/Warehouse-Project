@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -8,12 +10,11 @@ import java.time.format.DateTimeFormatter;
 public abstract class Label {
     protected int quantity;
     protected String invoiceNumber;
-    protected DateTimeFormatter format;
+    protected DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yy");
 
     public Label(int quantity, String invoiceNumber) {
         this.quantity = quantity;
         this.invoiceNumber = invoiceNumber;
-        this.format = DateTimeFormatter.ofPattern("MM/dd/yy");
     }
 
     @Override
@@ -25,6 +26,8 @@ public abstract class Label {
     @Override
     public abstract int hashCode();
 
+    // EFFECTS: converts label into a JSON Object
+    public abstract JSONObject convertToJsonObject();
 
     // getters
     public int getQuantity() {
@@ -34,4 +37,5 @@ public abstract class Label {
     public String getInvoiceNumber() {
         return this.invoiceNumber;
     }
+
 }

@@ -1,6 +1,9 @@
 package model;
 
 import model.exceptions.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -92,6 +95,25 @@ public class Customer implements Iterable<String[]> {
         this.iterateActiveOrders = b;
     }
 
+
+    // EFFECTS: returns JSON object representation of this Customer
+    public JSONObject convertToJsonObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", this.name);
+        jsonObject.put("activeOrders", convertOrderListToJsonArray(this.activeOrders.values()));
+        jsonObject.put("completeOrders", convertOrderListToJsonArray(this.completeOrders));
+        return jsonObject;
+    }
+
+    // EFFECTS: converts and returns a list of Orders as a JSON array
+    private JSONArray convertOrderListToJsonArray(Collection<Order> orderList) {
+        JSONArray jsonArray = new JSONArray();
+        for (Order o : orderList) {
+            jsonArray.put(o.convertToJsonObject());
+        }
+        return jsonArray;
+    }
+
     @Override
     public Iterator<String[]> iterator() {
         return new CustomerIterator();
@@ -115,7 +137,10 @@ public class Customer implements Iterable<String[]> {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    // getters
+    /**
+     * getters
+     */
+
     public String getName() {
         return this.name;
     }
@@ -125,7 +150,7 @@ public class Customer implements Iterable<String[]> {
     }
 
     public List<Order> getCompleteOrders() {
-        return this.completeOrders;
+        return Collections.unmodifiableList(this.completeOrders);
     }
 
     public int getActiveOrderSize() {
@@ -137,9 +162,41 @@ public class Customer implements Iterable<String[]> {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    // updaters
-    public void updateName(String name) {
+    /**
+     * setters
+     */
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets Orders by converting given JSON Array representation of it
+    public void setOrdersFromJsonArray(boolean setActiveOrders, JSONArray jsonOrders) {
+        for (Object o : jsonOrders) {
+            JSONObject jo = (JSONObject) o;
+            String content = jo.getString("content");
+            LocalDate importDate = LocalDate.parse(jo.getString("importDate"));
+            JSONArray exports = jo.getJSONArray("exports");
+            JSONArray monthlyChargeLabels = jo.getJSONArray("monthlyChargeLabels");
+            String invoiceNumber = jo.getString("invoiceNumber");
+            int originalQuantity = jo.getInt("originalQuantity");
+            int currentQuantity = jo.getInt("currentQuantity");
+            String storageLocation = jo.getString("storageLocation");
+            try {
+                Order order = new Order(content, importDate, invoiceNumber, originalQuantity, storageLocation);
+                order.setCurrentQuantity(currentQuantity);
+                order.setLabelsFromJsonArray(true, exports);
+                order.setLabelsFromJsonArray(false, monthlyChargeLabels);
+                if (setActiveOrders) {
+                    this.activeOrders.put(invoiceNumber, order);
+                } else {
+                    this.completeOrders.add(order);
+                }
+            } catch (QuantityNegativeException | QuantityZeroException | InvalidImportDateException e) {
+                // TODO should maybe throw an exception that is data tampered with exception???
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////

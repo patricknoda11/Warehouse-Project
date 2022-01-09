@@ -13,11 +13,7 @@ import java.util.*;
  */
 public class Warehouse {
     private final Set<Customer> customerSet = new HashSet<>();
-    private String name;
 
-    public Warehouse(String name) {
-        this.name = name;
-    }
 
     // MODIFIES: this
     // EFFECTS: if a customer with given name already exists throw CustomerAlreadyExistsException,
@@ -113,31 +109,20 @@ public class Warehouse {
         return existingCustomer;
     }
 
-    // MODIFIES: this
-    // EFFECTS: updates name of this warehouse
-    public void updateWarehouseName(String name) {
-        this.name = name;
-    }
 
     // EFFECTS: returns warehouse represented as a JSON object
     public JSONObject convertToJsonObject() {
         JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("warehouseName", this.warehouseName);
-//        jsonObject.put("largeSizedPackages", addListToJsonObject(this.largeSizedPackages));
-//        jsonObject.put("mediumSizedPackages", addListToJsonObject(this.mediumSizedPackages));
-//        jsonObject.put("smallSizedPackages", addListToJsonObject(this.smallSizedPackages));
-//        jsonObject.put("importHistory", addListToJsonObject(this.anImport.getImportHistory()));
-//        jsonObject.put("exportHistory", addListToJsonObject(this.export.getExportHistory()));
-//        jsonObject.put("numberPackagesInInventory", this.allPackagesAvailableInInventory.size());
+        jsonObject.put("customerSet", convertCustomerSetToJsonArray(this.customerSet));
         return jsonObject;
     }
 
-    // EFFECTS: adds list representation of inventory, import history, export history to JSON object
-    private JSONArray addListToJsonObject(List<Package> packageList) {
+    // EFFECTS: returns representation of customer set as a JSON array
+    private JSONArray convertCustomerSetToJsonArray(Set<Customer> customerSet) {
         JSONArray jsonArray = new JSONArray();
 
-        for (Package p : packageList) {
-            jsonArray.put(p.convertToJsonObject());
+        for (Customer c : customerSet) {
+            jsonArray.put(c.convertToJsonObject());
         }
         return jsonArray;
     }
@@ -165,11 +150,30 @@ public class Warehouse {
         existingCustomer.deleteOrder(invoiceNum);
     }
 
+    // EFFECTS: Returns Warehouse with data loaded from source file
+    public void convertJsonObjectToWarehouse(JSONObject jsonObject) {
+        JSONArray customerSet = jsonObject.getJSONArray("customerSet");
+        setCustomerSetFromJsonArray(customerSet);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets customer set by converting given JSON Array representation of it
+    private void setCustomerSetFromJsonArray(JSONArray jsonCustomerArray) {
+        for (Object o : jsonCustomerArray) {
+            JSONObject jo = (JSONObject) o;
+            String name = jo.getString("name");
+            JSONArray activeOrders = jo.getJSONArray("activeOrders");
+            JSONArray completeOrders = jo.getJSONArray("completeOrders");
+            Customer customer = new Customer(name);
+            customer.setOrdersFromJsonArray(true, activeOrders);
+            customer.setOrdersFromJsonArray(false, completeOrders);
+            this.customerSet.add(customer);
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     // getters
-    public String getWarehouseName() {
-        return this.name;
-    }
+
 
     public Set<Customer> getCustomerSet() {
         return Collections.unmodifiableSet(this.customerSet);
@@ -196,7 +200,7 @@ public class Warehouse {
         }
         return returnArray;
     }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////
+    // setters
 }
 

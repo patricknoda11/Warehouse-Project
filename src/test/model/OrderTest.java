@@ -126,7 +126,7 @@ public class OrderTest {
             fail("This should not run");
         }
 
-        List<ExportLabel> exports = this.testOrder.getExports();
+        List<Label> exports = this.testOrder.getExports();
         // confirm correct quantity remains
         assertEquals(TEST_ORDER_QUANTITY - TEST_QUANTITY_ONE, this.testOrder.getCurrentQuantity());
         // confirm export label has been correctly generated and added for removal event
@@ -151,7 +151,7 @@ public class OrderTest {
             fail("This should not run");
         }
 
-        List<ExportLabel> exports = this.testOrder.getExports();;
+        List<Label> exports = this.testOrder.getExports();;
         // confirm correct quantity remains
         assertEquals(TEST_ORDER_QUANTITY - TEST_QUANTITY_ONE - TEST_QUANTITY_TWO,
                 this.testOrder.getCurrentQuantity());
@@ -178,7 +178,7 @@ public class OrderTest {
             fail("This should not run");
         }
 
-        List<ExportLabel> exports = this.testOrder.getExports();
+        List<Label> exports = this.testOrder.getExports();
         // confirm correct quantity remains
         assertEquals(TEST_ORDER_QUANTITY, this.testOrder.getCurrentQuantity());
         // confirm export label has been correctly generated and added for removal event
@@ -202,7 +202,7 @@ public class OrderTest {
             fail("This should not run");
         }
 
-        List<ExportLabel> exports = this.testOrder.getExports();
+        List<Label> exports = this.testOrder.getExports();
         // confirm correct quantity remains
         assertEquals(TEST_ORDER_QUANTITY, this.testOrder.getCurrentQuantity());
         // confirm export label has been correctly generated and added for removal event
@@ -226,7 +226,7 @@ public class OrderTest {
             fail("This should not run");
         }
 
-        List<ExportLabel> exports = this.testOrder.getExports();
+        List<Label> exports = this.testOrder.getExports();
         // confirm correct quantity remains
         assertEquals(TEST_ORDER_QUANTITY, this.testOrder.getCurrentQuantity());
         // confirm export label has been correctly generated and added for removal event
@@ -251,7 +251,7 @@ public class OrderTest {
             // pass
         }
 
-        List<ExportLabel> exports = this.testOrder.getExports();
+        List<Label> exports = this.testOrder.getExports();
         // confirm correct quantity remains
         assertEquals(TEST_ORDER_QUANTITY, this.testOrder.getCurrentQuantity());
         // confirm export label has been correctly generated and added for removal event
@@ -276,7 +276,7 @@ public class OrderTest {
             // pass
         }
 
-        List<ExportLabel> exports = this.testOrder.getExports();
+        List<Label> exports = this.testOrder.getExports();
         // confirm correct quantity remains
         assertEquals(TEST_ORDER_QUANTITY, this.testOrder.getCurrentQuantity());
         // confirm export label has been correctly generated and added for removal event
@@ -289,7 +289,7 @@ public class OrderTest {
             this.testOrder.addMonthlyChargeLabel(TEST_QUANTITY_ONE, TEST_INVOICE_NUMBER_ONE,
                     TEST_DATE_ONE, TEST_DATE_TWO);
 
-            List<MonthlyChargeLabel> monthlyChargeLabels = this.testOrder.getMonthlyChargeLabels();
+            List<Label> monthlyChargeLabels = this.testOrder.getMonthlyChargeLabels();
             // confirm that correct number of monthly charge label(s) with the correct details have been added
             assertEquals(1, monthlyChargeLabels.size());
             assertTrue(monthlyChargeLabels.contains(new MonthlyChargeLabel(TEST_QUANTITY_ONE, TEST_INVOICE_NUMBER_ONE,
@@ -317,7 +317,7 @@ public class OrderTest {
             this.testOrder.addMonthlyChargeLabel(TEST_QUANTITY_TWO, TEST_INVOICE_NUMBER_TWO,
                     TEST_DATE_THREE, TEST_DATE_FOUR);
 
-            List<MonthlyChargeLabel> monthlyChargeLabels = this.testOrder.getMonthlyChargeLabels();
+            List<Label> monthlyChargeLabels = this.testOrder.getMonthlyChargeLabels();
             // confirm that correct number of monthly charge label(s) with the correct details have been added
             assertEquals(2, monthlyChargeLabels.size());
             assertTrue(monthlyChargeLabels.contains(new MonthlyChargeLabel(TEST_QUANTITY_ONE, TEST_INVOICE_NUMBER_ONE,

@@ -344,7 +344,7 @@ public class CustomerTest {
                     TEST_DATE_ONE, TEST_ORDER_QUANTITY_ONE, TEST_INVOICE_NUMBER_ONE);
 
             // confirm monthly charge label correctly added
-            List<MonthlyChargeLabel> monthlyChargeLabels = this.testCustomer.getActiveOrders().
+            List<Label> monthlyChargeLabels = this.testCustomer.getActiveOrders().
                     get(TEST_ORDER_INVOICE_NUMBER_ONE).getMonthlyChargeLabels();
             assertEquals(1, monthlyChargeLabels.size());
             assertTrue(monthlyChargeLabels.contains(new MonthlyChargeLabel(TEST_ORDER_QUANTITY_ONE,
@@ -378,7 +378,7 @@ public class CustomerTest {
                     TEST_DATE_TWO, TEST_ORDER_QUANTITY_ONE, TEST_INVOICE_NUMBER_TWO);
 
             // confirm monthly charge label correctly added
-            List<MonthlyChargeLabel> monthlyChargeLabels = this.testCustomer.getActiveOrders().
+            List<Label> monthlyChargeLabels = this.testCustomer.getActiveOrders().
                     get(TEST_ORDER_INVOICE_NUMBER_ONE).getMonthlyChargeLabels();
             assertEquals(2, monthlyChargeLabels.size());
             assertTrue(monthlyChargeLabels.contains(new MonthlyChargeLabel(TEST_ORDER_QUANTITY_ONE,

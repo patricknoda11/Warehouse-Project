@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -16,6 +18,17 @@ public class ExportLabel extends Label {
     }
 
     @Override
+    public JSONObject convertToJsonObject() {
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("quantity", super.quantity);
+        jsonObject.put("invoiceNumber", super.invoiceNumber);
+        jsonObject.put("exportDate", this.exportDate);
+
+        return jsonObject;
+    }
+
+    @Override
     public String toString() {
         return "QTY=" + super.quantity + "; INV="
                 + super.invoiceNumber + "; " + this.exportDate.format(super.format) + "\n";
@@ -23,8 +36,12 @@ public class ExportLabel extends Label {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ExportLabel that = (ExportLabel) o;
         return Objects.equals(this.exportDate, that.exportDate) && super.quantity == that.quantity
                 && Objects.equals(super.invoiceNumber, that.invoiceNumber);

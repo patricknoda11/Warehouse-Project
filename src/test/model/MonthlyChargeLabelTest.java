@@ -31,7 +31,7 @@ public class MonthlyChargeLabelTest {
         }
         assertEquals(TEST_MONTHLY_CHARGE_QUANTITY, this.testMonthlyChargeLabel.getQuantity());
         assertEquals(TEST_MONTHLY_CHARGE_INVOICE_NUMBER, this.testMonthlyChargeLabel.getInvoiceNumber());
-        assertEquals(TEST_MONTHLY_CHARGE_INITIAL_DATE, this.testMonthlyChargeLabel.getInitialDate());
+        assertEquals(TEST_MONTHLY_CHARGE_INITIAL_DATE, this.testMonthlyChargeLabel.getStartDate());
         assertEquals(TEST_MONTHLY_CHARGE_END_DATE, this.testMonthlyChargeLabel.getEndDate());
     }
 

@@ -1,6 +1,8 @@
 package model;
 
 import model.exceptions.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,16 +14,16 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * Represents an Order a Customer can make. Each Order has content, import date, export date, invoice number, quantity
- *
- *          *** Note: An Order can have partial removals ***
+ * <p>
+ * *** Note: An Order can have partial removals ***
  */
 public class Order {
     private final String content;
     private LocalDate importDate;
-    private List<ExportLabel> exports = new ArrayList<>();
-    private List<MonthlyChargeLabel> monthlyChargeLabels = new ArrayList<>();
+    private List<Label> exports = new ArrayList<>();
+    private List<Label> monthlyChargeLabels = new ArrayList<>();
     private String invoiceNumber;
-    private int originalQuantity;
+    private final int originalQuantity;
     private int currentQuantity;
     private String storageLocation;
 
@@ -75,7 +77,7 @@ public class Order {
         this.currentQuantity -= removalQuantity;
 
         // record export details into exports list
-        this.exports.add(new ExportLabel(removalQuantity,exportInvoiceNum,exportDate));
+        this.exports.add(new ExportLabel(removalQuantity, exportInvoiceNum, exportDate));
     }
 
     // MODIFIES: this
@@ -124,27 +126,53 @@ public class Order {
         }
     }
 
+    // EFFECTS: returns JSON object representation of this Order
+    public JSONObject convertToJsonObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("content", this.content);
+        jsonObject.put("importDate", this.importDate.toString());
+        jsonObject.put("exports", convertLabelListToJsonArray(this.exports));
+        jsonObject.put("monthlyChargeLabels", convertLabelListToJsonArray(this.monthlyChargeLabels));
+        jsonObject.put("invoiceNumber", this.invoiceNumber);
+        jsonObject.put("originalQuantity", this.originalQuantity);
+        jsonObject.put("currentQuantity", this.currentQuantity);
+        jsonObject.put("storageLocation", this.storageLocation);
+        return jsonObject;
+    }
+
+    // EFFECTS: converts and returns a list of labels as a JSON array
+    private JSONArray convertLabelListToJsonArray(List<Label> labels) {
+        JSONArray jsonArray = new JSONArray();
+        for (Label l : labels) {
+            jsonArray.put(l.convertToJsonObject());
+        }
+        return jsonArray;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Order order = (Order) o;
-        return Objects.equals(invoiceNumber, order.invoiceNumber);
+        return Objects.equals(this.invoiceNumber, order.invoiceNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(invoiceNumber);
+        return Objects.hash(this.invoiceNumber);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // getters
 
-
     // EFFECTS: returns a string representation of all the exports for this
     public String getExportsString() {
         String retVal = "";
-        for (ExportLabel el : this.exports) {
+        for (Label el : this.exports) {
             retVal += el.toString();
         }
         return retVal;
@@ -153,7 +181,7 @@ public class Order {
     // EFFECTS: returns a string representation of all the monthly charges for this
     public String getMonthlyChargeLabelsString() {
         String retVal = "";
-        for (MonthlyChargeLabel mcl : this.monthlyChargeLabels) {
+        for (Label mcl : this.monthlyChargeLabels) {
             retVal += mcl.toString();
         }
         return retVal;
@@ -167,11 +195,11 @@ public class Order {
         return this.importDate;
     }
 
-    public List<ExportLabel> getExports() {
+    public List<Label> getExports() {
         return Collections.unmodifiableList(this.exports);
     }
 
-    public List<MonthlyChargeLabel> getMonthlyChargeLabels() {
+    public List<Label> getMonthlyChargeLabels() {
         return Collections.unmodifiableList(this.monthlyChargeLabels);
     }
 
@@ -192,7 +220,33 @@ public class Order {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // editors (NOTE: SHOULD ONLY BE CALLED TO FIX ERRORS)
+    // setters
+
+    // MODIFIES: this
+    // EFFECTS: sets Labels by converting given JSON Array representation of it
+    public void setLabelsFromJsonArray(boolean forExports, JSONArray labels) {
+        for (Object o : labels) {
+            JSONObject jo = (JSONObject) o;
+            int quantity = jo.getInt("quantity");
+            String invoiceNumber = jo.getString("invoiceNumber");
+            if (forExports) {
+                LocalDate exportDate = LocalDate.parse(jo.getString("exportDate"));
+                ExportLabel exportLabel = new ExportLabel(quantity, invoiceNumber, exportDate);
+                this.exports.add(exportLabel);
+            } else {
+                LocalDate startDate = LocalDate.parse(jo.getString("startDate"));
+                LocalDate endDate = LocalDate.parse(jo.getString("endDate"));
+                try {
+                    MonthlyChargeLabel monthlyChargeLabel =
+                            new MonthlyChargeLabel(quantity, invoiceNumber, startDate, endDate);
+                    this.monthlyChargeLabels.add(monthlyChargeLabel);
+                } catch (InvalidMonthRangeException e) {
+                    // TODO throw tampered with exception???
+                }
+            }
+        }
+    }
+
     public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
     }
@@ -203,10 +257,6 @@ public class Order {
 
     public void setCurrentQuantity(int quantity) {
         this.currentQuantity = quantity;
-    }
-
-    public void setOriginalQuantity(int currentQuantity) {
-        this.originalQuantity = currentQuantity;
     }
 
     public void setStorageLocation(String storageLocation) {
