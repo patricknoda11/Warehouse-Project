@@ -31,6 +31,5 @@
     </orderEntry>
     <orderEntry type="library" name="json-20210307" level="project" />
     <orderEntry type="library" name="no.tornado.databinding:jxdatepicker-support:1.0" level="project" />
-    <orderEntry type="library" name="com.google.code.gson:gson:2.8.5" level="project" />
   </component>
 </module>
