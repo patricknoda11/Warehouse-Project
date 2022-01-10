@@ -18,7 +18,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
  * *** Note: An Order can have partial removals ***
  */
 public class Order {
-    private final String content;
+    private String content;
     private LocalDate importDate;
     private List<Label> exports = new ArrayList<>();
     private List<Label> monthlyChargeLabels = new ArrayList<>();
@@ -224,7 +224,7 @@ public class Order {
 
     // MODIFIES: this
     // EFFECTS: sets Labels by converting given JSON Array representation of it
-    public void setLabelsFromJsonArray(boolean forExports, JSONArray labels) {
+    public void setLabelsFromJsonArray(boolean forExports, JSONArray labels) throws CorruptFileException {
         for (Object o : labels) {
             JSONObject jo = (JSONObject) o;
             int quantity = jo.getInt("quantity");
@@ -241,7 +241,7 @@ public class Order {
                             new MonthlyChargeLabel(quantity, invoiceNumber, startDate, endDate);
                     this.monthlyChargeLabels.add(monthlyChargeLabel);
                 } catch (InvalidMonthRangeException e) {
-                    // TODO throw tampered with exception???
+                    throw new CorruptFileException();
                 }
             }
         }
@@ -261,5 +261,9 @@ public class Order {
 
     public void setStorageLocation(String storageLocation) {
         this.storageLocation = storageLocation;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
