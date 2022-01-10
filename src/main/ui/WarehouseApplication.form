@@ -49,7 +49,7 @@
               <splitpane position="left"/>
             </constraints>
             <properties>
-              <background color="-12828863"/>
+              <background color="-330773"/>
               <doubleBuffered value="true"/>
               <foreground color="-16382458"/>
             </properties>
@@ -707,6 +707,7 @@
               <splitpane position="right"/>
             </constraints>
             <properties>
+              <background color="-330773"/>
               <foreground color="-16382458"/>
             </properties>
             <border type="none"/>
