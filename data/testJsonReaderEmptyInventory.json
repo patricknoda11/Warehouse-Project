@@ -1,15 +1,14 @@
 {
-  "warehouseName": "My Warehouse",
-  "largeSizedPackages": [
-  ],
-  "mediumSizedPackages": [
-  ],
-  "smallSizedPackages": [
-  ],
-  "importHistory": [
-  ],
-  "exportHistory": [
-  ],
-  "numberPackagesInInventory": 0
+  "customerSet": [
+    {
+      "activeOrders": [],
+      "name": "test customer 1",
+      "completeOrders": []
+    },
+    {
+      "activeOrders": [],
+      "name": "test customer 2",
+      "completeOrders": []
+    }
+  ]
 }
-

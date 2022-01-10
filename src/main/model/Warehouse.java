@@ -1,160 +1,220 @@
 package model;
 
+import model.exceptions.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.*;
 
 /**
- * Represents a warehouse having an inventory organized into 3 sections:
- *  - large packages
- *  - medium packages
- *  - small packages
+ * A representation of a Warehouse with a set of customers
  */
 public class Warehouse {
-    public static final int MAX_WAREHOUSE_CAPACITY = 100;
+    private final Set<Customer> customerSet = new HashSet<>();
 
-    private final List<List<Package>> inventory;
-    private final List<Package> largeSizedPackages;
-    private final List<Package> mediumSizedPackages;
-    private final List<Package> smallSizedPackages;
-    private final ExportEvent exportEvent;
-    private final ImportEvent importEvent;
-    private final List<Package> allPackagesAvailableInInventory;
-    private int numberPackagesInInventory;
-    private String warehouseName;
 
     // MODIFIES: this
-    // EFFECTS: instantiates Warehouse
-    //          creates inventory with 3 sections: large sized packages, medium sized packages, small sized packages
-    //          creates export history
-    //          creates import history
-    //          creates list with all available packages currently in inventory (from all sections)
-    //          sets number of packages in inventory to 0
-    public Warehouse(String name) {
-        inventory = new ArrayList<>();
-        largeSizedPackages = new ArrayList<>();
-        mediumSizedPackages = new ArrayList<>();
-        smallSizedPackages = new ArrayList<>();
-        exportEvent = new ExportEvent(this);
-        importEvent = new ImportEvent(this);
-        allPackagesAvailableInInventory = new ArrayList<>();
-        numberPackagesInInventory = 0;
-        warehouseName = name;
-        inventory.add(largeSizedPackages);
-        inventory.add(mediumSizedPackages);
-        inventory.add(smallSizedPackages);
+    // EFFECTS: if a customer with given name already exists throw CustomerAlreadyExistsException,
+    //          otherwise create a new customer and add to customerSet
+    public void addCustomer(String customerName) throws CustomerAlreadyExistsException {
+
+        // if a customer with given name already exists throw CustomerAlreadyExistsException
+        if (findCustomer(customerName) != null) {
+            throw new CustomerAlreadyExistsException(customerName);
+        }
+
+        this.customerSet.add(new Customer(customerName));
     }
 
-    // REQUIRES: goods must not be null
-    // EFFECTS: directs import operation to ImportEvent class
-    public void importPackage(Package goods) {
-        importEvent.importPackage(goods);
+    // EFFECTS: if the specified customer does not exist then throw CustomerDoesNotExistException,
+    //          otherwise find specified customer and import order for it
+    public void importProduct(String customerName, String content, LocalDate importDate, String invoiceNum,
+                              int quantity, String storageLocation) throws CustomerDoesNotExistException,
+            OrderAlreadyExistsException, QuantityNegativeException, QuantityZeroException, InvalidImportDateException {
+
+        Customer existingCustomer = findCustomer(customerName);
+
+        if (existingCustomer == null) {
+            throw new CustomerDoesNotExistException(customerName);
+        }
+
+        // throws OrderAlreadyExistsException if invoice number used in previous order
+        checkInvoiceNumberValid(invoiceNum);
+
+        existingCustomer.importOrder(content, importDate, invoiceNum, quantity, storageLocation);
     }
 
-    // REQUIRES: goods must not be null
-    // EFFECTS: redirects export operation to ExportEvent class
-    public void exportPackage(Package goods, String exportAddress) {
-        exportEvent.exportPackage(goods, exportAddress);
+    // EFFECTS: helper function that throws OrderAlreadyExistsException if given invoice number has been used previously
+    private void checkInvoiceNumberValid(String invoiceNum) throws OrderAlreadyExistsException {
+        // check to make sure no duplicate invoice number in current inventory as well as any past orders
+        for (Customer c : this.customerSet) {
+            // check if each customer's active orders have given invoice number
+            for (String key : c.getActiveOrders().keySet()) {
+                if (key.equals(invoiceNum)) {
+                    throw new OrderAlreadyExistsException(invoiceNum);
+                }
+            }
+            // check if each customer's previous orders have given invoice number
+            for (Order o : c.getCompleteOrders()) {
+                if (o.getInvoiceNumber().equals(invoiceNum)) {
+                    throw new OrderAlreadyExistsException(invoiceNum);
+                }
+            }
+        }
     }
 
-    // MODIFIES: this
-    // EFFECTS: sets name of warehouse
-    public void setWarehouseName(String name) {
-        this.warehouseName = name;
+    // EFFECTS: if the specified customer does not exist then throw CustomerDoesNotExistException,
+    //          otherwise finds specified customer and remove order from it
+    public void exportOrder(String customerName, String importInvoiceNum, int quantity, LocalDate exportDate,
+                            String exportInvoiceNum) throws CustomerDoesNotExistException,
+            OrderDoesNotExistException, QuantityNegativeException, QuantityZeroException,
+            QuantityExceedsMaxQuantityException, RemovalQuantityExceedsAvailabilityException,
+            InvalidExportDateException, ParseException {
+        Customer existingCustomer = findCustomer(customerName);
+
+        if (existingCustomer == null) {
+            throw new CustomerDoesNotExistException(customerName);
+        }
+
+        existingCustomer.removeFromOrder(importInvoiceNum, quantity, exportDate, exportInvoiceNum);
     }
 
-    // MODIFIES: this
-    // EFFECTS: sets the number of packages in inventory
-    public void setNumberPackagesInInventory(int value) {
-        this.numberPackagesInInventory = value;
+    // EFFECTS: if the specified customer does not exist throw CustomerDoesNotExistException,
+    //          otherwise finds customer and records monthly charge
+    public void recordMonthlyCharge(String customerName, String importInvoiceNum, LocalDate initialDate,
+                                    LocalDate endDate, int quantity, String monthlyInvoiceNum)
+            throws CustomerDoesNotExistException, OrderDoesNotExistException,
+            QuantityZeroException, QuantityNegativeException, QuantityExceedsMaxQuantityException,
+            InvalidStartDateException, InvalidEndDateException, InvalidMonthRangeException {
+        Customer existingCustomer = findCustomer(customerName);
+
+        if (existingCustomer == null) {
+            throw new CustomerDoesNotExistException(customerName);
+        }
+
+        existingCustomer.recordMonthlyCharge(importInvoiceNum, initialDate, endDate, quantity, monthlyInvoiceNum);
     }
+
+    // EFFECTS: finds and returns reference to specified customer from customerSet, if not found return NULL
+    private Customer findCustomer(String customerName) {
+        Customer referenceCustomer = new Customer(customerName);
+        Customer existingCustomer = null;
+        for (Customer c : this.customerSet) {
+            if (c.equals(referenceCustomer)) {
+                existingCustomer = c;
+            }
+        }
+        return existingCustomer;
+    }
+
 
     // EFFECTS: returns warehouse represented as a JSON object
     public JSONObject convertToJsonObject() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("warehouseName", this.warehouseName);
-        jsonObject.put("largeSizedPackages", addListToJsonObject(this.largeSizedPackages));
-        jsonObject.put("mediumSizedPackages", addListToJsonObject(this.mediumSizedPackages));
-        jsonObject.put("smallSizedPackages", addListToJsonObject(this.smallSizedPackages));
-        jsonObject.put("importHistory", addListToJsonObject(this.importEvent.getImportHistory()));
-        jsonObject.put("exportHistory", addListToJsonObject(this.exportEvent.getExportHistory()));
-        jsonObject.put("numberPackagesInInventory", this.allPackagesAvailableInInventory.size());
+        jsonObject.put("customerSet", convertCustomerSetToJsonArray(this.customerSet));
         return jsonObject;
     }
 
-    // EFFECTS: adds list representation of inventory, import history, export history to JSON object
-    private JSONArray addListToJsonObject(List<Package> packageList) {
+    // EFFECTS: returns representation of customer set as a JSON array
+    private JSONArray convertCustomerSetToJsonArray(Set<Customer> customerSet) {
         JSONArray jsonArray = new JSONArray();
 
-        for (Package p : packageList) {
-            jsonArray.put(p.convertToJsonObject());
+        for (Customer c : customerSet) {
+            jsonArray.put(c.convertToJsonObject());
         }
         return jsonArray;
     }
 
-    // MODIFIES: this
-    // EFFECTS: adds package to all packages available in inventory
-    public void addToAllPackagesAvailableInInventory(Package p) {
-        this.allPackagesAvailableInInventory.add(p);
+    // EFFECTS: if a customer of specified name does not exist throw new CustomerDoesNotExistException,
+    //          else removes customer from customerSet
+    public void deleteCustomer(String name) throws CustomerDoesNotExistException {
+        Customer customer = findCustomer(name);
+        if (customer == null) {
+            throw new CustomerDoesNotExistException(name);
+        }
+        this.customerSet.remove(customer);
+    }
+
+    // EFFECTS: if the specified customer does not exist throw CustomerDoesNotExistException,
+    //         otherwise finds customer and deletes indicated order from it
+    public void deleteCustomerOrder(String customerName, String invoiceNum) throws CustomerDoesNotExistException,
+            QuantityNegativeException, QuantityZeroException, InvalidImportDateException, OrderDoesNotExistException {
+        Customer existingCustomer = findCustomer(customerName);
+
+        if (existingCustomer == null) {
+            throw new CustomerDoesNotExistException(customerName);
+        }
+
+        existingCustomer.deleteOrder(invoiceNum);
+    }
+
+    // EFFECTS: if specified customer does not exist throw CustomerDoesNotExistException,
+    //          otherwise finds customer and attempts to edit order details
+    public void editExistingActiveCustomerOrder(String customerName, String invoiceNum, String content,
+                                                String storageLocation)
+            throws CustomerDoesNotExistException, OrderDoesNotExistException {
+        Customer existingCustomer = findCustomer(customerName);
+
+        if (existingCustomer == null) {
+            throw new CustomerDoesNotExistException(customerName);
+        }
+
+        existingCustomer.editActiveOrder(invoiceNum, content, storageLocation);
+    }
+
+    // EFFECTS: Returns Warehouse with data loaded from source file
+    public void convertJsonObjectToWarehouse(JSONObject jsonObject) throws CorruptFileException {
+        JSONArray customerSet = jsonObject.getJSONArray("customerSet");
+        setCustomerSetFromJsonArray(customerSet);
     }
 
     // MODIFIES: this
-    // EFFECTS: adds package to large section
-    public void addPackageToLargeSizedPackages(Package p) {
-        this.largeSizedPackages.add(p);
+    // EFFECTS: sets customer set by converting given JSON Array representation of it
+    private void setCustomerSetFromJsonArray(JSONArray jsonCustomerArray) throws CorruptFileException {
+        for (Object o : jsonCustomerArray) {
+            JSONObject jo = (JSONObject) o;
+            String name = jo.getString("name");
+            JSONArray activeOrders = jo.getJSONArray("activeOrders");
+            JSONArray completeOrders = jo.getJSONArray("completeOrders");
+            Customer customer = new Customer(name);
+            customer.setOrdersFromJsonArray(true, activeOrders);
+            customer.setOrdersFromJsonArray(false, completeOrders);
+            this.customerSet.add(customer);
+        }
     }
 
-    // MODIFIES: this
-    // EFFECTS: adds package to medium section
-    public void addPackageToMediumSizedPackages(Package p) {
-        this.mediumSizedPackages.add(p);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: adds package to small section
-    public void addPackageToSmallSizedPackages(Package p) {
-        this.smallSizedPackages.add(p);
-    }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     // getters
 
-    public List<List<Package>> getInventory() {
-        return this.inventory;
+
+    public Set<Customer> getCustomerSet() {
+        return Collections.unmodifiableSet(this.customerSet);
     }
 
-    public List<Package> getLargeSizedPackages() {
-        return this.largeSizedPackages;
+    // EFFECTS: if isActiveOrder is true return active order as String[][], else return complete order as String[][]
+    public String[][] getOrders(boolean isActiveOrder) {
+        int totalOrders = 0;
+        for (Customer c : this.customerSet) {
+            if (isActiveOrder) {
+                totalOrders += c.getActiveOrderSize();
+            } else {
+                totalOrders += c.getCompleteOrderSize();
+            }
+        }
+        String[][] returnArray = new String[totalOrders][];
+        int index = 0;
+        for (Customer c : this.customerSet) {
+            c.chooseIterator(isActiveOrder);
+            for (String[] o : c) {
+                returnArray[index] = o;
+                index++;
+            }
+        }
+        return returnArray;
     }
-
-    public List<Package> getMediumSizedPackages() {
-        return this.mediumSizedPackages;
-    }
-
-    public List<Package> getSmallSizedPackages() {
-        return this.smallSizedPackages;
-    }
-
-    public ImportEvent getImportEvent() {
-        return this.importEvent;
-    }
-
-    public ExportEvent getExportEvent() {
-        return this.exportEvent;
-    }
-
-    public int getNumberPackagesInInventory() {
-        return this.numberPackagesInInventory;
-    }
-
-    public List<Package> getAllPackagesAvailableInInventory() {
-        return this.allPackagesAvailableInInventory;
-    }
-
-    public String getWarehouseName() {
-        return this.warehouseName;
-    }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    // setters
 }
 
