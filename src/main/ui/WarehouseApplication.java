@@ -407,8 +407,12 @@ public class WarehouseApplication extends JFrame implements ActionListener {
 
         try {
             this.warehouse.editExistingActiveCustomerOrder(name, invoiceNumber, description, storageLocation);
+            renderCurrentInventory();
+            renderHistory();
         } catch (CustomerDoesNotExistException | OrderDoesNotExistException e) {
             displayErrorMessage(e);
+        } finally {
+            clearEditUserInputs();
         }
     }
 
