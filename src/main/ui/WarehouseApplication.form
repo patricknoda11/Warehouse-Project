@@ -13,7 +13,7 @@
       <color color="-16382458"/>
     </border>
     <children>
-      <grid id="e154" binding="commentPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="e154" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints border-constraint="South"/>
         <properties>
@@ -44,7 +44,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <tabbedpane id="6ff0c" binding="importExportPanel">
+          <tabbedpane id="6ff0c">
             <constraints>
               <splitpane position="left"/>
             </constraints>
@@ -55,7 +55,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="68a05" binding="importPanel" layout-manager="GridLayoutManager" row-count="7" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="68a05" layout-manager="GridLayoutManager" row-count="7" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="In"/>
@@ -65,7 +65,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="ce7e5" class="javax.swing.JLabel" binding="importCustomer">
+                  <component id="ce7e5" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -74,7 +74,7 @@
                       <text value="Customer"/>
                     </properties>
                   </component>
-                  <component id="dc2b1" class="javax.swing.JLabel" binding="importProduct">
+                  <component id="dc2b1" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -83,7 +83,7 @@
                       <text value="Description"/>
                     </properties>
                   </component>
-                  <component id="2e986" class="javax.swing.JLabel" binding="importQuantity">
+                  <component id="2e986" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -92,7 +92,7 @@
                       <text value="Quantity"/>
                     </properties>
                   </component>
-                  <component id="4202e" class="javax.swing.JLabel" binding="importDate">
+                  <component id="4202e" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -129,7 +129,7 @@
                     </constraints>
                     <properties/>
                   </component>
-                  <component id="c69fc" class="javax.swing.JLabel" binding="importInvoiceNumber">
+                  <component id="c69fc" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -138,7 +138,7 @@
                       <text value="Invoice #"/>
                     </properties>
                   </component>
-                  <component id="f360b" class="javax.swing.JLabel" binding="importStorageLocation">
+                  <component id="f360b" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -181,7 +181,7 @@
                   </component>
                 </children>
               </grid>
-              <grid id="50b53" binding="exportPanel" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="50b53" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Out"/>
@@ -192,7 +192,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="ad907" class="javax.swing.JLabel" binding="exportCustomer">
+                  <component id="ad907" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -201,7 +201,7 @@
                       <text value="Customer"/>
                     </properties>
                   </component>
-                  <component id="c3658" class="javax.swing.JLabel" binding="exportImportInvoiceNumber">
+                  <component id="c3658" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -210,7 +210,7 @@
                       <text value="Import Invoice #"/>
                     </properties>
                   </component>
-                  <component id="12a7b" class="javax.swing.JLabel" binding="exportQuantity">
+                  <component id="12a7b" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -219,7 +219,7 @@
                       <text value="Quantity"/>
                     </properties>
                   </component>
-                  <component id="f9ea9" class="javax.swing.JLabel" binding="exportDate">
+                  <component id="f9ea9" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -272,7 +272,7 @@
                     </constraints>
                     <properties/>
                   </component>
-                  <component id="34f9a" class="javax.swing.JLabel" binding="exportExportInvoiceNumber">
+                  <component id="34f9a" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -292,7 +292,7 @@
                   </component>
                 </children>
               </grid>
-              <grid id="84b13" binding="addMonthlyChargePanel" layout-manager="GridLayoutManager" row-count="7" column-count="7" same-size-horizontally="false" same-size-vertically="true" hgap="-1" vgap="-1">
+              <grid id="84b13" layout-manager="GridLayoutManager" row-count="7" column-count="7" same-size-horizontally="false" same-size-vertically="true" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Add Monthly Charge"/>
@@ -302,7 +302,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="8c439" class="javax.swing.JLabel" binding="addMonthlyChargeStartDate">
+                  <component id="8c439" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -311,7 +311,7 @@
                       <text value="Start Date"/>
                     </properties>
                   </component>
-                  <component id="e5e26" class="javax.swing.JLabel" binding="addMonthlyChargeEndDate">
+                  <component id="e5e26" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -320,7 +320,7 @@
                       <text value="End Date"/>
                     </properties>
                   </component>
-                  <component id="fb159" class="javax.swing.JLabel" binding="addMonthlyChargeQuantity">
+                  <component id="fb159" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -329,7 +329,7 @@
                       <text value="Quantity"/>
                     </properties>
                   </component>
-                  <component id="308ed" class="javax.swing.JLabel" binding="addMonthlyChargeInvoiceNum">
+                  <component id="308ed" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -372,7 +372,7 @@
                     </constraints>
                     <properties/>
                   </component>
-                  <component id="17458" class="javax.swing.JLabel" binding="addMonthlyChargeImportInvoiceNum">
+                  <component id="17458" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -416,7 +416,103 @@
                   </component>
                 </children>
               </grid>
-              <grid id="f9387" binding="addCustomerPanel" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="b10a5" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="Edit"/>
+                </constraints>
+                <properties>
+                  <background color="-4473925"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="68f3b" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <foreground color="-16382458"/>
+                      <text value="Customer"/>
+                    </properties>
+                  </component>
+                  <component id="ff31b" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <foreground color="-16382458"/>
+                      <text value="Description"/>
+                    </properties>
+                  </component>
+                  <component id="27605" class="javax.swing.JButton" binding="editCancelButton">
+                    <constraints>
+                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Cancel"/>
+                    </properties>
+                  </component>
+                  <component id="2910b" class="javax.swing.JTextField" binding="editDescriptionUserInput">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="25" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="50552" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <foreground color="-16382458"/>
+                      <text value="Invoice #"/>
+                    </properties>
+                  </component>
+                  <component id="d4043" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <foreground color="-16382458"/>
+                      <text value="Storage Location"/>
+                    </properties>
+                  </component>
+                  <component id="f2418" class="javax.swing.JTextField" binding="editCustomerNameUserInput">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="25" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="ac276" class="javax.swing.JTextField" binding="editStorageLocationUserInput">
+                    <constraints>
+                      <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="25" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="69bbc" class="javax.swing.JTextField" binding="editInvoiceNumberUserInput">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="dd5fa" class="javax.swing.JButton" binding="editEnterButton">
+                    <constraints>
+                      <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Enter"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="f9387" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Add Customer"/>
@@ -427,7 +523,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="6d1f2" class="javax.swing.JLabel" binding="addCustomerName">
+                  <component id="6d1f2" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -462,7 +558,7 @@
                   </component>
                 </children>
               </grid>
-              <grid id="87de4" binding="deleteOrderPanel" layout-manager="GridLayoutManager" row-count="4" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="87de4" layout-manager="GridLayoutManager" row-count="4" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Delete Order"/>
@@ -472,7 +568,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="1c116" class="javax.swing.JLabel" binding="deleteOrderCustomer">
+                  <component id="1c116" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -481,7 +577,7 @@
                       <text value="Customer"/>
                     </properties>
                   </component>
-                  <component id="c7caa" class="javax.swing.JLabel" binding="deleteOrderInvoiceNumber">
+                  <component id="c7caa" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -506,7 +602,7 @@
                     </constraints>
                     <properties/>
                   </component>
-                  <component id="c46d4" class="javax.swing.JLabel" binding="deleteOrderAdminPassword">
+                  <component id="c46d4" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -541,7 +637,7 @@
                   </component>
                 </children>
               </grid>
-              <grid id="6aab0" binding="removeCustomerPanel" layout-manager="GridLayoutManager" row-count="3" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="6aab0" layout-manager="GridLayoutManager" row-count="3" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Delete Customer"/>
@@ -551,7 +647,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="58d40" class="javax.swing.JLabel" binding="removeCustomerName">
+                  <component id="58d40" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -576,7 +672,7 @@
                       <text value="Enter"/>
                     </properties>
                   </component>
-                  <component id="3fda1" class="javax.swing.JLabel" binding="removeCustomerAdminPassword">
+                  <component id="3fda1" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -606,7 +702,7 @@
               </grid>
             </children>
           </tabbedpane>
-          <tabbedpane id="dd20c" binding="orderDisplayView">
+          <tabbedpane id="dd20c">
             <constraints>
               <splitpane position="right"/>
             </constraints>
@@ -615,7 +711,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="e3d28" binding="currentInventoryPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="e3d28" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Current Inventory"/>
@@ -625,7 +721,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <scrollpane id="6517" binding="currentInventoryScrollPane">
+                  <scrollpane id="6517">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -654,7 +750,7 @@
                       </component>
                     </children>
                   </scrollpane>
-                  <grid id="ffd7c" binding="currentInventoryFilterPanel" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="ffd7c" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -691,7 +787,7 @@
                   </grid>
                 </children>
               </grid>
-              <grid id="45eac" binding="historyPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="45eac" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="History"/>
@@ -701,7 +797,7 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <scrollpane id="b6502" binding="historyScrollPane">
+                  <scrollpane id="b6502">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -719,7 +815,7 @@
                       </component>
                     </children>
                   </scrollpane>
-                  <grid id="b4388" binding="historyFilterPanel" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="b4388" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -761,13 +857,13 @@
           </tabbedpane>
         </children>
       </splitpane>
-      <grid id="7b9eb" binding="tooPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="7b9eb" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints border-constraint="North"/>
         <properties/>
         <border type="none"/>
         <children>
-          <toolbar id="e90c1" binding="toolBar">
+          <toolbar id="e90c1">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="-1" height="20"/>

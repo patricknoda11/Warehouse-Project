@@ -1,5 +1,8 @@
 package ui.components;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.json.JSONObject;
 import persistence.JsonWriter;
 import ui.WarehouseApplication;
 
@@ -32,8 +35,7 @@ public class SaveDialog extends Dialog {
 
         if (retValue == JFileChooser.APPROVE_OPTION) {
             File file = super.fileChooser.getSelectedFile();
-            JsonWriter writer =
-                    new JsonWriter(file, this.warehouseApplication.getWarehouseJsonObjectRepresentation());
+            JsonWriter writer = new JsonWriter(file, super.warehouseApplication.getWarehouseJsonObjectRepresentation());
             writer.saveToFile();
         }
     }

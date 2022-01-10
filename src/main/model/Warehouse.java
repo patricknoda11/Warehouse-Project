@@ -137,7 +137,7 @@ public class Warehouse {
         this.customerSet.remove(customer);
     }
 
-    // EFFECTS if the specified customer does not exist throw CustomerDoesNotExistException,
+    // EFFECTS: if the specified customer does not exist throw CustomerDoesNotExistException,
     //         otherwise finds customer and deletes indicated order from it
     public void deleteCustomerOrder(String customerName, String invoiceNum) throws CustomerDoesNotExistException,
             QuantityNegativeException, QuantityZeroException, InvalidImportDateException, OrderDoesNotExistException {
@@ -150,15 +150,29 @@ public class Warehouse {
         existingCustomer.deleteOrder(invoiceNum);
     }
 
+    // EFFECTS: if specified customer does not exist throw CustomerDoesNotExistException,
+    //          otherwise finds customer and attempts to edit order details
+    public void editExistingActiveCustomerOrder(String customerName, String invoiceNum, String content,
+                                                String storageLocation)
+            throws CustomerDoesNotExistException, OrderDoesNotExistException {
+        Customer existingCustomer = findCustomer(customerName);
+
+        if (existingCustomer == null) {
+            throw new CustomerDoesNotExistException(customerName);
+        }
+
+        existingCustomer.editActiveOrder(invoiceNum, content, storageLocation);
+    }
+
     // EFFECTS: Returns Warehouse with data loaded from source file
-    public void convertJsonObjectToWarehouse(JSONObject jsonObject) {
+    public void convertJsonObjectToWarehouse(JSONObject jsonObject) throws CorruptFileException {
         JSONArray customerSet = jsonObject.getJSONArray("customerSet");
         setCustomerSetFromJsonArray(customerSet);
     }
 
     // MODIFIES: this
     // EFFECTS: sets customer set by converting given JSON Array representation of it
-    private void setCustomerSetFromJsonArray(JSONArray jsonCustomerArray) {
+    private void setCustomerSetFromJsonArray(JSONArray jsonCustomerArray) throws CorruptFileException {
         for (Object o : jsonCustomerArray) {
             JSONObject jo = (JSONObject) o;
             String name = jo.getString("name");

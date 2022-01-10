@@ -3,6 +3,7 @@ package persistence;
 import model.Customer;
 import model.Order;
 import model.Warehouse;
+import model.exceptions.CorruptFileException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,7 @@ public class JsonReaderTest {
             JSONObject jsonObject = testJsonReader.getJsonRepresentation();
             this.testWarehouse.convertJsonObjectToWarehouse(jsonObject);
             fail("This should not run");
-        } catch (IOException e) {
+        } catch (IOException | CorruptFileException e) {
             // test passes if exception is thrown"
         }
     }
@@ -53,7 +54,7 @@ public class JsonReaderTest {
             assertEquals(2, customerSet.size());
             assertTrue(customerSet.contains(new Customer(TEST_CUSTOMER_NAME_ONE)));
             assertTrue(customerSet.contains(new Customer(TEST_CUSTOMER_NAME_TWO)));
-        } catch (IOException e) {
+        } catch (IOException | CorruptFileException e) {
             fail("This should not run");
         }
     }
@@ -67,7 +68,7 @@ public class JsonReaderTest {
             assertEquals(1, customerOne.getActiveOrderSize());
             assertEquals(0, customerOne.getCompleteOrderSize());
             assertTrue(customerOne.getActiveOrders().containsKey(TEST_ORDER_INVOICE_NUMBER_ONE));
-        } catch (IOException e) {
+        } catch (IOException | CorruptFileException e) {
             fail("This should not run");
         }
     }
@@ -84,7 +85,7 @@ public class JsonReaderTest {
             assertEquals(0, customerOne.getCompleteOrderSize());
             assertTrue(activeOrder.containsKey(TEST_ORDER_INVOICE_NUMBER_ONE));
             assertTrue(activeOrder.containsKey(TEST_ORDER_INVOICE_NUMBER_TWO));
-        } catch (IOException e) {
+        } catch (IOException | CorruptFileException e) {
             fail("This should not run");
         }
     }

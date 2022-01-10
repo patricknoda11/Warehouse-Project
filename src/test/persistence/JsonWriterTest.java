@@ -74,6 +74,8 @@ public class JsonWriterTest {
             fail("This should not run");
         } catch (IOException e) {
             fail("This should not run");
+        } catch (CorruptFileException e) {
+            fail("This should not run");
         }
     }
 
@@ -102,7 +104,7 @@ public class JsonWriterTest {
             assertTrue(customerOne.getActiveOrders().containsKey(TEST_ORDER_INVOICE_NUMBER_ONE));
         } catch (CustomerAlreadyExistsException | IOException | CustomerDoesNotExistException
                 | OrderAlreadyExistsException | QuantityNegativeException | QuantityZeroException
-                | InvalidImportDateException e) {
+                | InvalidImportDateException | CorruptFileException e) {
             fail("This should not run");
         }
     }
@@ -136,7 +138,7 @@ public class JsonWriterTest {
             assertTrue(activeOrder.containsKey(TEST_ORDER_INVOICE_NUMBER_TWO));
         } catch (CustomerAlreadyExistsException | IOException | CustomerDoesNotExistException
                 | OrderAlreadyExistsException | QuantityNegativeException | QuantityZeroException
-                | InvalidImportDateException e) {
+                | InvalidImportDateException | CorruptFileException e) {
             fail("This should not run");
         }
     }

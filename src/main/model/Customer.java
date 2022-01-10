@@ -88,6 +88,21 @@ public class Customer implements Iterable<String[]> {
         currentOrder.addMonthlyChargeLabel(quantity, monthlyInvoiceNum, startDate, endDate);
     }
 
+    // EFFECTS: if the order we are looking for is not an active order throw OrderDoesNotExistException,
+    //          otherwise update the orders content and storage location details
+    public void editActiveOrder(String importInvoiceNum, String content, String storageLocation)
+            throws OrderDoesNotExistException {
+        Order currentOrder = this.activeOrders.get(importInvoiceNum);
+
+        if (currentOrder == null) {
+            throw new OrderDoesNotExistException(importInvoiceNum);
+        }
+
+        // update order
+        currentOrder.setContent(content);
+        currentOrder.setStorageLocation(storageLocation);
+    }
+
 
     // MODIFIES: this
     // EFFECTS: sets the iterator that will be returned when iterator() is called
@@ -172,7 +187,7 @@ public class Customer implements Iterable<String[]> {
 
     // MODIFIES: this
     // EFFECTS: sets Orders by converting given JSON Array representation of it
-    public void setOrdersFromJsonArray(boolean setActiveOrders, JSONArray jsonOrders) {
+    public void setOrdersFromJsonArray(boolean setActiveOrders, JSONArray jsonOrders) throws CorruptFileException {
         for (Object o : jsonOrders) {
             JSONObject jo = (JSONObject) o;
             String content = jo.getString("content");
@@ -194,7 +209,7 @@ public class Customer implements Iterable<String[]> {
                     this.completeOrders.add(order);
                 }
             } catch (QuantityNegativeException | QuantityZeroException | InvalidImportDateException e) {
-                // TODO should maybe throw an exception that is data tampered with exception???
+                throw new CorruptFileException();
             }
         }
     }

@@ -3,7 +3,6 @@ package ui;
 import model.Warehouse;
 import model.exceptions.*;
 import org.jdesktop.swingx.JXDatePicker;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import ui.components.LoadDialog;
 import ui.components.SaveDialog;
@@ -50,8 +49,6 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     private static final char[] ADMIN_PASSWORD = {'a', 'l', 'a', 'n', 'a'};
 
     private JPanel mainPanel;
-    private JTabbedPane importExportPanel;
-    private JTabbedPane orderDisplayView;
     private JTable historyTable;
     private JButton importEnter;
     private JButton importCancel;
@@ -59,92 +56,52 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     private JTextField importProductUserInput;
     private JSpinner importQuantityUserInput;
     private JXDatePicker importDateUserInput;
-    private JLabel importDate;
-    private JLabel importQuantity;
-    private JLabel importProduct;
-    private JLabel importCustomer;
-    private JPanel exportPanel;
-    private JPanel importPanel;
-    private JLabel importInvoiceNumber;
     private JTextField importCustomerUserInput;
-    private JTextArea importCommentsUserInput;
-    private JLabel importStorageLocation;
-    private JLabel exportCustomer;
-    private JLabel exportImportInvoiceNumber;
-    private JLabel exportQuantity;
-    private JLabel exportDate;
     private JSpinner exportQuantityUserInput;
     private JTextField exportImportInvoiceNumberUserInput;
     private JButton exportEnter;
     private JButton exportCancel;
     private JXDatePicker exportDateUserInput;
-    private JPanel currentInventoryPanel;
-    private JPanel historyPanel;
-    private JScrollPane historyScrollPane;
     private JTextField importStorageLocationUserInput;
     private JTextField exportCustomerUserInput;
-    private JPanel addCustomerPanel;
     private JTextField addCustomerNameUserInput;
     private JButton addCustomerCancel;
-    private JLabel addCustomerName;
     private JButton addCustomerEnter;
     private JTable currentInventoryTable;
-    private JScrollPane currentInventoryScrollPane;
     private JLabel commentLabel;
     private JTextField currentInventoryFilterText;
     private JTextField historyFilterText;
-    private JComboBox historyFilterSelector;
-    private JComboBox currentInventoryFilterSelector;
-    private JPanel currentInventoryFilterPanel;
-    private JPanel historyFilterPanel;
     private JButton historyFilterButton;
     private JButton currentInventoryFilterButton;
     private JButton historyFilterClearButton;
     private JButton currentInventoryFilterClearButton;
-    private JPanel deleteOrderPanel;
-    private JPanel removeCustomerPanel;
     private JTextField deleteOrderCustomerUserInput;
-    private JSpinner fixOrderQuantityUserInput;
-    private JTextField fixOrderStorageLocationUserInput;
     private JButton deleteOrderCancel;
     private JButton deleteOrderEnter;
-    private JLabel deleteOrderCustomer;
-    private JLabel deleteOrderInvoiceNumber;
     private JTextField deleteOrderInvoiceNumberUserInput;
-    private JTextField fixOrderDescriptionUserInput;
-    private JXDatePicker fixOrderImportDateUserInput;
     private JButton removeCustomerCancel;
     private JButton removeCustomerEnter;
     private JPasswordField removeCustomerAdminPasswordUserInput;
     private JPasswordField deleteOrderAdminPasswordUserInput;
-    private JLabel removeCustomerName;
     private JTextField removeCustomerNameUserInput;
-    private JLabel removeCustomerAdminPassword;
-    private JLabel deleteOrderAdminPassword;
-    private JLabel exportExportInvoiceNumber;
     private JTextField exportExportInvoiceNumberUserInput;
-    private JPanel addMonthlyChargePanel;
-    private JLabel addMonthlyChargeStartDate;
-    private JLabel addMonthlyChargeEndDate;
     private JButton addMonthlyChargeCancel;
     private JButton addMonthlyChargeEnter;
     private JSpinner addMonthlyChargeQuantityUserInput;
     private JTextField addMonthlyChargeMonthlyInvoiceNumUserInput;
     private JXDatePicker addMonthlyChargeStartDateUserInput;
     private JXDatePicker addMonthlyChargeEndDateUserInput;
-    private JLabel addMonthlyChargeQuantity;
-    private JLabel addMonthlyChargeInvoiceNum;
     private JTextField addMonthlyChargeCustomerUserInput;
     private JTextField addMonthlyChargeImportInvoiceNumUserInput;
-    private JLabel addMonthlyChargeImportInvoiceNum;
-    private JPanel commentPanel;
-    private JPanel tooPanel;
-    private JToolBar toolBar;
     private JButton toolBarSaveButton;
     private JButton toolBarLoadButton;
     private JButton toolBarPrintButton;
-    private JFileChooser saveDialog;
-    private JFileChooser loadDialog;
+    private JTextField editCustomerNameUserInput;
+    private JTextField editInvoiceNumberUserInput;
+    private JTextField editDescriptionUserInput;
+    private JButton editEnterButton;
+    private JButton editCancelButton;
+    private JTextField editStorageLocationUserInput;
     private TableRowSorter<MyTableModel> currentInventorySorter;
     private TableRowSorter<MyTableModel> historyInventorySorter;
     private Warehouse warehouse = new Warehouse();
@@ -191,6 +148,8 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         this.toolBarSaveButton.addActionListener(this);
         this.toolBarLoadButton.addActionListener(this);
         this.toolBarPrintButton.addActionListener(this);
+        this.editCancelButton.addActionListener(this);
+        this.editEnterButton.addActionListener(this);
     }
 
     // MODIFIES: this
@@ -272,6 +231,12 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         }
         if (source == this.toolBarLoadButton) {
             loadOperation();
+        }
+        if (source == this.editCancelButton) {
+            clearEditUserInputs();
+        }
+        if (source == this.editEnterButton) {
+            editOrder();
         }
     }
 
@@ -427,6 +392,34 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         this.addMonthlyChargeQuantityUserInput.setValue(0);
         this.addMonthlyChargeMonthlyInvoiceNumUserInput.setText("");
     }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Edit Panel
+     */
+
+    // EFFECTS: edits an existing order's properties
+    private void editOrder() {
+        String name = this.editCustomerNameUserInput.getText();
+        String invoiceNumber = this.editInvoiceNumberUserInput.getText();
+        String description = this.editDescriptionUserInput.getText();
+        String storageLocation = this.editStorageLocationUserInput.getText();
+
+        try {
+            this.warehouse.editExistingActiveCustomerOrder(name, invoiceNumber, description, storageLocation);
+        } catch (CustomerDoesNotExistException | OrderDoesNotExistException e) {
+            displayErrorMessage(e);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: clears user inputs on edit screen
+    private void clearEditUserInputs() {
+        this.editCustomerNameUserInput.setText("");
+        this.editInvoiceNumberUserInput.setText("");
+        this.editDescriptionUserInput.setText("");
+        this.editStorageLocationUserInput.setText("");
+    }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -434,7 +427,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
      * Delete Order Panel
      */
 
-    // EFFECTS: updates/edits an existing order's properties
+    // EFFECTS: deletes an existing order from warehouse inventory
     private void deleteOrder() {
         // if the password inputted does not match the ADMIN_PASSWORD return (guard clause)
         char[] inputtedPassword = this.deleteOrderAdminPasswordUserInput.getPassword();
@@ -465,7 +458,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: clears user inputs on Fix Order screen
+    // EFFECTS: clears user inputs on delete order screen
     private void clearDeleteOrderUserInputs() {
         this.deleteOrderCustomerUserInput.setText("");
         this.deleteOrderInvoiceNumberUserInput.setText("");
@@ -621,13 +614,12 @@ public class WarehouseApplication extends JFrame implements ActionListener {
             LoadDialog loadDialog = new LoadDialog(this);
             loadDialog.runLoadDialog();
             JSONObject jsonWarehouseRepresentation = loadDialog.getJsonWarehouseRepresentation();
-            this.warehouse = new Warehouse();
             this.warehouse.convertJsonObjectToWarehouse(jsonWarehouseRepresentation);
             renderCurrentInventory();
             renderHistory();
             this.commentLabel.setForeground(SUCCESS_TEXT_COLOR);
             this.commentLabel.setText(LoadDialog.SUCCESS_TEXT);
-        } catch (IOException e) {
+        } catch (IOException | CorruptFileException e) {
             this.commentLabel.setForeground(ERROR_TEXT_COLOR);
             this.commentLabel.setText(LoadDialog.ERROR_LOAD_UNSUCCESSFUL);
         }

@@ -22,25 +22,16 @@ public class JsonReader {
     // EFFECTS: returns JSON object representation of file data
     public JSONObject getJsonRepresentation() throws IOException {
         String stringRepresentation = retrieveFileDataInStringRepresentation();
-        JSONObject jsonObject = convertStringToJsonObject(stringRepresentation);
-        return jsonObject;
+        return new JSONObject(stringRepresentation);
     }
 
-    /**
-     *  The Code in this method was borrowed from JsonSerializationDemo - JsonReader.Java TODO change here :)
-     */
     // EFFECTS: returns the string representation of the source file
     private String retrieveFileDataInStringRepresentation() throws IOException {
-        StringBuilder contentBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(Paths.get(this.source.getAbsolutePath()), StandardCharsets.UTF_8)) {
-            stream.forEach(contentBuilder::append);
+            stream.forEach(stringBuilder::append);
         }
-        return contentBuilder.toString();
-    }
-
-    // EFFECTS: returns JSONObject created from String representation
-    private JSONObject convertStringToJsonObject(String info) {
-        return new JSONObject(info);
+        return stringBuilder.toString();
     }
 
     // getters
