@@ -873,12 +873,6 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="ad618" class="javax.swing.JButton" binding="toolBarSaveButton">
-                <constraints/>
-                <properties>
-                  <text value="Save"/>
-                </properties>
-              </component>
               <component id="5e4d5" class="javax.swing.JToolBar$Separator">
                 <constraints/>
                 <properties/>
@@ -892,6 +886,12 @@
               <hspacer id="e43cb">
                 <constraints/>
               </hspacer>
+              <component id="ad618" class="javax.swing.JButton" binding="toolBarSaveButton">
+                <constraints/>
+                <properties>
+                  <text value="Save"/>
+                </properties>
+              </component>
               <component id="36799" class="javax.swing.JButton" binding="toolBarPrintButton">
                 <constraints/>
                 <properties>
