@@ -4,8 +4,11 @@ import model.Warehouse;
 import model.exceptions.*;
 import org.jdesktop.swingx.JXDatePicker;
 import org.json.JSONObject;
-import ui.components.LoadDialog;
-import ui.components.SaveDialog;
+import ui.components.dialog.LoadDialog;
+import ui.components.dialog.SaveDialog;
+import ui.components.displaypanel.CurrentInventoryPanel;
+import ui.components.displaypanel.TransactionHistoryPanel;
+import ui.components.inputpanel.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -35,6 +38,7 @@ import java.util.*;
  *      - editing previously made orders
  *      - current inventory view
  *      - complete transactions view
+ * @author Patrick Noda
  */
 public class WarehouseApplication extends JFrame implements ActionListener {
     public static final Color SUCCESS_TEXT_COLOR = new Color(58, 163, 64);
@@ -48,6 +52,8 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     private static final int[] COLUMN_WIDTHS = {55, 60, 15, 180, 60, 60, 220, 280};
     private static final char[] ADMIN_PASSWORD = {'a', 'l', 'a', 'n', 'a'};
 
+    private Warehouse warehouse = new Warehouse();
+    private JLabel commentLabel;
     private JPanel mainPanel;
     private JTable historyTable;
     private JButton importEnter;
@@ -68,7 +74,6 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     private JButton addCustomerCancel;
     private JButton addCustomerEnter;
     private JTable currentInventoryTable;
-    private JLabel commentLabel;
     private JTextField currentInventoryFilterText;
     private JTextField historyFilterText;
     private JButton historyFilterButton;
@@ -102,28 +107,61 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     private JButton editEnterButton;
     private JButton editCancelButton;
     private JTextField editStorageLocationUserInput;
+    // new panels for inputtabbed pane --> panels recieve warehouse through dependency injection
+    private JTabbedPane inputTabbedPane;
+    private ImportOrderPanel importOrderPanel = new ImportOrderPanel(this.warehouse, this);
+//    private ExportOrderPanel exportOrderPanel = new ExportOrderPanel(this.warehouse);
+//    private MonthlyChargePanel monthlyChargePanel = new MonthlyChargePanel(this.warehouse);
+//    private EditOrderPanel editOrderPanel = new EditOrderPanel(this.warehouse);
+//    private DeleteOrderPanel deleteOrderPanel = new DeleteOrderPanel(this.warehouse);
+//    private DeleteCustomerPanel deleteCustomerPanel = new DeleteCustomerPanel(this.warehouse);
+//    private AddCustomerPanel addCustomerPanel = new AddCustomerPanel(this.warehouse);
+    //
+    // new panels for displaytabbed pane
+    private JTabbedPane displayTabbedPane;
+//    private CurrentInventoryPanel currentInventoryPanel = new CurrentInventoryPanel(this.warehouse);
+//    private TransactionHistoryPanel transactionHistoryPanel = new TransactionHistoryPanel(this.warehouse);
+    //
     private TableRowSorter<MyTableModel> currentInventorySorter;
     private TableRowSorter<MyTableModel> historyInventorySorter;
-    private Warehouse warehouse = new Warehouse();
 
     public WarehouseApplication() {
-        // set Frame title
-
-        // frame setup
         initializeFrameSettings();
-
-        // setup frame icon if possible
         setUpFrameIcon();
-
-        // add action listeners to import and export buttons (utilizes event propagation -- bubbling)
+        addComponents();
         addActionListenersComponents();
-
-        // initialize current/history display
         renderCurrentInventory();
         renderHistory();
-
-        // set as visible
         setVisible(true);
+    }
+
+    /**
+     * Adds components to this frame
+     */
+    private void addComponents() {
+        addInputPanels();
+        addDisplayPanels();
+    }
+
+    /**
+     * Adds all the user-input panels
+     */
+    private void addInputPanels() {
+        this.inputTabbedPane.add(this.importOrderPanel);
+//        this.inputTabbedPane.add(this.exportOrderPanel);
+//        this.inputTabbedPane.add(this.monthlyChargePanel);
+//        this.inputTabbedPane.add(this.editOrderPanel);
+//        this.inputTabbedPane.add(this.deleteOrderPanel);
+//        this.inputTabbedPane.add(this.deleteCustomerPanel);
+//        this.inputTabbedPane.add(this.addCustomerPanel);
+    }
+
+    /**
+     * Adds all display panels
+     */
+    private void addDisplayPanels() {
+//        this.displayTabbedPane.add(this.currentInventoryPanel);
+//        this.displayTabbedPane.add(this.transactionHistoryPanel);
     }
 
     // MODIFIES: this
@@ -727,6 +765,25 @@ public class WarehouseApplication extends JFrame implements ActionListener {
 
     public JSONObject getWarehouseJsonObjectRepresentation() {
         return this.warehouse.convertToJsonObject();
+    }
+
+    public void update() {
+        clearDisplayMessage();
+        renderCurrentInventory();
+    }
+
+    public void update(String msg, boolean isSuccess) {
+        displayMessage(msg, isSuccess);
+        renderCurrentInventory();
+    }
+
+    private void clearDisplayMessage() {
+        this.commentLabel.setText("");
+    }
+
+    private void displayMessage(String msg, boolean isSuccess) {
+        this.commentLabel.setForeground(isSuccess ? SUCCESS_TEXT_COLOR : ERROR_TEXT_COLOR);
+        this.commentLabel.setText(msg);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////

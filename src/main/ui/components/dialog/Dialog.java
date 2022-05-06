@@ -1,4 +1,4 @@
-package ui.components;
+package ui.components.dialog;
 
 import ui.WarehouseApplication;
 
@@ -16,7 +16,6 @@ public abstract class Dialog {
     protected Dialog(WarehouseApplication app) {
         this.warehouseApplication = app;
         this.fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-//        addFileFilter();
     }
 
     // MODIFIES: this

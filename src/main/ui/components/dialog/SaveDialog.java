@@ -1,7 +1,8 @@
-package ui.components;
+package ui.components.dialog;
 
 import persistence.JsonWriter;
 import ui.WarehouseApplication;
+import ui.components.dialog.Dialog;
 
 import javax.swing.*;
 import java.io.File;
