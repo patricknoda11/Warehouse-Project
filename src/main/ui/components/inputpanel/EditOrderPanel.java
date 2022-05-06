@@ -19,7 +19,6 @@ public class EditOrderPanel extends InputPanel {
 
     public EditOrderPanel(Warehouse warehouse, WarehouseApplication warehouseApplication) {
         super(warehouse, warehouseApplication);
-        addActionListeners();
     }
 
     @Override

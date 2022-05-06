@@ -21,6 +21,7 @@ public abstract class InputPanel extends JComponent implements ActionListener {
     public InputPanel(Warehouse warehouse, WarehouseApplication warehouseApplication) {
         this.warehouse = warehouse;
         this.warehouseApplication = warehouseApplication;
+        addActionListeners();
     }
 
     public abstract void clearUserInputs();

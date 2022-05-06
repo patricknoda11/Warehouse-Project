@@ -22,7 +22,6 @@ public class MonthlyChargePanel extends InputPanel {
 
     public MonthlyChargePanel (Warehouse warehouse, WarehouseApplication warehouseApplication) {
         super(warehouse, warehouseApplication);
-        addActionListeners();
     }
 
     @Override

@@ -22,7 +22,6 @@ public class ExportOrderPanel extends InputPanel {
 
     public ExportOrderPanel(Warehouse warehouse, WarehouseApplication warehouseApplication) {
         super(warehouse, warehouseApplication);
-        addActionListeners();
     }
 
     @Override
