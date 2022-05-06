@@ -5,7 +5,6 @@ import ui.WarehouseApplication;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -28,7 +27,7 @@ public abstract class InputPanel extends JComponent implements ActionListener {
 
     public abstract void addActionListeners();
 
-    public abstract void submit();
+    public abstract void submitInput();
 
     protected String refineText(String text) {
         return text.trim().toLowerCase();

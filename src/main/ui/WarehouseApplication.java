@@ -770,11 +770,13 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     public void update() {
         clearDisplayMessage();
         renderCurrentInventory();
+        renderHistory();
     }
 
     public void update(String msg, boolean isSuccess) {
         displayMessage(msg, isSuccess);
         renderCurrentInventory();
+        renderHistory();
     }
 
     private void clearDisplayMessage() {

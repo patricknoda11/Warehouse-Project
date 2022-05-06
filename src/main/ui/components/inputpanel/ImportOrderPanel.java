@@ -43,19 +43,26 @@ public class ImportOrderPanel extends InputPanel {
     }
 
     @Override
-    public void submit() {
+    public void submitInput() {
         // refine and get user input:
         String customerName = super.refineText(this.customerNameInput.getText());
         String invoiceNumber = super.refineText(this.invoiceNumberInput.getText());
-        String content = super.refineText(this.descriptionInput.getText());
+        String productDescription = super.refineText(this.descriptionInput.getText());
         int quantity = (int) this.quantityInput.getValue();
         LocalDate importDate = super.getLocalDate(this.dateInput.getDate());
         String storageLocation = super.refineText(this.storageLocationInput.getText());
-        String successMessage = "Successfully imported " + quantity + " pallets of "
-                + content + " --- Invoice Number " + invoiceNumber;
+        String successMessage = "Successfully imported " + quantity + " units of "
+                + productDescription + " --- Invoice Number " + invoiceNumber;
 
+        importProduct(customerName, productDescription, importDate, invoiceNumber,
+                quantity, storageLocation, successMessage);
+    }
+
+
+    private void importProduct(String customerName, String description, LocalDate date, String invNum,
+                               int quantity, String location, String successMessage) {
         try {
-            super.warehouse.importProduct(customerName, content, importDate, invoiceNumber, quantity, storageLocation);
+            super.warehouse.importProduct(customerName, description, date, invNum, quantity, location);
             warehouseApplication.update(successMessage, true);
         } catch (CustomerDoesNotExistException | OrderAlreadyExistsException | QuantityNegativeException
                 | QuantityZeroException | InvalidImportDateException e) {
@@ -69,7 +76,7 @@ public class ImportOrderPanel extends InputPanel {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.enterButton) {
-            submit();
+            submitInput();
         }
 
         if (e.getSource() == this.cancelButton) {
