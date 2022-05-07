@@ -50,6 +50,7 @@ public class DeleteOrderPanel extends InputPanel {
         // if the password is invalid update warehouse gui to display error message:
         if (!passwordEquivalent(password)) {
             super.warehouseApplication.update(errorMsg, false);
+            return;
         }
 
         try {

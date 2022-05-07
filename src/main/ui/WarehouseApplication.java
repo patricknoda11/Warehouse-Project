@@ -744,7 +744,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     }
 
     // EFFECTS: returns true if passwords equivalent, otherwise false
-    private boolean checkPasswordEquivalence(char[] input) throws {
+    private boolean checkPasswordEquivalence(char[] input) {
         for (int i = 0; i < input.length; i++) {
             if (input[i] != ADMIN_PASSWORD[i]) {
                 return false;
