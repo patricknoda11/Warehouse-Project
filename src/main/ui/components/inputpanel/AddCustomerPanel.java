@@ -1,8 +1,7 @@
 package ui.components.inputpanel;
 
-import model.Warehouse;
 import model.exceptions.CustomerAlreadyExistsException;
-import ui.WarehouseApplication;
+import model.exceptions.InvalidCustomerNameException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,8 +12,10 @@ public class AddCustomerPanel extends InputPanel {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public AddCustomerPanel(Warehouse warehouse, WarehouseApplication warehouseApplication) {
-        super(warehouse, warehouseApplication);
+    public AddCustomerPanel() {
+        // NOTE: cannot call addActionListener in supertype InputPanel as $$$SetupUI$$$ gets called after call to super
+        //       type constructor
+        addActionListeners();
     }
 
     @Override
@@ -41,7 +42,7 @@ public class AddCustomerPanel extends InputPanel {
         try {
             super.warehouse.addCustomer(cName);
             super.warehouseApplication.update(successMsg, true);
-        } catch (CustomerAlreadyExistsException e) {
+        } catch (CustomerAlreadyExistsException | InvalidCustomerNameException e) {
             super.warehouseApplication.update(e.getMessage(), false);
         } finally {
             clearUserInputs();

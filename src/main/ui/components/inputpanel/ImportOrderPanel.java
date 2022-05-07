@@ -1,16 +1,12 @@
 package ui.components.inputpanel;
 
-import model.Warehouse;
 import model.exceptions.*;
 import org.jdesktop.swingx.JXDatePicker;
-import ui.WarehouseApplication;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 
 public class ImportOrderPanel extends InputPanel {
-    private static final String ERROR_MESSAGE ="";
     private JPanel importPanel;
     private JTextField customerNameInput;
     private JTextField invoiceNumberInput;
@@ -21,8 +17,9 @@ public class ImportOrderPanel extends InputPanel {
     private JButton enterButton;
     private JTextField descriptionInput;
 
-    public ImportOrderPanel(Warehouse warehouse, WarehouseApplication warehouseApplication) {
-        super(warehouse, warehouseApplication);
+    public ImportOrderPanel() {
+        // NOTE: cannot call addActionListener in supertype InputPanel as $$$SetupUI$$$ gets called after call to super
+        //       type constructor
         addActionListeners();
     }
 
@@ -63,15 +60,14 @@ public class ImportOrderPanel extends InputPanel {
                                int quantity, String location, String successMessage) {
         try {
             super.warehouse.importProduct(customerName, description, date, invNum, quantity, location);
-            warehouseApplication.update(successMessage, true);
+            super.warehouseApplication.update(successMessage, true);
         } catch (CustomerDoesNotExistException | OrderAlreadyExistsException | QuantityNegativeException
                 | QuantityZeroException | InvalidImportDateException e) {
-            warehouseApplication.update(e.getMessage(), false);
+            super.warehouseApplication.update(e.getMessage(), false);
         } finally {
             clearUserInputs();
         }
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

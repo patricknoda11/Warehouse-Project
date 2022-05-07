@@ -68,7 +68,7 @@ public class JsonWriterTest {
             assertEquals(2, customerSet.size());
             assertTrue(customerSet.contains(new Customer(TEST_CUSTOMER_NAME_ONE)));
             assertTrue(customerSet.contains(new Customer(TEST_CUSTOMER_NAME_TWO)));
-        } catch (CustomerAlreadyExistsException e) {
+        } catch (CustomerAlreadyExistsException | InvalidCustomerNameException e) {
             fail("This should not run");
         } catch (FileNotFoundException e) {
             fail("This should not run");
@@ -104,7 +104,7 @@ public class JsonWriterTest {
             assertTrue(customerOne.getActiveOrders().containsKey(TEST_ORDER_INVOICE_NUMBER_ONE));
         } catch (CustomerAlreadyExistsException | IOException | CustomerDoesNotExistException
                 | OrderAlreadyExistsException | QuantityNegativeException | QuantityZeroException
-                | InvalidImportDateException | CorruptFileException e) {
+                | InvalidImportDateException | CorruptFileException | InvalidCustomerNameException e) {
             fail("This should not run");
         }
     }
@@ -138,7 +138,7 @@ public class JsonWriterTest {
             assertTrue(activeOrder.containsKey(TEST_ORDER_INVOICE_NUMBER_TWO));
         } catch (CustomerAlreadyExistsException | IOException | CustomerDoesNotExistException
                 | OrderAlreadyExistsException | QuantityNegativeException | QuantityZeroException
-                | InvalidImportDateException | CorruptFileException e) {
+                | InvalidImportDateException | CorruptFileException | InvalidCustomerNameException e) {
             fail("This should not run");
         }
     }

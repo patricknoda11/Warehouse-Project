@@ -2,12 +2,9 @@ package ui;
 
 import model.Warehouse;
 import model.exceptions.*;
-import org.jdesktop.swingx.JXDatePicker;
 import org.json.JSONObject;
 import ui.components.dialog.LoadDialog;
 import ui.components.dialog.SaveDialog;
-import ui.components.displaypanel.CurrentInventoryPanel;
-import ui.components.displaypanel.TransactionHistoryPanel;
 import ui.components.inputpanel.*;
 
 import javax.imageio.ImageIO;
@@ -19,7 +16,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -56,23 +52,6 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     private JLabel commentLabel;
     private JPanel mainPanel;
     private JTable historyTable;
-    private JButton importEnter;
-    private JButton importCancel;
-    private JTextField importInvoiceNumberUserInput;
-    private JTextField importProductUserInput;
-    private JSpinner importQuantityUserInput;
-    private JXDatePicker importDateUserInput;
-    private JTextField importCustomerUserInput;
-    private JSpinner exportQuantityUserInput;
-    private JTextField exportImportInvoiceNumberUserInput;
-    private JButton exportEnter;
-    private JButton exportCancel;
-    private JXDatePicker exportDateUserInput;
-    private JTextField importStorageLocationUserInput;
-    private JTextField exportCustomerUserInput;
-    private JTextField addCustomerNameUserInput;
-    private JButton addCustomerCancel;
-    private JButton addCustomerEnter;
     private JTable currentInventoryTable;
     private JTextField currentInventoryFilterText;
     private JTextField historyFilterText;
@@ -80,46 +59,27 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     private JButton currentInventoryFilterButton;
     private JButton historyFilterClearButton;
     private JButton currentInventoryFilterClearButton;
-    private JTextField deleteOrderCustomerUserInput;
-    private JButton deleteOrderCancel;
-    private JButton deleteOrderEnter;
-    private JTextField deleteOrderInvoiceNumberUserInput;
-    private JButton removeCustomerCancel;
-    private JButton removeCustomerEnter;
-    private JPasswordField removeCustomerAdminPasswordUserInput;
-    private JPasswordField deleteOrderAdminPasswordUserInput;
-    private JTextField removeCustomerNameUserInput;
-    private JTextField exportExportInvoiceNumberUserInput;
-    private JButton addMonthlyChargeCancel;
-    private JButton addMonthlyChargeEnter;
-    private JSpinner addMonthlyChargeQuantityUserInput;
-    private JTextField addMonthlyChargeMonthlyInvoiceNumUserInput;
-    private JXDatePicker addMonthlyChargeStartDateUserInput;
-    private JXDatePicker addMonthlyChargeEndDateUserInput;
-    private JTextField addMonthlyChargeCustomerUserInput;
-    private JTextField addMonthlyChargeImportInvoiceNumUserInput;
     private JButton toolBarSaveButton;
     private JButton toolBarLoadButton;
     private JButton toolBarPrintButton;
-    private JTextField editCustomerNameUserInput;
-    private JTextField editInvoiceNumberUserInput;
-    private JTextField editDescriptionUserInput;
-    private JButton editEnterButton;
-    private JButton editCancelButton;
-    private JTextField editStorageLocationUserInput;
+    private ImportOrderPanel importOrderPanel;
+    private ExportOrderPanel exportOrderPanel;
+    private MonthlyChargePanel monthlyChargePanel;
+    private EditOrderPanel editOrderPanel;
+    private DeleteOrderPanel deleteOrderPanel;
+    private DeleteCustomerPanel deleteCustomerPanel;
+    private AddCustomerPanel addCustomerPanel;
     // new panels for inputtabbed pane --> panels recieve warehouse through dependency injection
-    private JTabbedPane inputTabbedPane;
-    private ImportOrderPanel importOrderPanel = new ImportOrderPanel(this.warehouse, this);
-//    private ExportOrderPanel exportOrderPanel = new ExportOrderPanel(this.warehouse);
-//    private MonthlyChargePanel monthlyChargePanel = new MonthlyChargePanel(this.warehouse);
-//    private EditOrderPanel editOrderPanel = new EditOrderPanel(this.warehouse);
-//    private DeleteOrderPanel deleteOrderPanel = new DeleteOrderPanel(this.warehouse);
-//    private DeleteCustomerPanel deleteCustomerPanel = new DeleteCustomerPanel(this.warehouse);
-//    private AddCustomerPanel addCustomerPanel = new AddCustomerPanel(this.warehouse);
+//    private InputPanel exportOrderPanel = new ExportOrderPanel(this.warehouse, this);
+//    private InputPanel monthlyChargePanel = new MonthlyChargePanel(this.warehouse, this);
+//    private InputPanel editOrderPanel = new EditOrderPanel(this.warehouse, this);
+//    private InputPanel deleteOrderPanel = new DeleteOrderPanel(this.warehouse, this);
+//    private InputPanel deleteCustomerPanel = new DeleteCustomerPanel(this.warehouse, this);
+//    private InputPanel addCustomerPanel = new AddCustomerPanel(this.warehouse, this);
     //
     // new panels for displaytabbed pane
-    private JTabbedPane displayTabbedPane;
-//    private CurrentInventoryPanel currentInventoryPanel = new CurrentInventoryPanel(this.warehouse);
+    private JPanel importPanel;
+    //    private CurrentInventoryPanel currentInventoryPanel = new CurrentInventoryPanel(this.warehouse);
 //    private TransactionHistoryPanel transactionHistoryPanel = new TransactionHistoryPanel(this.warehouse);
     //
     private TableRowSorter<MyTableModel> currentInventorySorter;
@@ -128,38 +88,48 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     public WarehouseApplication() {
         initializeFrameSettings();
         setUpFrameIcon();
-        addComponents();
+        setupComponents();
         addActionListenersComponents();
-        renderCurrentInventory();
-        renderHistory();
+        update();
         setVisible(true);
     }
+
 
     /**
      * Adds components to this frame
      */
-    private void addComponents() {
-        addInputPanels();
-        addDisplayPanels();
+    private void setupComponents() {
+        setupInputPanels();
+        setupDisplayPanels();
     }
 
     /**
      * Adds all the user-input panels
      */
-    private void addInputPanels() {
-        this.inputTabbedPane.add(this.importOrderPanel);
-//        this.inputTabbedPane.add(this.exportOrderPanel);
-//        this.inputTabbedPane.add(this.monthlyChargePanel);
-//        this.inputTabbedPane.add(this.editOrderPanel);
-//        this.inputTabbedPane.add(this.deleteOrderPanel);
-//        this.inputTabbedPane.add(this.deleteCustomerPanel);
-//        this.inputTabbedPane.add(this.addCustomerPanel);
+    private void setupInputPanels() {
+        setUpInputPanel(this.importOrderPanel);
+        setUpInputPanel(this.exportOrderPanel);
+        setUpInputPanel(this.monthlyChargePanel);
+        setUpInputPanel(this.editOrderPanel);
+        setUpInputPanel(this.deleteOrderPanel);
+        setUpInputPanel(this.deleteCustomerPanel);
+        setUpInputPanel(this.addCustomerPanel);
+    }
+
+    /**
+     * Manually inject dependency
+     *  Simplifies process of GUI designer palette instantiation
+     * @param comp The InputPanel to inject dependency
+     */
+    private void setUpInputPanel(InputPanel comp) {
+        comp.setWarehouse(this.warehouse);
+        comp.setWarehouseApplication(this);
     }
 
     /**
      * Adds all display panels
      */
-    private void addDisplayPanels() {
+    private void setupDisplayPanels() {
 //        this.displayTabbedPane.add(this.currentInventoryPanel);
 //        this.displayTabbedPane.add(this.transactionHistoryPanel);
     }
@@ -167,27 +137,13 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: adds action listeners to components associated with this
     private void addActionListenersComponents() {
-        this.importCancel.addActionListener(this);
-        this.importEnter.addActionListener(this);
-        this.exportCancel.addActionListener(this);
-        this.exportEnter.addActionListener(this);
-        this.addCustomerCancel.addActionListener(this);
-        this.addCustomerEnter.addActionListener(this);
         this.currentInventoryFilterButton.addActionListener(this);
         this.currentInventoryFilterClearButton.addActionListener(this);
         this.historyFilterButton.addActionListener(this);
         this.historyFilterClearButton.addActionListener(this);
-        this.deleteOrderCancel.addActionListener(this);
-        this.deleteOrderEnter.addActionListener(this);
-        this.removeCustomerCancel.addActionListener(this);
-        this.removeCustomerEnter.addActionListener(this);
-        this.addMonthlyChargeCancel.addActionListener(this);
-        this.addMonthlyChargeEnter.addActionListener(this);
         this.toolBarSaveButton.addActionListener(this);
         this.toolBarLoadButton.addActionListener(this);
         this.toolBarPrintButton.addActionListener(this);
-        this.editCancelButton.addActionListener(this);
-        this.editEnterButton.addActionListener(this);
     }
 
     // MODIFIES: this
@@ -216,24 +172,6 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     // EFFECTS: directs user to correct operation given button clicks
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if (source == this.importCancel) {
-            clearImportUserInputs();
-        }
-        if (source == this.importEnter) {
-            importProduct();
-        }
-        if (source == this.exportCancel) {
-            clearExportUserInputs();
-        }
-        if (source == this.exportEnter) {
-            exportProduct();
-        }
-        if (source == this.addCustomerCancel) {
-            clearAddCustomerUserInputs();
-        }
-        if (source == this.addCustomerEnter) {
-            registerNewCustomer();
-        }
         if (source == this.currentInventoryFilterButton) {
             filterCurrentInventoryDisplay();
         }
@@ -246,311 +184,12 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         if (source == this.historyFilterClearButton) {
             clearHistoryInventoryFilter();
         }
-        if (source == this.removeCustomerEnter) {
-            deleteCustomer();
-        }
-        if (source == this.removeCustomerCancel) {
-            clearRemoveCustomerUserInputs();
-        }
-        if (source == this.deleteOrderEnter) {
-            deleteOrder();
-        }
-        if (source == this.deleteOrderCancel) {
-            clearDeleteOrderUserInputs();
-        }
-        if (source == this.addMonthlyChargeCancel) {
-            clearAddMonthlyChargeUserInputs();
-        }
-        if (source == this.addMonthlyChargeEnter) {
-            addMonthlyCharge();
-        }
         if (source == this.toolBarSaveButton) {
             saveOperation();
         }
         if (source == this.toolBarLoadButton) {
             loadOperation();
         }
-        if (source == this.editCancelButton) {
-            clearEditUserInputs();
-        }
-        if (source == this.editEnterButton) {
-            editOrder();
-        }
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * In/Import Panel
-     */
-
-    // EFFECTS: sends import instructions to warehouse
-    private void importProduct() {
-        // retrieve user inputs
-        String name = this.importCustomerUserInput.getText().trim().toLowerCase();
-        String invoiceNumber = this.importInvoiceNumberUserInput.getText().trim().toLowerCase();
-        String content = this.importProductUserInput.getText().trim().toLowerCase();
-        int quantity = (Integer) this.importQuantityUserInput.getValue();
-        LocalDate importDate = getLocalDate(this.importDateUserInput.getDate());
-        String location = this.importStorageLocationUserInput.getText().trim().toLowerCase();
-
-        try {
-            this.warehouse.importProduct(name, content, importDate, invoiceNumber, quantity, location);
-            renderCurrentInventory();
-            this.commentLabel.setForeground(SUCCESS_TEXT_COLOR);
-            this.commentLabel.setText("Successfully imported " + quantity + " pallets of "
-                    + content + " --- Invoice Number " + invoiceNumber);
-        } catch (CustomerDoesNotExistException | OrderAlreadyExistsException | QuantityNegativeException
-                | QuantityZeroException | InvalidImportDateException e) {
-            displayErrorMessage(e);
-        } finally {
-            clearImportUserInputs();
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: clears user inputs on import screen
-    private void clearImportUserInputs() {
-        this.importCustomerUserInput.setText("");
-        this.importInvoiceNumberUserInput.setText("");
-        this.importProductUserInput.setText("");
-        this.importQuantityUserInput.setValue(0);
-        this.importDateUserInput.setDate(null);
-        this.importStorageLocationUserInput.setText("");
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * Out/Export Panel
-     */
-
-    // EFFECTS: a helper that sends export instructions to warehouse
-    private void exportProduct() {
-        // retrieve user inputs
-        String customerName = this.exportCustomerUserInput.getText().trim().toLowerCase();
-        String importInvoiceNumber = this.exportImportInvoiceNumberUserInput.getText().trim().toLowerCase();
-        int quantity = (Integer) this.exportQuantityUserInput.getValue();
-        LocalDate exportDate = getLocalDate(this.exportDateUserInput.getDate());
-        String exportInvoiceNumber = this.exportExportInvoiceNumberUserInput.getText().trim().toLowerCase();
-
-        try {
-            this.warehouse.exportOrder(customerName, importInvoiceNumber,
-                    quantity, exportDate, exportInvoiceNumber);
-            renderCurrentInventory();
-            renderHistory();
-            this.commentLabel.setForeground(SUCCESS_TEXT_COLOR);
-            this.commentLabel.setText("Successfully removed "
-                    + quantity + " pallets --- Invoice Number " + importInvoiceNumber);
-        } catch (CustomerDoesNotExistException | OrderDoesNotExistException | QuantityNegativeException
-                | QuantityZeroException | QuantityExceedsMaxQuantityException
-                | RemovalQuantityExceedsAvailabilityException | InvalidExportDateException | ParseException e) {
-            displayErrorMessage(e);
-        } finally {
-            clearExportUserInputs();
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: that clears user inputs on export screen
-    private void clearExportUserInputs() {
-        this.exportCustomerUserInput.setText("");
-        this.exportImportInvoiceNumberUserInput.setText("");
-        this.exportQuantityUserInput.setValue(0);
-        this.exportDateUserInput.setDate(null);
-        this.exportExportInvoiceNumberUserInput.setText("");
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * Add Customer Panel
-     */
-
-    // EFFECTS: sends customer registration instructions to warehouse
-    private void registerNewCustomer() {
-        // retrieve user input
-        String name = this.addCustomerNameUserInput.getText().trim().toLowerCase();
-
-        try {
-            this.warehouse.addCustomer(name);
-            this.commentLabel.setForeground(SUCCESS_TEXT_COLOR);
-            this.commentLabel.setText("New Customer named \""
-                    + name + "\" has been registered");
-        } catch (CustomerAlreadyExistsException e) {
-            displayErrorMessage(e);
-        } finally {
-            clearAddCustomerUserInputs();
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: clears user inputs on Add Customer screen
-    private void clearAddCustomerUserInputs() {
-        this.addCustomerNameUserInput.setText("");
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * Add Monthly Charge Panel
-     */
-
-    // MODIFIES: this
-    // EFFECTS: adds monthly charge with specified details to Order stored in Warehouse
-    private void addMonthlyCharge() {
-        String customerName = this.addMonthlyChargeCustomerUserInput.getText().trim().toLowerCase();
-        String importInvoiceNumber = this.addMonthlyChargeImportInvoiceNumUserInput.getText().trim().toLowerCase();
-        int quantity = (Integer) this.addMonthlyChargeQuantityUserInput.getValue();
-        LocalDate startDate = getLocalDate(this.addMonthlyChargeStartDateUserInput.getDate());
-        LocalDate endDate = getLocalDate(this.addMonthlyChargeEndDateUserInput.getDate());
-        String monthlyInvoiceNumber = this.addMonthlyChargeMonthlyInvoiceNumUserInput.getText().trim().toLowerCase();
-
-        try {
-            this.warehouse.recordMonthlyCharge(customerName, importInvoiceNumber,
-                    startDate, endDate, quantity, monthlyInvoiceNumber);
-            renderCurrentInventory();
-
-        } catch (CustomerDoesNotExistException | OrderDoesNotExistException
-                | QuantityZeroException | QuantityNegativeException | QuantityExceedsMaxQuantityException
-                | InvalidStartDateException | InvalidEndDateException | InvalidMonthRangeException e) {
-            displayErrorMessage(e);
-        } finally {
-            clearAddMonthlyChargeUserInputs();
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: clears user inputs on Add Monthly Charge screen
-    private void clearAddMonthlyChargeUserInputs() {
-        this.addMonthlyChargeCustomerUserInput.setText("");
-        this.addMonthlyChargeImportInvoiceNumUserInput.setText("");
-        this.addMonthlyChargeStartDateUserInput.setDate(null);
-        this.addMonthlyChargeEndDateUserInput.setDate(null);
-        this.addMonthlyChargeQuantityUserInput.setValue(0);
-        this.addMonthlyChargeMonthlyInvoiceNumUserInput.setText("");
-    }
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * Edit Panel
-     */
-
-    // EFFECTS: edits an existing order's properties
-    private void editOrder() {
-        String name = this.editCustomerNameUserInput.getText();
-        String invoiceNumber = this.editInvoiceNumberUserInput.getText();
-        String description = this.editDescriptionUserInput.getText();
-        String storageLocation = this.editStorageLocationUserInput.getText();
-
-        try {
-            this.warehouse.editExistingActiveCustomerOrder(name, invoiceNumber, description, storageLocation);
-            this.commentLabel.setForeground(SUCCESS_TEXT_COLOR);
-            this.commentLabel.setText("Successfully updated Order details");
-            renderCurrentInventory();
-            renderHistory();
-        } catch (CustomerDoesNotExistException | OrderDoesNotExistException e) {
-            displayErrorMessage(e);
-        } finally {
-            clearEditUserInputs();
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: clears user inputs on edit screen
-    private void clearEditUserInputs() {
-        this.editCustomerNameUserInput.setText("");
-        this.editInvoiceNumberUserInput.setText("");
-        this.editDescriptionUserInput.setText("");
-        this.editStorageLocationUserInput.setText("");
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * Delete Order Panel
-     */
-
-    // EFFECTS: deletes an existing order from warehouse inventory
-    private void deleteOrder() {
-        // if the password inputted does not match the ADMIN_PASSWORD return (guard clause)
-        char[] inputtedPassword = this.deleteOrderAdminPasswordUserInput.getPassword();
-        if (!checkPasswordEquivalence(inputtedPassword)) {
-            this.commentLabel.setForeground(ERROR_TEXT_COLOR);
-            this.commentLabel.setText("ERROR--- The password inputted is incorrect, please try again..");
-            clearDeleteOrderUserInputs();
-            return;
-        }
-
-        // retrieve user inputs
-        String name = this.deleteOrderCustomerUserInput.getText().trim().toLowerCase();
-        String invoiceNumber = this.deleteOrderInvoiceNumberUserInput.getText().trim().toLowerCase();
-
-        try {
-            this.warehouse.deleteCustomerOrder(name, invoiceNumber);
-            renderCurrentInventory();           // updates current inventory display
-            this.commentLabel.setForeground(SUCCESS_TEXT_COLOR);
-            this.commentLabel.setText("Successfully deleted " + name + "'s order --- Invoice Number " + invoiceNumber);
-            renderCurrentInventory();
-            renderHistory();
-        } catch (CustomerDoesNotExistException | QuantityNegativeException | QuantityZeroException
-                | InvalidImportDateException | OrderDoesNotExistException e) {
-            displayErrorMessage(e);
-        } finally {
-            clearDeleteOrderUserInputs();
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: clears user inputs on delete order screen
-    private void clearDeleteOrderUserInputs() {
-        this.deleteOrderCustomerUserInput.setText("");
-        this.deleteOrderInvoiceNumberUserInput.setText("");
-        this.deleteOrderAdminPasswordUserInput.setText("");
-    }
-
-
-
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * Delete Customer Panel
-     */
-
-    // EFFECTS: if the password inputted is correct, deletes the customer specified
-    private void deleteCustomer() {
-        // if the password inputted does not match the ADMIN_PASSWORD return (guard clause)
-        char[] inputtedPassword = this.removeCustomerAdminPasswordUserInput.getPassword();
-        if (!checkPasswordEquivalence(inputtedPassword)) {
-            this.commentLabel.setForeground(ERROR_TEXT_COLOR);
-            this.commentLabel.setText("ERROR--- The password inputted is incorrect, please try again..");
-            clearRemoveCustomerUserInputs();
-            return;
-        }
-
-        // retrieve user input
-        String name = this.removeCustomerNameUserInput.getText().trim().toLowerCase();
-
-        try {
-            this.warehouse.deleteCustomer(name);
-            this.commentLabel.setForeground(SUCCESS_TEXT_COLOR);
-            this.commentLabel.setText("Customer named \""
-                    + name + "\" has been deleted");
-            renderCurrentInventory();
-            renderHistory();
-        } catch (CustomerDoesNotExistException e) {
-            displayErrorMessage(e);
-        } finally {
-            clearRemoveCustomerUserInputs();
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: clears user inputs on Remove Customer Panel
-    private void clearRemoveCustomerUserInputs() {
-        this.removeCustomerNameUserInput.setText("");
-        this.removeCustomerAdminPasswordUserInput.setText("");
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////

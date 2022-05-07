@@ -1,9 +1,6 @@
 package ui.components.inputpanel;
 
-import model.Warehouse;
 import model.exceptions.CustomerDoesNotExistException;
-import ui.WarehouseApplication;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -14,10 +11,11 @@ public class DeleteCustomerPanel extends InputPanel {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public DeleteCustomerPanel(Warehouse warehouse, WarehouseApplication warehouseApplication) {
-        super(warehouse, warehouseApplication);
+    public DeleteCustomerPanel() {
+        // NOTE: cannot call addActionListener in supertype InputPanel as $$$SetupUI$$$ gets called after call to super
+        //       type constructor
+        addActionListeners();
     }
-
 
     @Override
     public void clearUserInputs() {

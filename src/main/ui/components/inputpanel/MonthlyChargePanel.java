@@ -1,10 +1,8 @@
 package ui.components.inputpanel;
 
-import model.Warehouse;
+
 import model.exceptions.*;
 import org.jdesktop.swingx.JXDatePicker;
-import ui.WarehouseApplication;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
@@ -20,8 +18,10 @@ public class MonthlyChargePanel extends InputPanel {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public MonthlyChargePanel (Warehouse warehouse, WarehouseApplication warehouseApplication) {
-        super(warehouse, warehouseApplication);
+    public MonthlyChargePanel () {
+        // NOTE: cannot call addActionListener in supertype InputPanel as $$$SetupUI$$$ gets called after call to super
+        //       type constructor
+        addActionListeners();
     }
 
     @Override

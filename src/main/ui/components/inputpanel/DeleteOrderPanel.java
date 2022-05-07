@@ -1,9 +1,6 @@
 package ui.components.inputpanel;
 
-import model.Warehouse;
 import model.exceptions.*;
-import ui.WarehouseApplication;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -15,8 +12,10 @@ public class DeleteOrderPanel extends InputPanel {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public DeleteOrderPanel(Warehouse warehouse, WarehouseApplication warehouseApplication) {
-        super(warehouse, warehouseApplication);
+    public DeleteOrderPanel() {
+        // NOTE: cannot call addActionListener in supertype InputPanel as $$$SetupUI$$$ gets called after call to super
+        //       type constructor
+        addActionListeners();
     }
 
 

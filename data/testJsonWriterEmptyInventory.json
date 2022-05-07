@@ -1,14 +1,1 @@
-{
-  "customerSet": [
-    {
-      "activeOrders": [],
-      "name": "test customer 1",
-      "completeOrders": []
-    },
-    {
-      "activeOrders": [],
-      "name": "test customer 2",
-      "completeOrders": []
-    }
-  ]
-}
+{"customerSet":[{"activeOrders":[],"name":"test customer 1","completeOrders":[]},{"activeOrders":[],"name":"test customer 2","completeOrders":[]}]}

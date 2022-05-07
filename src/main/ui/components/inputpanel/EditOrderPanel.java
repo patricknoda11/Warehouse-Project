@@ -1,10 +1,7 @@
 package ui.components.inputpanel;
 
-import model.Warehouse;
 import model.exceptions.CustomerDoesNotExistException;
 import model.exceptions.OrderDoesNotExistException;
-import ui.WarehouseApplication;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -17,8 +14,10 @@ public class EditOrderPanel extends InputPanel {
     private JButton cancelButton;
     private JButton enterButton;
 
-    public EditOrderPanel(Warehouse warehouse, WarehouseApplication warehouseApplication) {
-        super(warehouse, warehouseApplication);
+    public EditOrderPanel() {
+        // NOTE: cannot call addActionListener in supertype InputPanel as $$$SetupUI$$$ gets called after call to super
+        //       type constructor
+        addActionListeners();
     }
 
     @Override

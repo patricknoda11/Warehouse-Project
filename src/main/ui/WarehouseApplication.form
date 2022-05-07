@@ -40,11 +40,11 @@
       <splitpane id="455ed">
         <constraints border-constraint="Center"/>
         <properties>
-          <dividerLocation value="345"/>
+          <dividerLocation value="349"/>
         </properties>
         <border type="none"/>
         <children>
-          <tabbedpane id="6ff0c" binding="inputTabbedPane">
+          <tabbedpane id="6ff0c">
             <constraints>
               <splitpane position="left"/>
             </constraints>
@@ -55,528 +55,114 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="50b53" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="86b3f" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <tabbedpane title="Out"/>
+                  <tabbedpane title="Import"/>
                 </constraints>
-                <properties>
-                  <background color="-4473925"/>
-                  <name value="Export"/>
-                </properties>
+                <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="ad907" class="javax.swing.JLabel">
+                  <nested-form id="602cc" form-file="ui/components/inputpanel/ImportOrderPanel.form" binding="importOrderPanel">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Customer"/>
-                    </properties>
-                  </component>
-                  <component id="c3658" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Import Invoice #"/>
-                    </properties>
-                  </component>
-                  <component id="12a7b" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Quantity"/>
-                    </properties>
-                  </component>
-                  <component id="f9ea9" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Date Out"/>
-                    </properties>
-                  </component>
-                  <component id="b8448" class="javax.swing.JSpinner" binding="exportQuantityUserInput">
-                    <constraints>
-                      <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="62846" class="javax.swing.JButton" binding="exportCancel">
-                    <constraints>
-                      <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Cancel"/>
-                    </properties>
-                  </component>
-                  <component id="2e1e" class="org.jdesktop.swingx.JXDatePicker" binding="exportDateUserInput">
-                    <constraints>
-                      <grid row="3" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="d674" class="javax.swing.JTextField" binding="exportCustomerUserInput">
-                    <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="25" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="4c15f" class="javax.swing.JButton" binding="exportEnter">
-                    <constraints>
-                      <grid row="5" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Enter"/>
-                    </properties>
-                  </component>
-                  <component id="68b0f" class="javax.swing.JTextField" binding="exportImportInvoiceNumberUserInput">
-                    <constraints>
-                      <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="34f9a" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <name value="Export Invoice #"/>
-                      <text value="Export Invoice #"/>
-                    </properties>
-                  </component>
-                  <component id="d65e0" class="javax.swing.JTextField" binding="exportExportInvoiceNumberUserInput">
-                    <constraints>
-                      <grid row="4" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
+                  </nested-form>
                 </children>
               </grid>
-              <grid id="84b13" layout-manager="GridLayoutManager" row-count="7" column-count="7" same-size-horizontally="false" same-size-vertically="true" hgap="-1" vgap="-1">
+              <grid id="45a1d" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="Export"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <nested-form id="f64ef" form-file="ui/components/inputpanel/ExportOrderPanel.form" binding="exportOrderPanel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </nested-form>
+                </children>
+              </grid>
+              <grid id="44489" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Add Monthly Charge"/>
                 </constraints>
-                <properties>
-                  <background color="-4473925"/>
-                </properties>
+                <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="8c439" class="javax.swing.JLabel">
+                  <nested-form id="70bb2" form-file="ui/components/inputpanel/MonthlyChargePanel.form" binding="monthlyChargePanel">
                     <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Start Date"/>
-                    </properties>
-                  </component>
-                  <component id="e5e26" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="End Date"/>
-                    </properties>
-                  </component>
-                  <component id="fb159" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Quantity"/>
-                    </properties>
-                  </component>
-                  <component id="308ed" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Monthly Invoice #"/>
-                    </properties>
-                  </component>
-                  <component id="4ef6" class="javax.swing.JButton" binding="addMonthlyChargeCancel">
-                    <constraints>
-                      <grid row="6" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Cancel"/>
-                    </properties>
-                  </component>
-                  <component id="17a6" class="javax.swing.JSpinner" binding="addMonthlyChargeQuantityUserInput">
-                    <constraints>
-                      <grid row="4" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="1e8bd" class="javax.swing.JTextField" binding="addMonthlyChargeMonthlyInvoiceNumUserInput">
-                    <constraints>
-                      <grid row="5" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="26cdb" class="org.jdesktop.swingx.JXDatePicker" binding="addMonthlyChargeEndDateUserInput">
-                    <constraints>
-                      <grid row="3" column="1" row-span="1" col-span="6" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="a3fb8" class="org.jdesktop.swingx.JXDatePicker" binding="addMonthlyChargeStartDateUserInput">
-                    <constraints>
-                      <grid row="2" column="1" row-span="1" col-span="6" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="17458" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Import Invoice #"/>
-                    </properties>
-                  </component>
-                  <component id="58432" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Customer"/>
-                    </properties>
-                  </component>
-                  <component id="52882" class="javax.swing.JTextField" binding="addMonthlyChargeCustomerUserInput">
-                    <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="39fb7" class="javax.swing.JTextField" binding="addMonthlyChargeImportInvoiceNumUserInput">
-                    <constraints>
-                      <grid row="1" column="1" row-span="1" col-span="6" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="c6a5b" class="javax.swing.JButton" binding="addMonthlyChargeEnter">
-                    <constraints>
-                      <grid row="6" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Enter"/>
-                    </properties>
-                  </component>
+                  </nested-form>
                 </children>
               </grid>
-              <grid id="b10a5" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="10263" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <tabbedpane title="Edit"/>
+                  <tabbedpane title="Edit Order"/>
                 </constraints>
-                <properties>
-                  <background color="-4473925"/>
-                </properties>
+                <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="68f3b" class="javax.swing.JLabel">
+                  <nested-form id="ecce" form-file="ui/components/inputpanel/EditOrderPanel.form" binding="editOrderPanel">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Customer"/>
-                    </properties>
-                  </component>
-                  <component id="ff31b" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Description"/>
-                    </properties>
-                  </component>
-                  <component id="27605" class="javax.swing.JButton" binding="editCancelButton">
-                    <constraints>
-                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Cancel"/>
-                    </properties>
-                  </component>
-                  <component id="2910b" class="javax.swing.JTextField" binding="editDescriptionUserInput">
-                    <constraints>
-                      <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="25" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="50552" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Invoice #"/>
-                    </properties>
-                  </component>
-                  <component id="d4043" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Storage Location"/>
-                    </properties>
-                  </component>
-                  <component id="f2418" class="javax.swing.JTextField" binding="editCustomerNameUserInput">
-                    <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="25" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="ac276" class="javax.swing.JTextField" binding="editStorageLocationUserInput">
-                    <constraints>
-                      <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="25" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="69bbc" class="javax.swing.JTextField" binding="editInvoiceNumberUserInput">
-                    <constraints>
-                      <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="dd5fa" class="javax.swing.JButton" binding="editEnterButton">
-                    <constraints>
-                      <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Enter"/>
-                    </properties>
-                  </component>
+                  </nested-form>
                 </children>
               </grid>
-              <grid id="f9387" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints>
-                  <tabbedpane title="Add Customer"/>
-                </constraints>
-                <properties>
-                  <background color="-4473925"/>
-                  <name value="Add Customer"/>
-                </properties>
-                <border type="none"/>
-                <children>
-                  <component id="6d1f2" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Name"/>
-                    </properties>
-                  </component>
-                  <component id="69c1d" class="javax.swing.JTextField" binding="addCustomerNameUserInput">
-                    <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="25" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="73ed8" class="javax.swing.JButton" binding="addCustomerCancel">
-                    <constraints>
-                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Cancel"/>
-                    </properties>
-                  </component>
-                  <component id="a640b" class="javax.swing.JButton" binding="addCustomerEnter">
-                    <constraints>
-                      <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Enter"/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
-              <grid id="87de4" layout-manager="GridLayoutManager" row-count="4" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="67223" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Delete Order"/>
                 </constraints>
-                <properties>
-                  <background color="-4473925"/>
-                </properties>
+                <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="1c116" class="javax.swing.JLabel">
+                  <nested-form id="36067" form-file="ui/components/inputpanel/DeleteOrderPanel.form" binding="deleteOrderPanel">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Customer"/>
-                    </properties>
-                  </component>
-                  <component id="c7caa" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Invoice Number"/>
-                    </properties>
-                  </component>
-                  <component id="6be57" class="javax.swing.JTextField" binding="deleteOrderCustomerUserInput">
-                    <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="56e7f" class="javax.swing.JTextField" binding="deleteOrderInvoiceNumberUserInput">
-                    <constraints>
-                      <grid row="1" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="c46d4" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Admin Password"/>
-                    </properties>
-                  </component>
-                  <component id="59bf3" class="javax.swing.JPasswordField" binding="deleteOrderAdminPasswordUserInput">
-                    <constraints>
-                      <grid row="2" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="c26f9" class="javax.swing.JButton" binding="deleteOrderEnter">
-                    <constraints>
-                      <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Enter"/>
-                    </properties>
-                  </component>
-                  <component id="8ee3e" class="javax.swing.JButton" binding="deleteOrderCancel">
-                    <constraints>
-                      <grid row="3" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Cancel"/>
-                    </properties>
-                  </component>
+                  </nested-form>
                 </children>
               </grid>
-              <grid id="6aab0" layout-manager="GridLayoutManager" row-count="3" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="e7f95" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="Delete Customer"/>
                 </constraints>
-                <properties>
-                  <background color="-4473925"/>
-                </properties>
+                <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="58d40" class="javax.swing.JLabel">
+                  <nested-form id="122e3" form-file="ui/components/inputpanel/DeleteCustomerPanel.form" binding="deleteCustomerPanel">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Customer"/>
-                    </properties>
-                  </component>
-                  <component id="1a440" class="javax.swing.JTextField" binding="removeCustomerNameUserInput">
+                  </nested-form>
+                </children>
+              </grid>
+              <grid id="b1b08" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="Add Customer"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <nested-form id="9ea53" form-file="ui/components/inputpanel/AddCustomerPanel.form" binding="addCustomerPanel">
                     <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="25" height="-1"/>
-                      </grid>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties/>
-                  </component>
-                  <component id="c1a04" class="javax.swing.JButton" binding="removeCustomerEnter">
-                    <constraints>
-                      <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Enter"/>
-                    </properties>
-                  </component>
-                  <component id="3fda1" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-16382458"/>
-                      <text value="Admin Password"/>
-                    </properties>
-                  </component>
-                  <component id="72c42" class="javax.swing.JPasswordField" binding="removeCustomerAdminPasswordUserInput">
-                    <constraints>
-                      <grid row="1" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties/>
-                  </component>
-                  <component id="e07a2" class="javax.swing.JButton" binding="removeCustomerCancel">
-                    <constraints>
-                      <grid row="2" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <label value="Cancel"/>
-                      <text value="Cancel"/>
-                    </properties>
-                  </component>
+                  </nested-form>
                 </children>
               </grid>
             </children>
           </tabbedpane>
-          <tabbedpane id="dd20c" binding="displayTabbedPane">
+          <tabbedpane id="dd20c">
             <constraints>
               <splitpane position="right"/>
             </constraints>

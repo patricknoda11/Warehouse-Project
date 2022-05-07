@@ -18,7 +18,10 @@ public class Warehouse {
     // MODIFIES: this
     // EFFECTS: if a customer with given name already exists throw CustomerAlreadyExistsException,
     //          otherwise create a new customer and add to customerSet
-    public void addCustomer(String customerName) throws CustomerAlreadyExistsException {
+    public void addCustomer(String customerName) throws CustomerAlreadyExistsException, InvalidCustomerNameException {
+        if (customerName.length() == 0) {
+            throw new InvalidCustomerNameException();
+        }
 
         // if a customer with given name already exists throw CustomerAlreadyExistsException
         if (findCustomer(customerName) != null) {
@@ -35,6 +38,7 @@ public class Warehouse {
             OrderAlreadyExistsException, QuantityNegativeException, QuantityZeroException, InvalidImportDateException {
 
         Customer existingCustomer = findCustomer(customerName);
+
 
         if (existingCustomer == null) {
             throw new CustomerDoesNotExistException(customerName);
