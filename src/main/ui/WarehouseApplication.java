@@ -11,7 +11,6 @@ import ui.components.displaypanel.TransactionHistoryPanel;
 import ui.components.inputpanel.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -156,50 +155,31 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         }
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Save Warehouse
-     */
-
     // MODIFIES: this
     // EFFECTS: creates new save dialog which allows user to choose save destination
     private void saveOperation() {
         try {
             SaveDialog saveDialog = new SaveDialog(this);
             saveDialog.runSaveDialog();
-            this.commentLabel.setForeground(SUCCESS_TEXT_COLOR);
-            this.commentLabel.setText(SaveDialog.SUCCESS_SAVE_FILE_FOUND);
+            update(SaveDialog.SUCCESS_SAVE_FILE_FOUND, true);
         } catch (FileNotFoundException e) {
-            this.commentLabel.setForeground(ERROR_TEXT_COLOR);
-            this.commentLabel.setText(SaveDialog.ERROR_SAVE_FILE_NOT_FOUND);
+            update(SaveDialog.ERROR_SAVE_FILE_NOT_FOUND, false);
         }
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * Load Warehouse
-     */
 
     // MODIFIES: this
     // EFFECTS: creates new load dialog which allows user to choose load source
     private void loadOperation() {
         try {
             LoadDialog loadDialog = new LoadDialog(this);
-            loadDialog.runLoadDialog();
+            loadDialog.run();
             JSONObject jsonWarehouseRepresentation = loadDialog.getJsonWarehouseRepresentation();
             this.warehouse = new Warehouse();
             this.warehouse.convertJsonObjectToWarehouse(jsonWarehouseRepresentation);
-            this.currentInventoryPanel.renderDisplay();
-            this.transactionHistoryPanel.renderDisplay();
-            this.commentLabel.setForeground(SUCCESS_TEXT_COLOR);
-            this.commentLabel.setText(LoadDialog.SUCCESS_TEXT);
+            update(LoadDialog.SUCCESS_TEXT, true);
         } catch (IOException | CorruptFileException e) {
-            this.commentLabel.setForeground(ERROR_TEXT_COLOR);
-            this.commentLabel.setText(LoadDialog.ERROR_LOAD_UNSUCCESSFUL);
+            update(LoadDialog.ERROR_LOAD_UNSUCCESSFUL, false);
         }
-
     }
 
     public JSONObject getWarehouseJsonObjectRepresentation() {

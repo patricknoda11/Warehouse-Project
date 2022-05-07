@@ -3,7 +3,6 @@ package ui.components.dialog;
 import org.json.JSONObject;
 import persistence.JsonReader;
 import ui.WarehouseApplication;
-import ui.components.dialog.Dialog;
 
 import javax.swing.*;
 import java.io.File;
@@ -28,7 +27,7 @@ public class LoadDialog extends Dialog {
 
     // MODIFIES: this
     // EFFECTS: displays load dialog and responds to user input/interaction
-    public void runLoadDialog() throws IOException {
+    public void run() throws IOException {
         // makes save dialog visible at center of screen
         int retValue = super.fileChooser.showOpenDialog(this.warehouseApplication);
 
