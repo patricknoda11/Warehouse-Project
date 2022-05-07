@@ -1,6 +1,7 @@
 package ui.components.inputpanel;
 
 import model.Warehouse;
+import model.exceptions.*;
 import ui.WarehouseApplication;
 
 import javax.swing.*;
@@ -34,7 +35,30 @@ public class DeleteOrderPanel extends InputPanel {
 
     @Override
     public void submitInput() {
-        // TODO
+        // get user inputs and refine:
+        char[] inputtedPassword = this.adminPasswordInput.getPassword();
+        String customerName = refineText(this.customerNameInput.getText());
+        String invoiceNumber = refineText(this.invoiceNumberInput.getText());
+        String successMessage = "Deleted " + customerName + "\'s order --- Invoice Number " + invoiceNumber;
+
+        deleteOrder(inputtedPassword, customerName, invoiceNumber, successMessage);
+    }
+
+    private void deleteOrder(char[] password, String cName, String invNum, String successMsg) {
+        String errorMsg = "Password is invalid";
+
+        // if the password is invalid update warehouse gui to display error message:
+        if (!passwordEquivalent(password)) {
+            super.warehouseApplication.update(errorMsg, false);
+        }
+
+        try {
+            super.warehouse.deleteCustomerOrder(cName, invNum);
+            super.warehouseApplication.update(successMsg, true);
+        } catch (CustomerDoesNotExistException | QuantityNegativeException | QuantityZeroException
+                | InvalidImportDateException | OrderDoesNotExistException e) {
+            super.warehouseApplication.update(e.getMessage(), false);
+        }
     }
 
     @Override
