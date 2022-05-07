@@ -3,6 +3,7 @@ import model.Warehouse;
 import ui.WarehouseApplication;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -45,6 +46,19 @@ public abstract class InputPanel extends JComponent implements ActionListener {
             }
         }
         return true;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String actionCommand = e.getActionCommand();
+        if (actionCommand == "Enter") {
+            submitInput();
+        }
+
+        if (actionCommand == "Cancel") {
+            clearUserInputs();
+            this.warehouseApplication.update();
+        }
     }
 
     public void setWarehouse(Warehouse warehouse) {

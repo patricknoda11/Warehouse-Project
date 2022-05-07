@@ -3,7 +3,6 @@ package ui.components.inputpanel;
 import model.exceptions.*;
 import org.jdesktop.swingx.JXDatePicker;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 
 public class ImportOrderPanel extends InputPanel {
@@ -65,17 +64,6 @@ public class ImportOrderPanel extends InputPanel {
                 | QuantityZeroException | InvalidImportDateException e) {
             super.warehouseApplication.update(e.getMessage(), false);
         } finally {
-            clearUserInputs();
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.enterButton) {
-            submitInput();
-        }
-
-        if (e.getSource() == this.cancelButton) {
             clearUserInputs();
         }
     }

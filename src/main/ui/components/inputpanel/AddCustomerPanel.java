@@ -2,9 +2,7 @@ package ui.components.inputpanel;
 
 import model.exceptions.CustomerAlreadyExistsException;
 import model.exceptions.InvalidCustomerNameException;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class AddCustomerPanel extends InputPanel {
     private JPanel addCustomerPanel;
@@ -45,17 +43,6 @@ public class AddCustomerPanel extends InputPanel {
         } catch (CustomerAlreadyExistsException | InvalidCustomerNameException e) {
             super.warehouseApplication.update(e.getMessage(), false);
         } finally {
-            clearUserInputs();
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.enterButton) {
-            submitInput();
-        }
-
-        if (e.getSource() == this.cancelButton) {
             clearUserInputs();
         }
     }

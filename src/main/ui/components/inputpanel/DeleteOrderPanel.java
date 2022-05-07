@@ -2,7 +2,6 @@ package ui.components.inputpanel;
 
 import model.exceptions.*;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class DeleteOrderPanel extends InputPanel {
     private JPanel deleteOrderPanel;
@@ -58,17 +57,6 @@ public class DeleteOrderPanel extends InputPanel {
         } catch (CustomerDoesNotExistException | QuantityNegativeException | QuantityZeroException
                 | InvalidImportDateException | OrderDoesNotExistException e) {
             super.warehouseApplication.update(e.getMessage(), false);
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.enterButton) {
-            submitInput();
-        }
-
-        if (e.getSource() == this.cancelButton) {
-            clearUserInputs();
         }
     }
 }

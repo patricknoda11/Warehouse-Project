@@ -2,7 +2,6 @@ package ui.components.inputpanel;
 
 import model.exceptions.CustomerDoesNotExistException;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class DeleteCustomerPanel extends InputPanel {
     private JPanel deleteCustomerPanel;
@@ -54,17 +53,6 @@ public class DeleteCustomerPanel extends InputPanel {
         } catch (CustomerDoesNotExistException e) {
             super.warehouseApplication.update(e.getMessage(), false);
         } finally {
-            clearUserInputs();
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.enterButton) {
-            submitInput();
-        }
-
-        if (e.getSource() == this.cancelButton) {
             clearUserInputs();
         }
     }

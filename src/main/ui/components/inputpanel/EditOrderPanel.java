@@ -3,7 +3,6 @@ package ui.components.inputpanel;
 import model.exceptions.CustomerDoesNotExistException;
 import model.exceptions.OrderDoesNotExistException;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class EditOrderPanel extends InputPanel {
     private JPanel editOrderPanel;
@@ -53,16 +52,6 @@ public class EditOrderPanel extends InputPanel {
         } catch (CustomerDoesNotExistException | OrderDoesNotExistException e) {
             super.warehouseApplication.update(e.getMessage(), false);
         } finally {
-            clearUserInputs();
-        }
-    }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.enterButton) {
-            submitInput();
-        }
-
-        if (e.getSource() == this.cancelButton) {
             clearUserInputs();
         }
     }
