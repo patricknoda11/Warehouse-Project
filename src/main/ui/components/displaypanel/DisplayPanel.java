@@ -1,8 +1,6 @@
 package ui.components.displaypanel;
 
-import model.Warehouse;
 import ui.WarehouseApplication;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -12,6 +10,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Represents a display panel that renders a table of data
+ *      Functionalities:
+ *          - filter table by a specific keyword
+ */
 public abstract class DisplayPanel extends JComponent implements ActionListener {
     // INVARIANT: the size of COLUMN_NAMES must match TABLE_COLUMN_WIDTHS
     protected static final String[] DISPLAY_COLUMN_NAMES = {"Name", "Invoice #", "Qty", "Product-Description",
@@ -19,38 +22,88 @@ public abstract class DisplayPanel extends JComponent implements ActionListener 
     protected static final int[] DISPLAY_COLUMN_WIDTHS = {55, 60, 15, 180, 60, 60, 220, 280};
     protected WarehouseApplication warehouseApplication;
 
-    public abstract void addActionListeners();
-
-    public abstract void clearUserInputs();
-
-    protected abstract JTextField getFilterInput();
-
-    protected abstract MyTableModel createTableModel();
-
-    protected abstract TableRowSorter<MyTableModel> getTableRowSorter();
-
-    protected abstract void setSorter(TableRowSorter<MyTableModel> sorter);
-
-    protected abstract JTable getTable();
-
+    /**
+     * Renders the warehouse data into a table
+     */
     public void renderDisplay() {
-        // create TableModel with updated history
+        // create TableModel
         MyTableModel model = createTableModel();
 
-        // create a TableRowSorter for history
+        // create a TableRowSorter
         setSorter(new TableRowSorter<>(model));
 
-        // set/update history JTable with TableModel
+        // set/update JTable with TableModel
         getTable().setModel(model);
 
-        // set TableRowSorter to history JTable
+        // set TableRowSorter to JTable
         getTable().setRowSorter(getTableRowSorter());
 
-        // adjust column/row characteristics in current history JTable
+        // adjust column/row characteristics in current JTable
         setColumns(getTable());
         setRowProperties(getTable());
     }
 
+    /** Setter */
+    public void setWarehouseApplication(WarehouseApplication warehouseApplication) {
+        this.warehouseApplication = warehouseApplication;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String actionCommand = e.getActionCommand();
+        if (actionCommand == "Filter") {
+            filterRow();
+        }
+
+        if (actionCommand == "Clear") {
+            clearUserInputs();
+        }
+
+        this.warehouseApplication.update();
+    }
+
+    /**
+     * Links action listeners to components on display panel
+     */
+    protected abstract void addActionListeners();
+
+    /**
+     *  Clears all user inputs on display panel
+     */
+    protected abstract void clearUserInputs();
+
+    /**
+     * Gets the component containing the keyword the user wants to filter table with
+     * @return JTextField
+     */
+    protected abstract JTextField getFilterInput();
+
+    /**
+     * Creates and returns a table model with the data to be rendered
+     * @return MyTableModel
+     */
+    protected abstract MyTableModel createTableModel();
+
+    /**
+     * Gets table row sorter
+      */
+    protected abstract TableRowSorter<MyTableModel> getTableRowSorter();
+
+    /**
+     * Sets table row sorter
+     * @param sorter The sorter to set
+     */
+    protected abstract void setSorter(TableRowSorter<MyTableModel> sorter);
+
+    /**
+     * Gets table
+     * @return JTable
+     */
+    protected abstract JTable getTable();
+
+    /**
+     * Filters table row
+     */
     private void filterRow() {
         RowFilter<MyTableModel, Object> rowFilter;
         try {
@@ -61,7 +114,10 @@ public abstract class DisplayPanel extends JComponent implements ActionListener 
         getTableRowSorter().setRowFilter(rowFilter);
     }
 
-
+    /**
+     * Sets Column details for the JTable
+     * @param jt JTable
+     */
     private void setColumns(JTable jt) {
         TableColumnModel model = jt.getColumnModel();
 
@@ -83,7 +139,10 @@ public abstract class DisplayPanel extends JComponent implements ActionListener 
         }
     }
 
-    // EFFECTS: dynamically sets row height depending on amount of text in each row
+    /**
+     * Dynamically sets row height depending on amount of text in each row
+     * @param jt JTable
+     */
     private void setRowProperties(JTable jt) {
         int numRows = jt.getRowCount();
         double fontHeightPixels = jt.getFontMetrics(jt.getFont()).getHeight() * 1.05;
@@ -95,24 +154,6 @@ public abstract class DisplayPanel extends JComponent implements ActionListener 
             double maxNumLines = Math.max(heightSeven, Math.max(heightThree, heightSix));
             jt.setRowHeight(i, (int) Math.ceil((fontHeightPixels * maxNumLines)));
         }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String actionCommand = e.getActionCommand();
-        if (actionCommand == "Filter") {
-            filterRow();
-        }
-
-        if (actionCommand == "Clear") {
-            clearUserInputs();
-        }
-
-        this.warehouseApplication.update();
-    }
-
-    public void setWarehouseApplication(WarehouseApplication warehouseApplication) {
-        this.warehouseApplication = warehouseApplication;
     }
 
     /**

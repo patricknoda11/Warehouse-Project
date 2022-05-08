@@ -5,6 +5,9 @@ import model.Warehouse;
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 
+/**
+ * Displays the Transaction History
+ */
 public class TransactionHistoryPanel extends DisplayPanel {
     private JPanel transactionHistoryPanel;
     private JTextField filterInput;
@@ -36,14 +39,14 @@ public class TransactionHistoryPanel extends DisplayPanel {
     }
 
     @Override
-    protected MyTableModel createTableModel() {
-        Warehouse warehouse = this.warehouseApplication.getWarehouse();
-        return new MyTableModel(warehouse.getOrders(false), DISPLAY_COLUMN_NAMES);
+    public TableRowSorter<MyTableModel> getTableRowSorter() {
+        return this.historyInventorySorter;
     }
 
     @Override
-    public TableRowSorter<MyTableModel> getTableRowSorter() {
-        return this.historyInventorySorter;
+    protected MyTableModel createTableModel() {
+        Warehouse warehouse = this.warehouseApplication.getWarehouse();
+        return new MyTableModel(warehouse.getOrders(false), DISPLAY_COLUMN_NAMES);
     }
 
     @Override

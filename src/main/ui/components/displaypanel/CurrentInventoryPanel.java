@@ -5,6 +5,9 @@ import model.Warehouse;
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 
+/**
+ * Displays the Current Inventory
+ */
 public class CurrentInventoryPanel extends DisplayPanel {
     private JTextField filterInput;
     private JButton clearButton;
@@ -36,14 +39,14 @@ public class CurrentInventoryPanel extends DisplayPanel {
     }
 
     @Override
-    protected MyTableModel createTableModel() {
-        Warehouse warehouse = this.warehouseApplication.getWarehouse();
-        return new MyTableModel(warehouse.getOrders(true), DISPLAY_COLUMN_NAMES);
+    public TableRowSorter<MyTableModel> getTableRowSorter() {
+        return this.currentInventorySorter;
     }
 
     @Override
-    public TableRowSorter<MyTableModel> getTableRowSorter() {
-        return this.currentInventorySorter;
+    protected MyTableModel createTableModel() {
+        Warehouse warehouse = this.warehouseApplication.getWarehouse();
+        return new MyTableModel(warehouse.getOrders(true), DISPLAY_COLUMN_NAMES);
     }
 
     @Override
