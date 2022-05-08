@@ -240,12 +240,6 @@
                   <text value="Save"/>
                 </properties>
               </component>
-              <component id="36799" class="javax.swing.JButton" binding="toolBarPrintButton">
-                <constraints/>
-                <properties>
-                  <text value="Print"/>
-                </properties>
-              </component>
             </children>
           </toolbar>
         </children>

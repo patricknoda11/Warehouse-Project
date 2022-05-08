@@ -19,9 +19,10 @@ public abstract class Dialog {
         this.fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
     }
 
-    // MODIFIES: this
-    // EFFECTS: adds a file filter to only be able to see json files
-    private void addFileFilter() {
+    /**
+     * Adds a file filter to only be able to see json files
+     */
+    protected void addFileFilter() {
         this.fileChooser.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter restrict = new FileNameExtensionFilter(".json files", "json");
         this.fileChooser.addChoosableFileFilter(restrict);

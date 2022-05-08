@@ -21,15 +21,15 @@ import java.io.IOException;
 /**
  * Warehouse Application Graphical User Interface
  * functionalities/views:
- *      - adding customer
+ *      - adding a customer
  *      - importing orders
  *      - exporting orders
- *      - add monthly charge to orders
- *      - deleting existing orders
+ *      - add monthly charge records
+ *      - delete existing orders
  *      - deleting existing customers
- *      - editing previously made orders
- *      - current inventory view
- *      - complete transactions view
+ *      - edit previously made orders
+ *      - view current inventory
+ *      - view all past transactions
  * @author Patrick Noda
  */
 public class WarehouseApplication extends JFrame implements ActionListener {
@@ -44,7 +44,6 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     private JPanel mainPanel;
     private JButton toolBarSaveButton;
     private JButton toolBarLoadButton;
-    private JButton toolBarPrintButton;
     private ImportOrderPanel importOrderPanel;
     private ExportOrderPanel exportOrderPanel;
     private MonthlyChargePanel monthlyChargePanel;
@@ -65,7 +64,77 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     }
 
     /**
-     * Adds components to this frame
+     * Updates the GUI state by updating current inventory and history display
+     */
+    public void update() {
+        clearMessage();
+        this.currentInventoryPanel.renderDisplay();
+        this.transactionHistoryPanel.renderDisplay();
+    }
+
+    /**
+     * Updates the GUI state by rendering display message and updating current inventory and history display
+     * @param msg The message to display to the user
+     * @param isSuccess
+     */
+    public void update(String msg, boolean isSuccess) {
+        displayMessage(msg, isSuccess);
+        this.currentInventoryPanel.renderDisplay();
+        this.transactionHistoryPanel.renderDisplay();
+    }
+
+
+    /**
+     * Gets the JSONObject representation of the warehouse
+     * @return JSONObject
+     */
+    public JSONObject getWarehouseJsonObjectRepresentation() {
+        return this.warehouse.convertToJsonObject();
+    }
+
+    /** Getter */
+    public Warehouse getWarehouse() {
+        return this.warehouse;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        if (source == this.toolBarSaveButton) {
+            saveOperation();
+        }
+        if (source == this.toolBarLoadButton) {
+            loadOperation();
+        }
+    }
+
+    /**
+     * Initialize general frame settings
+     */
+    private void initializeFrameSettings() {
+        setContentPane(this.mainPanel);
+        setBackground(GUI_BACKGROUND_COLOR);
+        setSize(GUI_WIDTH, GUI_HEIGHT);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultLookAndFeelDecorated(true);
+        setLocationRelativeTo(null);
+    }
+
+    /**
+     * Setup frame icon if possible, otherwise do nothing
+     */
+    private void setUpFrameIcon() {
+        BufferedImage icon;
+        try {
+            icon = ImageIO.read(new File("./data/warehouse.png"));
+            setIconImage(icon);
+        } catch (IOException e) {
+            // do nothing
+        }
+    }
+
+    /**
+     * Setup components for this frame
      */
     private void setupComponents() {
         setupInputPanels();
@@ -73,7 +142,7 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     }
 
     /**
-     * Adds all the user-input panels
+     * Setup user input panels
      */
     private void setupInputPanels() {
         setUpInputPanel(this.importOrderPanel);
@@ -86,17 +155,16 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     }
 
     /**
-     * Manually inject dependency
-     *  Simplifies process of GUI designer palette instantiation
+     * Manually inject WarehouseApplication dependency
+     * Simplifies process of GUI designer palette instantiation process
      * @param comp The InputPanel to inject dependency
      */
     private void setUpInputPanel(InputPanel comp) {
-        comp.setWarehouse(this.warehouse);
         comp.setWarehouseApplication(this);
     }
 
     /**
-     * Adds all display panels
+     * Setup all display panels
      */
     private void setupDisplayPanels() {
         setupDisplayPanel(this.currentInventoryPanel);
@@ -104,76 +172,45 @@ public class WarehouseApplication extends JFrame implements ActionListener {
     }
 
     /**
-     * Manually inject dependency
-     *  Simplifies process of GUI designer palette instantiation
+     * Manually inject WarehouseApplication dependency
+     * Simplifies process of GUI designer palette instantiation process
      * @param comp The DisplayPanel to inject dependency
      */
     private void setupDisplayPanel(DisplayPanel comp) {
-        comp.setWarehouse(this.warehouse);
         comp.setWarehouseApplication(this);
     }
 
-    // MODIFIES: this
-    // EFFECTS: adds action listeners to components associated with this
+    /**
+     * Add action listeners associated with this component
+     */
     private void addActionListenersComponents() {
         this.toolBarSaveButton.addActionListener(this);
         this.toolBarLoadButton.addActionListener(this);
-        this.toolBarPrintButton.addActionListener(this);
     }
 
-    // MODIFIES: this
-    // EFFECTS: initialize general frame settings
-    private void initializeFrameSettings() {
-        setContentPane(this.mainPanel);
-        setBackground(GUI_BACKGROUND_COLOR);
-        setSize(GUI_WIDTH, GUI_HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setDefaultLookAndFeelDecorated(true);
-        setLocationRelativeTo(null);
-    }
-
-    // EFFECTS: sets up icon if it is possible
-    private void setUpFrameIcon() {
-        BufferedImage icon;
-        try {
-            icon = ImageIO.read(new File("./data/warehouse.png"));
-            setIconImage(icon);
-        } catch (IOException e) {
-            // do nothing
-        }
-    }
-
-    @Override
-    // EFFECTS: directs user to correct operation given button clicks
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
-        if (source == this.toolBarSaveButton) {
-            saveOperation();
-        }
-        if (source == this.toolBarLoadButton) {
-            loadOperation();
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: creates new save dialog which allows user to choose save destination
+    /**
+     * Creates a new save dialog which allows user to choose save destination
+     */
     private void saveOperation() {
         try {
             SaveDialog saveDialog = new SaveDialog(this);
-            saveDialog.runSaveDialog();
+            saveDialog.run();
             update(SaveDialog.SUCCESS_SAVE_FILE_FOUND, true);
         } catch (FileNotFoundException e) {
             update(SaveDialog.ERROR_SAVE_FILE_NOT_FOUND, false);
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: creates new load dialog which allows user to choose load source
+    /**
+     * Creates a new load dialog which allows user to choose load source
+     */
     private void loadOperation() {
         try {
             LoadDialog loadDialog = new LoadDialog(this);
-            loadDialog.run();
-            JSONObject jsonWarehouseRepresentation = loadDialog.getJsonWarehouseRepresentation();
+            JSONObject jsonWarehouseRepresentation = loadDialog.run();
+            if (jsonWarehouseRepresentation == null) {
+                return;
+            }
             this.warehouse = new Warehouse();
             this.warehouse.convertJsonObjectToWarehouse(jsonWarehouseRepresentation);
             update(LoadDialog.SUCCESS_TEXT, true);
@@ -182,26 +219,19 @@ public class WarehouseApplication extends JFrame implements ActionListener {
         }
     }
 
-    public JSONObject getWarehouseJsonObjectRepresentation() {
-        return this.warehouse.convertToJsonObject();
-    }
-
-    public void update() {
-        clearDisplayMessage();
-        this.currentInventoryPanel.renderDisplay();
-        this.transactionHistoryPanel.renderDisplay();
-    }
-
-    public void update(String msg, boolean isSuccess) {
-        displayMessage(msg, isSuccess);
-        this.currentInventoryPanel.renderDisplay();
-        this.transactionHistoryPanel.renderDisplay();
-    }
-
-    private void clearDisplayMessage() {
+    /**
+     * Clears message
+     */
+    private void clearMessage() {
         this.commentLabel.setText("");
     }
 
+    /**
+     * if isSuccess, displays a success message
+     * otherwise, displays an error message
+     * @param msg The message to display to the user
+     * @param isSuccess
+     */
     private void displayMessage(String msg, boolean isSuccess) {
         this.commentLabel.setForeground(isSuccess ? SUCCESS_TEXT_COLOR : ERROR_TEXT_COLOR);
         this.commentLabel.setText(msg);

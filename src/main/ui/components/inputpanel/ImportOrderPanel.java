@@ -1,10 +1,14 @@
 package ui.components.inputpanel;
 
+import model.Warehouse;
 import model.exceptions.*;
 import org.jdesktop.swingx.JXDatePicker;
 import javax.swing.*;
 import java.time.LocalDate;
 
+/**
+ * Represents a form/panel that handles user requests to import an order
+ */
 public class ImportOrderPanel extends InputPanel {
     private JPanel importPanel;
     private JTextField customerNameInput;
@@ -55,11 +59,29 @@ public class ImportOrderPanel extends InputPanel {
     }
 
 
-    private void importProduct(String customerName, String description, LocalDate date, String invNum,
-                               int quantity, String location, String successMessage) {
+    /**
+     * Creates an import event for an existing customer, if the user submission is valid
+     *      A submission is valid if:
+     *          - the indicated customer currently exists in the warehouse
+     *          - an order with the specified invoice number has never been received by the warehouse
+     *          - the export quantity is not <= 0
+     *          - the import date is not a future date (must be a date before current date)
+     *
+     * On success, a success message would be displayed to the user, otherwise an error message will be displayed
+     * @param cName The name of the customer that is importing
+     * @param description The product description
+     * @param date The import date
+     * @param invNum The import invoice number associated with import event
+     * @param qty The quantity of the order
+     * @param location The storage location
+     * @param successMsg The success message that would be displayed to the user
+     */
+    private void importProduct(String cName, String description, LocalDate date, String invNum,
+                               int qty, String location, String successMsg) {
         try {
-            super.warehouse.importProduct(customerName, description, date, invNum, quantity, location);
-            super.warehouseApplication.update(successMessage, true);
+            Warehouse warehouse = super.warehouseApplication.getWarehouse();
+            warehouse.importProduct(cName, description, date, invNum, qty, location);
+            super.warehouseApplication.update(successMsg, true);
         } catch (CustomerDoesNotExistException | OrderAlreadyExistsException | QuantityNegativeException
                 | QuantityZeroException | InvalidImportDateException e) {
             super.warehouseApplication.update(e.getMessage(), false);

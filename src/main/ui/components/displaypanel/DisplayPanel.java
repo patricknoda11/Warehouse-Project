@@ -17,7 +17,6 @@ public abstract class DisplayPanel extends JComponent implements ActionListener 
     protected static final String[] DISPLAY_COLUMN_NAMES = {"Name", "Invoice #", "Qty", "Product-Description",
             "Import Date", "Location", "Export Info", "Monthly Charge"};
     protected static final int[] DISPLAY_COLUMN_WIDTHS = {55, 60, 15, 180, 60, 60, 220, 280};
-    protected Warehouse warehouse;
     protected WarehouseApplication warehouseApplication;
 
     public abstract void addActionListeners();
@@ -25,6 +24,8 @@ public abstract class DisplayPanel extends JComponent implements ActionListener 
     public abstract void clearUserInputs();
 
     protected abstract JTextField getFilterInput();
+
+    protected abstract MyTableModel createTableModel();
 
     protected abstract TableRowSorter<MyTableModel> getTableRowSorter();
 
@@ -34,7 +35,7 @@ public abstract class DisplayPanel extends JComponent implements ActionListener 
 
     public void renderDisplay() {
         // create TableModel with updated history
-        MyTableModel model = new MyTableModel(this.warehouse.getOrders(false), DISPLAY_COLUMN_NAMES);
+        MyTableModel model = createTableModel();
 
         // create a TableRowSorter for history
         setSorter(new TableRowSorter<>(model));
@@ -108,10 +109,6 @@ public abstract class DisplayPanel extends JComponent implements ActionListener 
         }
 
         this.warehouseApplication.update();
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
     }
 
     public void setWarehouseApplication(WarehouseApplication warehouseApplication) {

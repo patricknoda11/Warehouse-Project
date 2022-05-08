@@ -1,2 +1,5 @@
 *.class
 workspace.xml
+.idea
+/out
+/src/main/resources/

@@ -1,8 +1,12 @@
 package ui.components.inputpanel;
 
+import model.Warehouse;
 import model.exceptions.CustomerDoesNotExistException;
 import javax.swing.*;
 
+/**
+ * Represents a form/panel that handles user requests to delete an existing customer
+ */
 public class DeleteCustomerPanel extends InputPanel {
     private JPanel deleteCustomerPanel;
     private JTextField customerNameInput;
@@ -38,6 +42,16 @@ public class DeleteCustomerPanel extends InputPanel {
         deleteCustomer(inputtedPassword, customerName, successMessage);
     }
 
+    /**
+     * Deletes an existing customer in the warehouse, if the user submission is valid
+     *      A submission is valid if:
+     *          - the indicated customer currently exists in the warehouse
+     *
+     * On success, a success message would be displayed to the user, otherwise an error message will be displayed
+     * @param pwd The password to compare equivalency
+     * @param cName The name of the customer to be removed
+     * @param successMsg The success message that would be displayed to the user
+     */
     private void deleteCustomer(char[] pwd, String cName, String successMsg) {
         String errorMessage = "Password is incorrect";
 
@@ -48,7 +62,8 @@ public class DeleteCustomerPanel extends InputPanel {
         }
 
         try {
-            super.warehouse.deleteCustomer(cName);
+            Warehouse warehouse = super.warehouseApplication.getWarehouse();
+            warehouse.deleteCustomer(cName);
             super.warehouseApplication.update(successMsg, true);
         } catch (CustomerDoesNotExistException e) {
             super.warehouseApplication.update(e.getMessage(), false);

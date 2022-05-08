@@ -1,11 +1,15 @@
 package ui.components.inputpanel;
 
+import model.Warehouse;
 import model.exceptions.*;
 import org.jdesktop.swingx.JXDatePicker;
 import javax.swing.*;
 import java.text.ParseException;
 import java.time.LocalDate;
 
+/**
+ * Represents a form/panel that handles user requests to export an existing order
+ */
 public class ExportOrderPanel extends InputPanel {
     private JPanel exportPanel;
     private JTextField customerNameInput;
@@ -51,9 +55,28 @@ public class ExportOrderPanel extends InputPanel {
         exportProduct(customerName, importInvoiceNumber, quantity, exportDate, exportInvoiceNumber, successMessage);
     }
 
+    /**
+     * Creates an export event for an order currently stored in inventory, if the user submission is valid
+     *      A submission is valid if:
+     *          - the indicated customer currently exists in the warehouse
+     *          - an order currently exists in the current inventory with the specified import invoice number
+     *          - the export quantity is not <= 0
+     *          - the export quantity does not exceed the quantity available to export
+     *          - the export date is not a future date (must be before the current date)
+     *          - the export date does not occur before the imported date
+     *
+     * On success, a success message would be displayed to the user, otherwise an error message will be displayed
+     * @param cName The name of the customer to be removed
+     * @param impInvNum The import invoice number of the order
+     * @param qty The quantity to export
+     * @param exDate The export date
+     * @param exInvNum The export invoice number associated with export
+     * @param msg The success message that would be displayed to the user
+     */
     private void exportProduct(String cName, String impInvNum, int qty, LocalDate exDate, String exInvNum, String msg) {
         try {
-            super.warehouse.exportOrder(cName, impInvNum, qty, exDate, exInvNum);
+            Warehouse warehouse = super.warehouseApplication.getWarehouse();
+            warehouse.exportOrder(cName, impInvNum, qty, exDate, exInvNum);
             super.warehouseApplication.update(msg, true);
         } catch (CustomerDoesNotExistException | OrderDoesNotExistException | QuantityNegativeException
                 | QuantityZeroException | QuantityExceedsMaxQuantityException
