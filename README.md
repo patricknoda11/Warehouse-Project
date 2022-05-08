@@ -7,10 +7,11 @@
 
 ### Description
 
-This is a Warehouse Management System (WMS) developed as a Java desktop application. The application allows the user to efficiently manage/track their current inventory as well as all past transactions. The project was developed via Test-Driven-Development (TDD) using Junit 5, and the GUI was constructed using Intellij GUI Designer forms and Java Swing. 
+This is a Warehouse Management System (WMS) that was developed as a Java desktop application. The application allows the user to efficiently manage/track their current inventory as well as all past transactions. The project was developed via Test-Driven-Development (TDD) using Junit 5, and the GUI was constructed using Intellij GUI Designer forms and Java Swing. 
 
 Some key features that the application supports are:
 - Import/Export Orders
+- Partial Exports
 - Adding/Deleting Clients
 - Editing/Deleting existing Orders
 - Add Monthly Charge Records
