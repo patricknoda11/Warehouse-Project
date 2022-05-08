@@ -1,6 +1,14 @@
 # Warehouse Management Application
 
-### Introduction: 
+<!-- ABOUT THE PROJECT -->
+|![warehouseapp](https://user-images.githubusercontent.com/82549471/167297442-4b55203e-a464-4b70-a8e5-f29fbf85f9c6.png)|
+|:--:|
+|Warehouse management application GUI designed using Java Swing|
+
+### Introduction
+
+### Description
+
 This application is a simple desktop application that gives the user a way to track their warehouse inventory.
 More specifically, it will provide a way to track and process current inventory, track exports and 
 imports, view package details, and more. The application is targeted for users that have decided to or just recently
@@ -12,43 +20,55 @@ This project is of interest to me because my father has recently started up a wa
 this project I hope to acquire a better understanding of how a warehouse management software operates and discover the 
 potential limitations associated with a system of its type.  
 
----
-
-### User Stories: 
-- As a user, I want to be able to add/import multiple packages into the Warehouse inventory
-- As a user, I want to be able to remove/export a package out of the Warehouse inventory
-- As a user, I want to be able to organize/view my warehouse inventory by package size  
-- As a user, I want to be able to view the details regarding packages currently stored in the warehouse inventory
-- As a user, I want to be able to view details of all past imports and exports that have occurred
-- As a user, I want to be able to save changes of my warehouse inventory to file
-- As a user, I want to be able to load my warehouse inventory from file
 
 ---
 
-### Phase 4: Task 2
-Two bi-directional associations were added in the model package. One bi-directional association was formed between the 
-Warehouse class and the ImportEvent class, and the second bi-directional association was formed between the Warehouse 
-class and the ExportEvent class.  
+<!-- USAGE EXAMPLES -->
 
+## Usage
+Click below link for a more in-depth project demonstration
+![project demonstration][https://github.com/patricknoda11]
+
+#### Importing products
+|![importing](https://user-images.githubusercontent.com/82549471/167299324-5d336689-63c9-48fd-bab9-5e44f0b5a538.gif)|
+|:--:|
+|Products can be imported by specifying details in the import panel that can be selected on the left hand side. Attempts to import products for an non-existent customer or an previously-used invoice number are rejected.|
+#### Exporting Products
+|![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/82549471/167300217-31fceac1-efa6-47ad-881e-c2b02c8cedd6.gif)|
+|:--:|
+|The application supports partial and full export of inventory products. Every partial removal is recorded under the export column for each product. Fully exported products will be removed from current inventory and have records kept under the history display panel.|
+#### Filtering through Current Inventory & Past Transactions
+|![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/82549471/167299939-55287385-5ebf-483f-9c16-ec1823cc82fe.gif)|
+|:--:|
+|The entries in current inventory and History can be filtered by adding a keyword and clicking the "Filter" button. To return back to original inventory, click "Clear".|
+#### Loading Data From File
+|![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/82549471/167299694-136b7f4f-cb07-4db6-a27c-0275022f499b.gif)|
+|:--:|
+|Previously saved data can be opened by clicking the "Load" button, located on the top-left of the GUI, and selecting the file and pressing open. |
+#### Saving Data to File
+|![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/82549471/167299849-aec725b8-0384-4bb8-b89c-f930ba117060.gif)|
+|:--:|
+|Current warehouse state can be saved by clicking the "Save" button, located on the top-right of the GUI, and specifying the file and destination to save to|
 
 ---
 
-### Phase 4: Task 3
+### Built Using
 
-After reviewing the UML class diagram for this project, I realized that there are many unnecessary associations between 
-the classes. Furthermore, the project seemed to lack an overall architectural design flow. 
-If I had more time to work on the project, I would focus on creating an overall architectural design flow 
-and eliminating the redundant associations seen in the UML class diagram. I would also integrate the observer design 
-pattern into the current inventory display found on the GUI's main JFrame window to update every time a package is 
-imported, exported, or whenever a saved file is loaded.
+- [Java](https://www.oracle.com/ca-en/java/)
+- [Java Swing](https://docs.oracle.com/javase/7/docs/api/javax/swing/package-summary.html)
+- [JUnit 5](https://junit.org/junit5/)
 
-- eliminate the uni-directional association between all the Dialog classes and the Warehouse class
-- eliminate the uni-directional association between ImportDialog and Package
-- eliminate the uni-directional association between ExportDialog and Package
-- integrate the Observer design pattern to make the current inventory display update every time changes are made to 
-inventory
+---
 
+<!-- GETTING STARTED -->
 
+## Getting Started
 
+1. Clone the repository
+   ```sh
+   git clone https://github.com/patricknoda11/warehouse-management-app.git
+   ```
+2. Run main using an IDE that supports Java (e.g. IntelliJ, Eclipse)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/82549471/167298659-d79f6673-503b-4398-b385-53d952ce85d8.gif)
 
-
+---
