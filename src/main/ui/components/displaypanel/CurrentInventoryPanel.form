@@ -17,7 +17,12 @@
         <children>
           <component id="ef356" class="javax.swing.JTable" binding="currentInventoryTable">
             <constraints/>
-            <properties/>
+            <properties>
+              <autoCreateRowSorter value="true"/>
+              <autoResizeMode value="4"/>
+              <foreground color="-16382458"/>
+              <gridColor color="-12828863"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

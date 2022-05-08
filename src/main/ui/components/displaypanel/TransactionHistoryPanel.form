@@ -56,6 +56,7 @@
           <component id="4da2a" class="javax.swing.JTable" binding="transactionHistoryTable">
             <constraints/>
             <properties>
+              <autoCreateRowSorter value="true"/>
               <autoResizeMode value="4"/>
               <gridColor color="-12828863"/>
               <name value="historyTable"/>

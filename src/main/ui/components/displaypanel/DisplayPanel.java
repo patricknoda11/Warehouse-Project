@@ -57,9 +57,9 @@ public abstract class DisplayPanel extends JComponent implements ActionListener 
 
         if (actionCommand == "Clear") {
             clearUserInputs();
+            this.warehouseApplication.update();
         }
 
-        this.warehouseApplication.update();
     }
 
     /**
