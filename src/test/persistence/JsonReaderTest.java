@@ -36,8 +36,8 @@ public class JsonReaderTest {
     @Test
     public void testGetJsonRepresentationNonExistentFile() {
         try {
-            JsonReader testJsonReader = new JsonReader(new File("./data/NoSuchFileExist"));
-            JSONObject jsonObject = testJsonReader.getJsonRepresentation();
+            JsonReader testJsonReader = new JsonReader();
+            JSONObject jsonObject = testJsonReader.getJsonRepresentation(new File("./data/NoSuchFileExist"));
             this.testWarehouse.convertJsonObjectToWarehouse(jsonObject);
             fail("This should not run");
         } catch (IOException | CorruptFileException e) {
@@ -48,8 +48,9 @@ public class JsonReaderTest {
     @Test
     public void testGetJsonRepresentationEmptyInventory() {
         try {
-            JsonReader jsonReader = new JsonReader(TEST_FILE_EMPTY_INVENTORY);
-            this.testWarehouse.convertJsonObjectToWarehouse(jsonReader.getJsonRepresentation());
+            JsonReader jsonReader = new JsonReader();
+            this.testWarehouse
+                    .convertJsonObjectToWarehouse(jsonReader.getJsonRepresentation(TEST_FILE_EMPTY_INVENTORY));
             Set<Customer> customerSet = this.testWarehouse.getCustomerSet();
             assertEquals(2, customerSet.size());
             assertTrue(customerSet.contains(new Customer(TEST_CUSTOMER_NAME_ONE)));
@@ -62,8 +63,8 @@ public class JsonReaderTest {
     @Test
     public void testGetJsonRepresentationOneOrder() {
         try {
-            JsonReader jsonReader = new JsonReader(TEST_FILE_ONE_ORDER);
-            this.testWarehouse.convertJsonObjectToWarehouse(jsonReader.getJsonRepresentation());
+            JsonReader jsonReader = new JsonReader();
+            this.testWarehouse.convertJsonObjectToWarehouse(jsonReader.getJsonRepresentation(TEST_FILE_ONE_ORDER));
             Customer customerOne = this.testWarehouse.getCustomerSet().iterator().next();
             assertEquals(1, customerOne.getActiveOrderSize());
             assertEquals(0, customerOne.getCompleteOrderSize());
@@ -77,8 +78,8 @@ public class JsonReaderTest {
     @Test
     public void testGetJsonRepresentationMultipleOrders() {
         try {
-            JsonReader jsonReader = new JsonReader(TEST_FILE_MULTIPLE_ORDER);
-            this.testWarehouse.convertJsonObjectToWarehouse(jsonReader.getJsonRepresentation());
+            JsonReader jsonReader = new JsonReader();
+            this.testWarehouse.convertJsonObjectToWarehouse(jsonReader.getJsonRepresentation(TEST_FILE_MULTIPLE_ORDER));
             Customer customerOne = this.testWarehouse.getCustomerSet().iterator().next();
             Map<String, Order> activeOrder = customerOne.getActiveOrders();
             assertEquals(2, customerOne.getActiveOrderSize());

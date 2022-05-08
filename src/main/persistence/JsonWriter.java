@@ -7,31 +7,19 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 /**
- * Represents a writer that writes JSON to destination file
+ * Represents a writer that writes JSON to a chosen destination file
  */
 public class JsonWriter {
-    private final File destination;
-    private final JSONObject source;
 
-    public JsonWriter(File destination, JSONObject source) {
-        this.destination = destination;
-        this.source = source;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: writes to destination file JSON Object
-    public void saveToFile() throws FileNotFoundException {
-        PrintWriter printWriter = new PrintWriter(this.destination);
-        printWriter.print(this.source);
+    /**
+     * Writes/saves JSON to a chosen destination
+     * @param destination the location to write to
+     * @param source the JSON data to save
+     * @throws FileNotFoundException throws FileNotFoundException if indicated file does not exist
+     */
+    public void saveToFile(File destination, JSONObject source) throws FileNotFoundException {
+        PrintWriter printWriter = new PrintWriter(destination);
+        printWriter.print(source);
         printWriter.close();
-    }
-
-    // getters
-    public File getSaveLocation() {
-        return this.destination;
-    }
-
-    public JSONObject getSource() {
-        return this.source;
     }
 }

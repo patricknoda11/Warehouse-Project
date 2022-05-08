@@ -1,2 +1,6 @@
 *.class
 workspace.xml
+.idea
+/out
+/src/main/resources/
+.DS_Store

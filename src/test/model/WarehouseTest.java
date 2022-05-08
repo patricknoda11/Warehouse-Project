@@ -47,7 +47,7 @@ public class WarehouseTest {
         try {
             this.testWarehouse.addCustomer(TEST_CUSTOMER_NAME_ONE);
             // pass
-        } catch (CustomerAlreadyExistsException e) {
+        } catch (CustomerAlreadyExistsException | InvalidCustomerNameException e) {
             fail("This should not run");
         }
 
@@ -67,7 +67,7 @@ public class WarehouseTest {
             this.testWarehouse.addCustomer(TEST_CUSTOMER_NAME_ONE);
             this.testWarehouse.addCustomer(TEST_CUSTOMER_NAME_TWO);
             // pass
-        } catch (CustomerAlreadyExistsException e) {
+        } catch (CustomerAlreadyExistsException | InvalidCustomerNameException e) {
             fail("This should not run");
         }
 
@@ -87,7 +87,7 @@ public class WarehouseTest {
             this.testWarehouse.addCustomer(TEST_CUSTOMER_NAME_ONE);
             this.testWarehouse.addCustomer(TEST_CUSTOMER_NAME_ONE);
             fail("This should not run");
-        } catch (CustomerAlreadyExistsException e) {
+        } catch (CustomerAlreadyExistsException | InvalidCustomerNameException e) {
             // pass
         }
 
@@ -103,7 +103,7 @@ public class WarehouseTest {
         try {
             this.testWarehouse.addCustomer(TEST_CUSTOMER_NAME_ONE);
             // pass
-        } catch (CustomerAlreadyExistsException e) {
+        } catch (CustomerAlreadyExistsException | InvalidCustomerNameException e) {
             fail("This should not run");
         }
     }
