@@ -11,6 +11,7 @@ import java.time.LocalDate;
  * Represents a form/panel that handles user requests to export an existing order
  */
 public class ExportOrderPanel extends InputPanel {
+    private static final String SUCCESS_MESSAGE = "Specified order was successfully exported";
     private JPanel exportPanel;
     private JTextField customerNameInput;
     private JTextField importInvoiceNumberInput;
@@ -49,10 +50,8 @@ public class ExportOrderPanel extends InputPanel {
         int quantity = (int) this.quantityInput.getValue();
         LocalDate exportDate = getLocalDate(this.dateExportInput.getDate());
         String exportInvoiceNumber = refineText(this.exportInvoiceNumberInput.getText());
-        String successMessage = "Successfully removed "
-                + quantity + " units --- Invoice Number " + importInvoiceNumber;
 
-        exportProduct(customerName, importInvoiceNumber, quantity, exportDate, exportInvoiceNumber, successMessage);
+        exportProduct(customerName, importInvoiceNumber, quantity, exportDate, exportInvoiceNumber);
     }
 
     /**
@@ -71,13 +70,12 @@ public class ExportOrderPanel extends InputPanel {
      * @param qty The quantity to export
      * @param exDate The export date
      * @param exInvNum The export invoice number associated with export
-     * @param msg The success message that would be displayed to the user
      */
-    private void exportProduct(String cName, String impInvNum, int qty, LocalDate exDate, String exInvNum, String msg) {
+    private void exportProduct(String cName, String impInvNum, int qty, LocalDate exDate, String exInvNum) {
         try {
             Warehouse warehouse = super.warehouseApplication.getWarehouse();
             warehouse.exportOrder(cName, impInvNum, qty, exDate, exInvNum);
-            super.warehouseApplication.update(msg, true);
+            super.warehouseApplication.update(SUCCESS_MESSAGE, true);
         } catch (CustomerDoesNotExistException | OrderDoesNotExistException | QuantityNegativeException
                 | QuantityZeroException | QuantityExceedsMaxQuantityException
                 | RemovalQuantityExceedsAvailabilityException | InvalidExportDateException | ParseException e) {

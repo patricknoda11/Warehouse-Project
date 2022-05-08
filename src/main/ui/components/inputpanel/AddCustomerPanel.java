@@ -9,6 +9,7 @@ import javax.swing.*;
  * Represents a form/panel that handles user requests to add a new customer to the warehouse
  */
 public class AddCustomerPanel extends InputPanel {
+    private static final String SUCCESS_MESSAGE = "New customer was successfully registered";
     private JPanel addCustomerPanel;
     private JTextField customerNameInput;
     private JButton cancelButton;
@@ -35,9 +36,7 @@ public class AddCustomerPanel extends InputPanel {
     public void submitInput() {
         // get user input and refine:
         String customerName = refineText(this.customerNameInput.getText());
-        String successMessage = "New customer named " + customerName + " has been registered";
-
-        registerNewCustomer(customerName, successMessage);
+        registerNewCustomer(customerName);
     }
 
     /**
@@ -48,13 +47,12 @@ public class AddCustomerPanel extends InputPanel {
      *
      * On success, a success message would be displayed to the user, otherwise an error message will be displayed
      * @param cName The name of the customer to be registered
-     * @param successMsg The success message to be displayed to the user
      */
-    private void registerNewCustomer(String cName, String successMsg) {
+    private void registerNewCustomer(String cName) {
         try {
             Warehouse warehouse = super.warehouseApplication.getWarehouse();
             warehouse.addCustomer(cName);
-            super.warehouseApplication.update(successMsg, true);
+            super.warehouseApplication.update(SUCCESS_MESSAGE, true);
         } catch (CustomerAlreadyExistsException | InvalidCustomerNameException e) {
             super.warehouseApplication.update(e.getMessage(), false);
         } finally {

@@ -10,6 +10,7 @@ import java.time.LocalDate;
  * Represents a form/panel that handles user requests to import an order
  */
 public class ImportOrderPanel extends InputPanel {
+    private static final String SUCCESS_MESSAGE = "Specified order was successfully imported";
     private JPanel importPanel;
     private JTextField customerNameInput;
     private JTextField invoiceNumberInput;
@@ -51,11 +52,9 @@ public class ImportOrderPanel extends InputPanel {
         int quantity = (int) this.quantityInput.getValue();
         LocalDate importDate = super.getLocalDate(this.dateInput.getDate());
         String storageLocation = super.refineText(this.storageLocationInput.getText());
-        String successMessage = "Successfully imported " + quantity + " units of "
-                + productDescription + " --- Invoice Number " + invoiceNumber;
 
         importProduct(customerName, productDescription, importDate, invoiceNumber,
-                quantity, storageLocation, successMessage);
+                quantity, storageLocation);
     }
 
 
@@ -74,14 +73,13 @@ public class ImportOrderPanel extends InputPanel {
      * @param invNum The import invoice number associated with import event
      * @param qty The quantity of the order
      * @param location The storage location
-     * @param successMsg The success message that would be displayed to the user
      */
     private void importProduct(String cName, String description, LocalDate date, String invNum,
-                               int qty, String location, String successMsg) {
+                               int qty, String location) {
         try {
             Warehouse warehouse = super.warehouseApplication.getWarehouse();
             warehouse.importProduct(cName, description, date, invNum, qty, location);
-            super.warehouseApplication.update(successMsg, true);
+            super.warehouseApplication.update(SUCCESS_MESSAGE, true);
         } catch (CustomerDoesNotExistException | OrderAlreadyExistsException | QuantityNegativeException
                 | QuantityZeroException | InvalidImportDateException e) {
             super.warehouseApplication.update(e.getMessage(), false);

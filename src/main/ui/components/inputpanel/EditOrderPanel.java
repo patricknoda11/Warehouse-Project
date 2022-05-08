@@ -9,6 +9,7 @@ import javax.swing.*;
  * Represents a form/panel that handles user requests to edit an existing order
  */
 public class EditOrderPanel extends InputPanel {
+    private static final String SUCCESS_MESSAGE = "The specified order was edited";
     private JPanel editOrderPanel;
     private JTextField customerNameInput;
     private JTextField invoiceNumberInput;
@@ -44,9 +45,8 @@ public class EditOrderPanel extends InputPanel {
         String invoiceNumber = refineText(this.invoiceNumberInput.getText());
         String description = refineText(this.descriptionInput.getText());
         String storageLocation = refineText(this.storageLocationInput.getText());
-        String successMessage = "Successfully edited order --- Invoice Number " + invoiceNumber;
 
-        editOrder(customerName, invoiceNumber, description, storageLocation, successMessage);
+        editOrder(customerName, invoiceNumber, description, storageLocation);
     }
 
     /**
@@ -60,13 +60,12 @@ public class EditOrderPanel extends InputPanel {
      * @param invNum The invoice number of the order to edit
      * @param description The updated/new description of the order
      * @param location The updated/new location of the order
-     * @param successMsg The success message that would be displayed to the user
      */
-    private void editOrder(String cName, String invNum, String description, String location, String successMsg) {
+    private void editOrder(String cName, String invNum, String description, String location) {
         try {
             Warehouse warehouse = super.warehouseApplication.getWarehouse();
             warehouse.editExistingActiveCustomerOrder(cName, invNum, description, location);
-            super.warehouseApplication.update(successMsg, true);
+            super.warehouseApplication.update(SUCCESS_MESSAGE, true);
         } catch (CustomerDoesNotExistException | OrderDoesNotExistException e) {
             super.warehouseApplication.update(e.getMessage(), false);
         } finally {
