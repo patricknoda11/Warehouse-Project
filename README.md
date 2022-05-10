@@ -1,13 +1,12 @@
 # Warehouse Management Application
-
-<!-- ABOUT THE PROJECT -->
 |![warehouseapp](https://user-images.githubusercontent.com/82549471/167297442-4b55203e-a464-4b70-a8e5-f29fbf85f9c6.png)|
 |:--:|
 |Warehouse management application GUI designed using Java Swing|
 
-### Description
+### About
+Many professional-grade warehouse applications are packed with complex features and analytical tools that have the potential to be extremely helpful. But it can often times be over-complicated and difficult to use/understand. Commercial warehouse applications are also generalized to suit the needs of a general Warehouse business and may fall short to a company's unique needs. The design of this app was inspired and tailored to resolve some of the problems my co-workers and I had experienced, during my time as a book keeper at a warehouse/transportation company.  
 
-This is a Warehouse Management System (WMS) that was developed as a Java desktop application. The application allows the user to efficiently manage/track their current inventory as well as all past transactions. The project was developed via Test-Driven-Development (TDD) using Junit 5, and the GUI was constructed using Intellij GUI Designer forms and Java Swing. 
+The application logic was developed via Test-Driven-Development (TDD) using Java and Junit 5, while the graphical user-interface was constructed using Java Swing and Intellij GUI Designer with the intent of keeping things simple.
 
 Some key features that the application supports are:
 - Import/Export Orders
@@ -15,8 +14,8 @@ Some key features that the application supports are:
 - Adding/Deleting Clients
 - Editing/Deleting existing Orders
 - Add Monthly Charge Records
-- Save Data to File
-- Load Data from File
+- Save Data as a JSON file
+- Load Data from JSON file
 - View Current Inventory
 - View Historical Transactions
 - Filter/Search Current Inventory and Historical Transactions
@@ -25,12 +24,12 @@ Some key features that the application supports are:
 
 <!-- USAGE EXAMPLES -->
 
-## Usage
+## Demonstration
 
 ### Importing products
 |![importing](https://user-images.githubusercontent.com/82549471/167299324-5d336689-63c9-48fd-bab9-5e44f0b5a538.gif)|
 |:--:|
-|Products can be imported by specifying details in the import panel that can be selected on the left hand side. Attempts to import products for an non-existent customer or an previously-used invoice number are rejected.|
+|Products can be imported by specifying details in the import panel that can be selected on the left hand side. Any invalid inputs were handled using exceptions.|
 ### Exporting Products
 |![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/82549471/167300217-31fceac1-efa6-47ad-881e-c2b02c8cedd6.gif)|
 |:--:|
@@ -50,7 +49,7 @@ Some key features that the application supports are:
 
 ---
 
-## Built Using
+## Technologies
 
 - [Java](https://www.oracle.com/ca-en/java/)
 - [Java Swing](https://docs.oracle.com/javase/7/docs/api/javax/swing/package-summary.html)
@@ -58,8 +57,6 @@ Some key features that the application supports are:
 - [JUnit 5](https://junit.org/junit5/)
 
 ---
-
-<!-- GETTING STARTED -->
 
 ## Getting Started
 
